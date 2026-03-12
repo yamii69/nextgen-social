@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>NextGen Social</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ══ THEMES ══ */
+[data-theme="dark-purple"]{--bg:#080b12;--card:#0f1522;--elevated:#161e30;--text:#eef2ff;--sub:#7d8faa;--muted:#3a4660;--border:rgba(255,255,255,0.07);--a1:#4f8eff;--a2:#c84bff;--nav-bg:rgba(8,11,18,0.93);}
+[data-theme="dark-neon"]{--bg:#050505;--card:#0d0d0d;--elevated:#1a1a1a;--text:#f0fff0;--sub:#5a7a5a;--muted:#2a3a2a;--border:rgba(0,255,100,0.1);--a1:#00ff88;--a2:#00ffcc;--nav-bg:rgba(5,5,5,0.95);}
+[data-theme="dark-white"]{--bg:#0a0a0a;--card:#141414;--elevated:#1e1e1e;--text:#ffffff;--sub:#888888;--muted:#333333;--border:rgba(255,255,255,0.1);--a1:#ffffff;--a2:#cccccc;--nav-bg:rgba(10,10,10,0.95);}
+[data-theme="dark-blue"]{--bg:#04080f;--card:#080f1e;--elevated:#0d1830;--text:#e8f4ff;--sub:#4a7ab5;--muted:#1e3a5a;--border:rgba(0,120,255,0.12);--a1:#0a84ff;--a2:#00cfff;--nav-bg:rgba(4,8,15,0.95);}
+[data-theme="dark-red"]{--bg:#0a0405;--card:#150709;--elevated:#220a0e;--text:#fff0f0;--sub:#8a4a50;--muted:#3a1a1e;--border:rgba(255,50,50,0.1);--a1:#ff4466;--a2:#ff0055;--nav-bg:rgba(10,4,5,0.95);}
+[data-theme="dark-gold"]{--bg:#080700;--card:#120f00;--elevated:#1e1800;--text:#fffbe8;--sub:#7a6a30;--muted:#3a3000;--border:rgba(255,200,0,0.1);--a1:#ffcc00;--a2:#ff9900;--nav-bg:rgba(8,7,0,0.95);}
+[data-theme="white-blue"]{--bg:#f0f4ff;--card:#ffffff;--elevated:#e8eeff;--text:#0a1535;--sub:#5a6a8a;--muted:#b0bccc;--border:rgba(0,60,200,0.1);--a1:#1a5cff;--a2:#7b2fff;--nav-bg:rgba(240,244,255,0.95);}
+[data-theme="white-purple"]{--bg:#faf0ff;--card:#ffffff;--elevated:#f0e8ff;--text:#1a0535;--sub:#7a5a9a;--muted:#c0b0d0;--border:rgba(120,0,200,0.1);--a1:#8b30ff;--a2:#dd00cc;--nav-bg:rgba(250,240,255,0.95);}
+[data-theme="white-black"]{--bg:#f5f5f5;--card:#ffffff;--elevated:#ebebeb;--text:#111111;--sub:#555555;--muted:#aaaaaa;--border:rgba(0,0,0,0.09);--a1:#111111;--a2:#444444;--nav-bg:rgba(245,245,245,0.97);}
+[data-theme="sunrise"]{--bg:#0f050a;--card:#1a0a14;--elevated:#2a1020;--text:#ffe8f5;--sub:#8a5070;--muted:#3a1530;--border:rgba(255,80,150,0.1);--a1:#ff4da6;--a2:#ff9a00;--nav-bg:rgba(15,5,10,0.95);}
+
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{width:100%;height:100%;overflow:hidden;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;}
+.hidden{display:none!important;}
+input,textarea,button,select{font-family:'DM Sans',sans-serif;}
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-thumb{background:var(--elevated);border-radius:4px;}
+
+/* GRAD uses theme accent */
+.grad-bg{background:linear-gradient(135deg,var(--a1),var(--a2));}
+.grad-text{background:linear-gradient(135deg,var(--a1),var(--a2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+
+/* ══ FULLSCREEN LAYOUT ══ */
+#screenAuth{display:flex;width:100%;height:100%;overflow:auto;}
+#appShell{display:none;width:100%;height:100%;flex-direction:column;overflow:hidden;}
+#appShell.active{display:flex;}
+
+/* FIXED WIDTHS - full screen */
+.navbar{flex-shrink:0;background:var(--nav-bg);backdrop-filter:blur(20px);
+  padding:11px 20px;border-bottom:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;z-index:900;}
+.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.4rem;}
+.nav-right{display:flex;align-items:center;gap:12px;}
+.nav-pfp{width:34px;height:34px;border-radius:50%;object-fit:cover;cursor:pointer;
+  border:2px solid var(--a1);}
+.nav-icon-btn{width:34px;height:34px;border-radius:50%;background:var(--elevated);
+  border:1px solid var(--border);display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:0.95rem;transition:background 0.2s;}
+.nav-icon-btn:hover{background:var(--card);}
+
+/* CONTENT AREA - fills between navbar and bottom nav */
+.content-area{flex:1;overflow:hidden;position:relative;}
+
+/* Pages */
+.page{position:absolute;inset:0;overflow-y:auto;display:none;}
+.page.active{display:block;}
+
+/* Messages page is flex */
+.msg-page{position:absolute;inset:0;display:none;flex-direction:column;}
+.msg-page.active{display:flex;}
+
+.bottom-nav{flex-shrink:0;background:var(--nav-bg);backdrop-filter:blur(20px);
+  border-top:1px solid var(--border);display:flex;justify-content:space-around;
+  align-items:center;padding:10px 8px 18px;z-index:900;}
+.nav-tab{display:flex;flex-direction:column;align-items:center;cursor:pointer;
+  color:var(--muted);padding:5px 14px;border-radius:12px;transition:color 0.2s;gap:2px;}
+.nav-tab svg{width:24px;height:24px;}
+.nav-tab.active{color:var(--a1);}
+.nav-tab .dot{width:4px;height:4px;border-radius:50%;background:var(--a1);opacity:0;transition:0.2s;}
+.nav-tab.active .dot{opacity:1;}
+.nav-post-btn{width:50px;height:50px;border-radius:16px;display:flex;align-items:center;
+  justify-content:center;cursor:pointer;font-size:1.5rem;
+  box-shadow:0 4px 20px rgba(0,0,0,0.3);transition:transform 0.2s;}
+.nav-post-btn:hover{transform:scale(1.06);}
+
+/* ══ AUTH ══ */
+.auth-left{flex:1;display:none;flex-direction:column;justify-content:center;align-items:center;
+  padding:60px 40px;border-right:1px solid var(--border);}
+@media(min-width:860px){.auth-left{display:flex;}}
+.auth-mockup{width:230px;background:var(--card);border:1px solid var(--border);border-radius:36px;
+  padding:18px;box-shadow:0 40px 80px rgba(0,0,0,0.5),0 0 0 6px var(--card);
+  animation:phoneFloat 5s ease-in-out infinite;}
+@keyframes phoneFloat{0%,100%{transform:translateY(0) rotate(-2deg);}50%{transform:translateY(-16px) rotate(-2deg);}}
+.mock-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+.mock-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:0.9rem;}
+.mock-stories{display:flex;gap:8px;margin-bottom:12px;}
+.mock-sdot{width:40px;height:40px;border-radius:50%;overflow:hidden;}
+.mock-sdot img{width:100%;height:100%;object-fit:cover;}
+.mock-post{background:var(--elevated);border-radius:10px;overflow:hidden;margin-bottom:8px;}
+.mock-post img{width:100%;height:80px;object-fit:cover;display:block;}
+.mock-actions{padding:7px 10px;font-size:0.68rem;color:var(--sub);display:flex;gap:8px;}
+.auth-tagline{margin-top:32px;text-align:center;font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:700;line-height:1.3;}
+.auth-right{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;
+  padding:30px 24px;overflow-y:auto;}
+.auth-card{width:100%;max-width:400px;}
+.auth-logo-row{display:flex;align-items:center;gap:10px;margin-bottom:30px;}
+.auth-logo-icon{width:40px;height:40px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;}
+.auth-logo-name{font-family:'Syne',sans-serif;font-weight:800;font-size:1.45rem;}
+.auth-title{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:700;margin-bottom:5px;}
+.auth-sub{color:var(--sub);font-size:0.88rem;margin-bottom:22px;}
+.tabs{display:flex;background:var(--elevated);border-radius:12px;padding:4px;margin-bottom:18px;}
+.tab-btn{flex:1;padding:9px;border:none;background:transparent;color:var(--sub);
+  border-radius:9px;cursor:pointer;font-size:0.85rem;font-weight:500;transition:all 0.2s;}
+.tab-btn.active{background:var(--card);color:var(--text);box-shadow:0 2px 8px rgba(0,0,0,0.3);}
+.auth-step{display:none;}.auth-step.active{display:block;}
+.fg{position:relative;margin-bottom:12px;}
+.fi{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:0.88rem;opacity:0.4;pointer-events:none;}
+.fg input,.fg textarea{width:100%;padding:12px 12px 12px 38px;background:var(--elevated);
+  border:1px solid var(--border);border-radius:12px;color:var(--text);font-size:0.91rem;
+  outline:none;transition:border-color 0.2s,box-shadow 0.2s;}
+.fg input:focus,.fg textarea:focus{border-color:var(--a1);box-shadow:0 0 0 3px rgba(79,142,255,0.12);}
+.fg input::placeholder,.fg textarea::placeholder{color:var(--muted);}
+.fg small{display:block;color:var(--sub);font-size:0.75rem;margin-top:3px;padding-left:2px;}
+.pfp-area{width:100%;padding:16px;background:var(--elevated);border:2px dashed var(--border);
+  border-radius:14px;text-align:center;cursor:pointer;margin-bottom:12px;transition:border-color 0.2s;}
+.pfp-area:hover{border-color:var(--a1);}
+.pfp-area-inner{display:flex;flex-direction:column;align-items:center;gap:7px;}
+.pfp-prev{width:64px;height:64px;border-radius:50%;object-fit:cover;}
+.pfp-area-text{color:var(--sub);font-size:0.8rem;}
+.auth-btn{width:100%;padding:13px;border:none;border-radius:12px;
+  color:white;font-size:0.95rem;font-weight:700;cursor:pointer;margin-top:4px;
+  transition:opacity 0.2s,transform 0.2s;display:flex;align-items:center;justify-content:center;gap:8px;}
+.auth-btn:hover{opacity:0.88;transform:translateY(-1px);}
+.auth-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
+.spinner-sm{width:16px;height:16px;border:2px solid rgba(255,255,255,0.3);
+  border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite;display:none;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.auth-hint{text-align:center;margin-top:12px;color:var(--sub);font-size:0.82rem;}
+.auth-hint a{color:var(--a1);cursor:pointer;}
+.back-btn{display:flex;align-items:center;gap:6px;background:none;border:none;
+  color:var(--sub);cursor:pointer;font-size:0.84rem;margin-bottom:14px;transition:color 0.2s;}
+.back-btn:hover{color:var(--text);}
+.err-msg{color:#ff4466;font-size:0.8rem;margin-top:4px;display:none;}
+
+/* ══ HOME ══ */
+.stories-row{display:flex;gap:12px;padding:12px 14px 10px;overflow-x:auto;scrollbar-width:none;
+  background:linear-gradient(to bottom,var(--card),transparent);border-bottom:1px solid var(--border);}
+.story-item{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;min-width:54px;}
+.story-ring{width:54px;height:54px;border-radius:50%;padding:2.5px;
+  background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);}
+.story-ring.add-ring{background:var(--elevated);border:2px dashed rgba(255,255,255,0.15);padding:0;}
+.story-ring img{width:100%;height:100%;border-radius:50%;border:2px solid var(--bg);object-fit:cover;display:block;}
+.story-name{font-size:0.67rem;color:var(--sub);max-width:54px;text-align:center;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.empty-state{text-align:center;padding:60px 30px;display:flex;flex-direction:column;align-items:center;gap:12px;}
+.empty-icon{font-size:2.8rem;opacity:0.5;}
+.empty-title{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;}
+.empty-sub{color:var(--sub);font-size:0.86rem;line-height:1.6;max-width:240px;}
+.empty-cta{padding:10px 20px;border-radius:12px;border:none;
+  color:white;font-weight:600;cursor:pointer;font-size:0.88rem;margin-top:4px;}
+
+/* ══ EXPLORE ══ */
+.exp-search-wrap{padding:12px 14px;}
+.exp-search{display:flex;align-items:center;gap:10px;background:var(--elevated);
+  border:1px solid var(--border);border-radius:14px;padding:11px 16px;transition:border-color 0.2s;}
+.exp-search:focus-within{border-color:var(--a1);}
+.exp-search input{flex:1;background:none;border:none;color:var(--text);font-size:0.91rem;outline:none;}
+.exp-search input::placeholder{color:var(--muted);}
+.people-item{display:flex;align-items:center;gap:12px;padding:11px 16px;}
+.people-ava{width:46px;height:46px;border-radius:50%;object-fit:cover;flex-shrink:0;}
+.people-info{flex:1;}
+.people-name{font-weight:600;font-size:0.91rem;}
+.follow-btn-ui{padding:7px 14px;border-radius:9px;font-weight:600;font-size:0.8rem;
+  cursor:pointer;transition:all 0.2s;border:1px solid var(--a1);background:transparent;color:var(--a1);}
+.follow-btn-ui.following{background:var(--elevated);border-color:var(--border);color:var(--sub);}
+.dm-btn-ui{padding:7px 12px;border-radius:9px;font-weight:600;font-size:0.8rem;
+  cursor:pointer;background:var(--elevated);border:1px solid var(--border);color:var(--text);margin-left:6px;}
+
+/* ══ MESSAGES ══ */
+.inbox-view{flex:1;overflow-y:auto;}
+.inbox-header{padding:14px 16px 8px;}
+.inbox-title{font-family:'Syne',sans-serif;font-size:1.25rem;font-weight:700;}
+.inbox-item{display:flex;align-items:center;gap:12px;padding:11px 16px;cursor:pointer;transition:background 0.15s;}
+.inbox-item:hover{background:var(--elevated);}
+.ib-ava{width:48px;height:48px;border-radius:50%;object-fit:cover;flex-shrink:0;position:relative;}
+.ib-bot-ava{width:48px;height:48px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:1.3rem;position:relative;}
+.online-dot{position:absolute;bottom:1px;right:1px;width:11px;height:11px;border-radius:50%;
+  background:var(--green,#00e676);border:2px solid var(--bg);}
+.ib-info{flex:1;overflow:hidden;}
+.ib-name{font-weight:600;font-size:0.92rem;}
+.ib-preview{color:var(--sub);font-size:0.8rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.ib-time{font-size:0.7rem;color:var(--muted);flex-shrink:0;}
+.api-banner{background:linear-gradient(135deg,rgba(79,142,255,0.08),rgba(200,75,255,0.08));
+  border:1px solid rgba(79,142,255,0.2);border-radius:14px;padding:13px;
+  margin:10px 14px;font-size:0.83rem;line-height:1.6;color:var(--sub);}
+.api-banner strong{color:var(--text);}
+.api-row{display:flex;gap:7px;margin-top:9px;}
+.api-field{flex:1;background:var(--elevated);border:1px solid var(--border);
+  border-radius:10px;color:var(--text);padding:8px 11px;font-size:0.82rem;outline:none;}
+.api-save{padding:8px 14px;border-radius:10px;border:none;color:white;font-size:0.8rem;font-weight:600;cursor:pointer;}
+
+/* CHAT VIEW - KEY FIX: uses flex column with proper height */
+.chat-view{display:none;flex-direction:column;flex:1;min-height:0;}
+.chat-view.active{display:flex;}
+.chat-top{flex-shrink:0;padding:10px 14px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:12px;background:var(--nav-bg);backdrop-filter:blur(14px);}
+.chat-back{background:none;border:none;color:var(--text);cursor:pointer;font-size:1.2rem;padding:4px 8px;}
+.chat-ava-sm{width:36px;height:36px;border-radius:50%;object-fit:cover;flex-shrink:0;}
+.chat-ava-bot{width:36px;height:36px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0;}
+.chat-top-name{font-weight:700;font-size:0.93rem;}
+.chat-top-status{font-size:0.72rem;color:#00e676;}
+/* MESSAGES SCROLL AREA */
+.chat-messages{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;min-height:0;}
+.msg-row{display:flex;align-items:flex-end;gap:7px;max-width:80%;}
+.msg-row.sent{align-self:flex-end;flex-direction:row-reverse;}
+.msg-ava-sm{width:24px;height:24px;border-radius:50%;object-fit:cover;flex-shrink:0;}
+.msg-ava-bot{width:24px;height:24px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:0.65rem;flex-shrink:0;}
+.msg-bubble{background:var(--elevated);padding:9px 13px;border-radius:18px;
+  border-bottom-left-radius:4px;font-size:0.88rem;line-height:1.55;word-wrap:break-word;max-width:100%;}
+.msg-row.sent .msg-bubble{border-bottom-left-radius:18px;border-bottom-right-radius:4px;color:white;}
+.msg-time{font-size:0.65rem;color:var(--muted);margin-top:2px;}
+.msg-row.sent .msg-time{text-align:left;}
+.typing-ind{display:flex;gap:4px;padding:9px 13px;background:var(--elevated);
+  border-radius:18px;border-bottom-left-radius:4px;width:fit-content;}
+.t-dot{width:6px;height:6px;background:var(--sub);border-radius:50%;animation:tb 1.2s ease-in-out infinite;}
+.t-dot:nth-child(2){animation-delay:0.15s;}.t-dot:nth-child(3){animation-delay:0.3s;}
+@keyframes tb{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-6px);}}
+/* CHAT INPUT - always sticks to bottom */
+.chat-input-wrap{flex-shrink:0;padding:10px 12px 14px;border-top:1px solid var(--border);
+  display:flex;gap:9px;align-items:flex-end;background:var(--bg);}
+.chat-input-field{flex:1;background:var(--elevated);border:1px solid var(--border);
+  border-radius:22px;padding:10px 15px;color:var(--text);font-size:0.9rem;outline:none;
+  resize:none;max-height:90px;line-height:1.5;transition:border-color 0.2s;}
+.chat-input-field:focus{border-color:var(--a1);}
+.chat-input-field::placeholder{color:var(--muted);}
+.chat-send-btn{width:40px;height:40px;border-radius:50%;border:none;
+  color:white;cursor:pointer;font-size:0.95rem;display:flex;align-items:center;justify-content:center;
+  transition:transform 0.15s,opacity 0.15s;flex-shrink:0;}
+.chat-send-btn:hover{transform:scale(1.08);}
+.chat-send-btn:disabled{opacity:0.4;}
+
+/* ══ PROFILE ══ */
+.profile-wrap{padding:14px 16px 16px;}
+.profile-top{display:flex;align-items:center;gap:16px;margin-bottom:12px;}
+.p-ava-wrap{position:relative;cursor:pointer;}
+.p-ava{width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid var(--a1);}
+.p-ava-badge{position:absolute;bottom:1px;right:1px;width:20px;height:20px;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:0.65rem;border:2px solid var(--bg);}
+.profile-stats{display:flex;gap:18px;}
+.stat{text-align:center;}
+.stat-n{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;}
+.stat-l{font-size:0.72rem;color:var(--sub);}
+.p-username{font-weight:700;font-size:0.98rem;margin-bottom:2px;}
+.p-bio{font-size:0.85rem;color:var(--sub);line-height:1.6;}
+.p-actions{display:flex;gap:8px;margin-top:11px;flex-wrap:wrap;}
+.p-btn{padding:9px 14px;border-radius:10px;font-weight:600;font-size:0.84rem;cursor:pointer;transition:all 0.2s;}
+.p-btn.primary{border:none;color:white;}
+.p-btn.sec{background:var(--elevated);border:1px solid var(--border);color:var(--text);}
+.p-btn.danger{background:var(--elevated);border:1px solid #ff4466;color:#ff4466;}
+.profile-grid-tabs{display:flex;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-top:10px;}
+.grid-tab{flex:1;padding:12px;text-align:center;cursor:pointer;color:var(--muted);
+  font-size:1rem;border-bottom:2px solid transparent;transition:all 0.2s;}
+.grid-tab.active{color:var(--text);border-bottom-color:var(--a1);}
+.p-empty-grid{text-align:center;padding:32px 20px;color:var(--sub);font-size:0.86rem;}
+.edit-wrap{padding:12px 16px 16px;}
+.bio-area{width:100%;background:var(--elevated);border:1px solid var(--border);
+  border-radius:12px;color:var(--text);padding:10px 12px;font-size:0.85rem;
+  resize:none;outline:none;line-height:1.6;transition:border-color 0.2s;}
+.bio-area:focus{border-color:var(--a1);}
+
+/* ══ SETTINGS MODAL ══ */
+.settings-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);
+  backdrop-filter:blur(4px);z-index:1500;display:flex;justify-content:flex-end;}
+.settings-panel{width:320px;max-width:90vw;height:100%;background:var(--card);
+  border-left:1px solid var(--border);overflow-y:auto;
+  animation:slideRight 0.28s ease;}
+@keyframes slideRight{from{transform:translateX(100%);}to{transform:translateX(0);}}
+.settings-header{padding:20px 18px 14px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;}
+.settings-title{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;}
+.settings-close{background:none;border:none;color:var(--sub);cursor:pointer;font-size:1.3rem;}
+.settings-section{padding:16px 18px 8px;}
+.settings-section-title{font-size:0.75rem;font-weight:700;color:var(--sub);
+  text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;}
+.theme-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.theme-card{padding:12px 10px;border-radius:12px;cursor:pointer;border:2px solid transparent;
+  transition:all 0.2s;background:var(--elevated);text-align:center;}
+.theme-card.active{border-color:var(--a1);}
+.theme-card:hover{border-color:var(--sub);}
+.theme-swatch{display:flex;gap:4px;justify-content:center;margin-bottom:7px;}
+.swatch{width:18px;height:18px;border-radius:6px;}
+.theme-name{font-size:0.75rem;font-weight:600;color:var(--text);}
+
+/* ══ MODALS ══ */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.72);
+  backdrop-filter:blur(4px);z-index:1200;display:flex;align-items:flex-end;justify-content:center;}
+.modal-sheet{background:var(--card);border-radius:24px 24px 0 0;width:100%;max-width:600px;
+  padding:18px;border:1px solid var(--border);border-bottom:none;animation:sheetUp 0.28s ease;}
+@keyframes sheetUp{from{transform:translateY(100%);}to{transform:translateY(0);}}
+.modal-handle{width:38px;height:4px;background:var(--border);border-radius:4px;margin:0 auto 16px;}
+.modal-title{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;text-align:center;margin-bottom:12px;}
+.modal-opt{padding:12px 13px;border-radius:12px;display:flex;align-items:center;gap:12px;
+  cursor:pointer;transition:background 0.15s;font-size:0.9rem;}
+.modal-opt:hover{background:var(--elevated);}
+.modal-cancel-btn{width:100%;margin-top:7px;padding:11px;border:1px solid var(--border);
+  border-radius:12px;background:var(--elevated);color:var(--text);font-size:0.9rem;cursor:pointer;}
+.post-prev-img{width:100%;max-height:220px;object-fit:cover;border-radius:12px;display:none;margin-bottom:10px;}
+.caption-in{width:100%;background:var(--elevated);border:1px solid var(--border);
+  border-radius:12px;color:var(--text);padding:10px 13px;font-size:0.86rem;
+  outline:none;resize:none;height:70px;transition:border-color 0.2s;margin-bottom:10px;}
+.caption-in:focus{border-color:var(--a1);}
+
+/* Toast */
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(14px);
+  background:var(--elevated);border:1px solid var(--border);padding:10px 18px;
+  border-radius:30px;font-size:0.84rem;z-index:3000;opacity:0;transition:all 0.28s;
+  white-space:nowrap;backdrop-filter:blur(12px);max-width:88vw;text-align:center;pointer-events:none;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* Invite banner */
+.invite-banner{margin:10px 14px;padding:14px;border-radius:14px;
+  background:linear-gradient(135deg,rgba(79,142,255,0.1),rgba(200,75,255,0.08));
+  border:1px solid rgba(79,142,255,0.2);font-size:0.83rem;line-height:1.6;color:var(--sub);}
+.invite-banner strong{color:var(--text);}
+.invite-copy-btn{margin-top:8px;padding:8px 14px;border-radius:10px;border:none;
+  color:white;font-size:0.82rem;font-weight:600;cursor:pointer;transition:opacity 0.2s;}
+.invite-copy-btn:hover{opacity:0.88;}
+</style>
+</head>
+<body data-theme="dark-purple">
+
+<!-- ══ AUTH ══ -->
+<div id="screenAuth">
+  <div class="auth-left">
+    <div class="auth-mockup">
+      <div class="mock-bar">
+        <span class="mock-logo grad-text">NextGen</span>
+        <span style="font-size:0.82rem">🔔 💬</span>
+      </div>
+      <div class="mock-stories">
+        <div class="mock-sdot"><img src="https://i.pravatar.cc/80?u=a1"></div>
+        <div class="mock-sdot"><img src="https://i.pravatar.cc/80?u=a2"></div>
+        <div class="mock-sdot"><img src="https://i.pravatar.cc/80?u=a3"></div>
+      </div>
+      <div class="mock-post">
+        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&q=60">
+        <div class="mock-actions">❤️ 2.4k &nbsp;💬 48 &nbsp;🔖</div>
+      </div>
+    </div>
+    <div class="auth-tagline grad-text">Share your world.<br>Connect. Create. Vibe.</div>
+  </div>
+
+  <div class="auth-right">
+    <div class="auth-card">
+      <div class="auth-logo-row">
+        <div class="auth-logo-icon grad-bg">✦</div>
+        <span class="auth-logo-name grad-text">NextGen</span>
+      </div>
+
+      <!-- LOGIN -->
+      <div id="loginForm">
+        <div class="auth-title">Welcome back 👋</div>
+        <div class="auth-sub">Log in to your account</div>
+        <div class="tabs">
+          <button class="tab-btn active" id="lTabPhone" onclick="switchLoginTab('phone')">📱 Phone</button>
+          <button class="tab-btn" id="lTabGmail" onclick="switchLoginTab('gmail')">✉️ Gmail</button>
+        </div>
+        <div id="lPhoneStep" class="auth-step active">
+          <div class="fg"><span class="fi">📱</span><input type="tel" id="lPhone" placeholder="+91 9876543210"></div>
+          <div class="fg"><span class="fi">🔒</span><input type="password" id="lPhonePass" placeholder="Account password"></div>
+          <p class="err-msg" id="lPhoneErr"></p>
+          <button class="auth-btn grad-bg" onclick="doLogin('phone')">
+            <span id="lPhoneTxt">Log In</span><div class="spinner-sm" id="lPhoneSpin"></div>
+          </button>
+        </div>
+        <div id="lGmailStep" class="auth-step">
+          <div class="fg"><span class="fi">✉️</span><input type="email" id="lGmail" placeholder="you@gmail.com"></div>
+          <div class="fg">
+            <span class="fi">🔒</span><input type="password" id="lGmailPass" placeholder="Account password (if set)">
+            <small>Leave blank if you didn't set one during signup.</small>
+          </div>
+          <p class="err-msg" id="lGmailErr"></p>
+          <button class="auth-btn grad-bg" onclick="doLogin('gmail')">
+            <span id="lGmailTxt">Log In</span><div class="spinner-sm" id="lGmailSpin"></div>
+          </button>
+        </div>
+        <p class="auth-hint">No account? <a onclick="showSignup()">Sign up</a></p>
+      </div>
+
+      <!-- SIGNUP -->
+      <div id="signupForm" class="hidden">
+        <div id="sStep1" class="auth-step active">
+          <div class="auth-title">Join NextGen ✦</div>
+          <div class="auth-sub">Create your account</div>
+          <div class="tabs">
+            <button class="tab-btn active" id="sTabPhone" onclick="switchSignupTab('phone')">📱 Phone</button>
+            <button class="tab-btn" id="sTabGmail" onclick="switchSignupTab('gmail')">✉️ Gmail</button>
+          </div>
+          <div id="sPhoneF" class="auth-step active">
+            <div class="fg"><span class="fi">📱</span><input type="tel" id="sPhone" placeholder="+91 9876543210"></div>
+          </div>
+          <div id="sGmailF" class="auth-step">
+            <div class="fg"><span class="fi">✉️</span><input type="email" id="sGmail" placeholder="you@gmail.com"></div>
+          </div>
+          <p class="err-msg" id="sStep1Err"></p>
+          <button class="auth-btn grad-bg" onclick="signupNext()">
+            <span id="s1Txt">Continue →</span><div class="spinner-sm" id="s1Spin"></div>
+          </button>
+          <p class="auth-hint">Already have one? <a onclick="showLogin()">Log in</a></p>
+        </div>
+        <div id="sStep2" class="auth-step">
+          <button class="back-btn" onclick="backStep1()">← Back</button>
+          <div class="auth-title">Set up profile</div>
+          <div class="auth-sub">Username, photo & password</div>
+          <div class="pfp-area" onclick="document.getElementById('pfpFileIn').click()">
+            <div class="pfp-area-inner">
+              <img id="pfpPrev" class="pfp-prev" src="data:image/jpeg;base64,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zzzzzzzwTzzzzzzzzzzzzzwjTzzzzzzzzzzzzzzzzzzzzzzzzzzzzxTzzzzzzzzzzzzzyhzzzzzzzzzzzzzzzzzzzzzzzzzzzzxTzzzzzzzzzzzzzzzzDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzxjzzzzzzzzzzzzzzzzzzzzzzzzzzzyzzzzzzzzzzzzzzzzwzzzzzzzzzzzzzzzzzzzzzzzzzzzzxDTzzzzzzzzzzzzzzjjzzzzzzzzzzzzzzzzzzzzzzzzzzzzxTzzzzzzzzzzzzzyjTzzzzzzzzzzzzzzzzzzzzzzzzzzzzhjzzzzzzzzzzzzzyDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzjzzzzzzzzzzzzzgzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzTTzzzzzzzzzzjBzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzywzzzzzzzzzzwwzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzxxzzzzzzyxxzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzxDjCjzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzjCgARTDDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzjRzxzzxwzxjDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzyQgTzzzzzzzzywizDzzzzzzzzzzzzzzzzzzzzzzzzzzzzySTzzzzzzzzzzzzzxhDzzzzzzzzzzzzzzzzzzzzzzzzzzgyTzzzzzzzzzzzzzzzxhzzzzzzzzzzzzzzzzzzzzzzzzzhSzzzzzzzzzzzzzzzzzzxyjzzzzzzzzzzzzzzzzzzzzzzzTTzzzzzzzzzzzzzzzzzzzzhjzzzzzzzzzzzzzzzzzzzzyhTzzzzzzzzzzzzzzzzzzzzzyjzTzzzzzzzzzzzzzzzzzyxTzzzzzzzzzzzzzzzzzzzzzzzxjzzzzzzzzzzzzzzzzzzyjzzzzzzzzzzzzzzzzzzzzzzzzywDzzzzzzzzzzzzzzzzziDzzzzzzzzzzzzzzzzzzzzzzzzzwjTzzzzzzzzzzzzzzzzTTzzzzzzzzzzzzzzzzzzzzzzzzzzzDzzzzzzzzzzzzzzzwzzzzzzzzzzzzzzzzzzzzzzzzzzzzwjzzzzzzzzzzzzzzzhzzzzzzzzzzzzzzzzzzzzzzzzzzzzyjzzzzzzzzzzzzzzzxzzzzzzzzzzzzzzzzzzzzzzzzzzzzyzjzzzzzzz/xAAUEQEAAAAAAAAAAAAAAAAAAACw/9oACAEDAQE/EARP/8QAFBEBAAAAAAAAAAAAAAAAAAAAsP/aAAgBAgEBPxAET//EACsQAQACAQMEAgEEAQUAAAAAAAEAETEhUHFAQVFhYKGBECAwkcFwsLHR8P/aAAgBAQABPxD/AGMqmVO8eZ+YwJ3+J4AvBNcUPLpF1S4zP+g+DFLTy3Au1iuwgVP9GaAfzc1d7nMsFb5GsTAnPw/I77mJXBDKA9y38KNwSgXz3mZSvDENU9/CrgNSs0y36h0AQx/K4lTT2QG1r1EwIkfgwXLxVecqYW5ZRKP56lHiURWYZ9iZXwQ1Yw6R9wUNAldHUVDdJmFMlYjfwN2FRf7hkFBA6VgoixjtK+6u3wIkijBJUBUOnYJixKihGvG/8TVdt19QT/u6pxFb/DDfpHSc76auk0g8HWlVQCOu+qBg1YQDA60AmoYwOzqb4EpGazXW1LQr1WO9sZmiAZoBXX3SwlTzM63u7CwWcw2BUhVNd6Jz7bE9d73knCF7DWPVxynjecXMHogNhPsCp9jefvE07CNrifad5+8TDYcnE+07z94isOwumz7DvJozWi1F7DrdVKd95HtNcuppB69Z7S0RdN6Pl7CLRebd7o90KotgZnYNb2kdMwLm2qeev15pqjmXW3PfexqAo01HMF661FmprzFt3xgWkbhEuvfrSdyYjo5V79VNTVBE06taLZeK3U7+NJUE1r7iD1K0QHS83oiquuZ238itMAilSYdOxWDb0iJLX4EQakhcWjB6VReGvhFSWvb4IHpJKB6x17yxro6GBLX/AMYuVa6w0+Crhk7w4nh9S/MfUuH818RqoRKnt8zKS/hBBSxKi08kAJB8QRl/wXLJZEAQd1l9YeWN2jO3wxC0XpmHvuhZZfhmc35ln7bl5T9XBmy+CYUP3GrTkz6PiKTCnEwU/M7wZ4RPLbgj2KZKfmJcq8/Gq/02NZXxVKlQLxMouCZVw7WnLKeH8wfb+8Es/A/oTQ0PJEppz+mcTv8ADQ7QeajWkcaxQsPbK1tneoBorg/Q/YwMF8ywbb3qHNV8wApJ4WphweamPhLtlPglRzTMBHmMACjH8tSoglJpLh0ruRI+qYlqIeT4IzXSgicAlMY9SiV0VSsMe4LdD2jtB7nG/mstCXqOC6IEACBXTMSyIgwlayybgxAFG+8d8BcS8pTlZUj7P6DHVkdHtL0FuEiJneqAbZeDt7EDQKOvAUlktvJmKA07xQVq9WCtPbMNhwmmgdrFI1ed2tg9mGge2ArY0KiASW9PR3QArO+FAoJWy1HoWPmMkKsMdwzLD0H3BYAEDZ2IgsZkMvrcLqGnPuGaTaqjA7XaLWreHbjYhA68u2GOD4Za2NsAFqwgKVqso21IlOwsYjDU2uhDweoG3pLfE1dqqdR7YAA0DG4gKcMuXzzaHFWrRBIns87megeTxG01kNmMwwQtTKGb3NzAAFJmp22VzMXrMCQbqK4imYzhofJsh3lHcNCG6ssyBozvsZPiqoOJBK3YcaYa1KrY9JtBpzDG7sppaZc7EmJqkbS2G7scINhZA2GlsWXx3goA3kWhwzR7QdONh/8AKV704lKe78bDzOv+IY3lxMTzv/Gw1Xij/cMby4gralnYGKLUFSgDtpDG8uJYD30jtFIuvpzvoTGOgf/Z" alt="">
+              <div class="pfp-area-text">Tap to add profile photo (optional)</div>
+            </div>
+          </div>
+          <input type="file" id="pfpFileIn" accept="image/*" style="display:none" onchange="handlePfp(this)">
+          <div class="fg"><span class="fi">@</span><input type="text" id="sUsername" placeholder="Choose a username" oninput="this.value=this.value.replace(/\s/g,'').toLowerCase()"></div>
+          <div class="fg">
+            <span class="fi">🔒</span><input type="password" id="sAccPass" placeholder="Set account password (min 6 chars)">
+          </div>
+          <p class="err-msg" id="sStep2Err"></p>
+          <button class="auth-btn grad-bg" onclick="signupFinish()">
+            <span id="s2Txt">Create Account 🎉</span><div class="spinner-sm" id="s2Spin"></div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ APP SHELL ══ -->
+<div id="appShell">
+  <!-- Navbar -->
+  <div class="navbar">
+    <span class="nav-logo grad-text">NextGen</span>
+    <div class="nav-right">
+      <div class="nav-icon-btn" onclick="openSettings()" title="Settings">⚙️</div>
+      <img class="nav-pfp" id="navPfp" src="data:image/jpeg;base64,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zzzzzzzwTzzzzzzzzzzzzzwjTzzzzzzzzzzzzzzzzzzzzzzzzzzzzxTzzzzzzzzzzzzzyhzzzzzzzzzzzzzzzzzzzzzzzzzzzzxTzzzzzzzzzzzzzzzzDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzxjzzzzzzzzzzzzzzzzzzzzzzzzzzzyzzzzzzzzzzzzzzzzwzzzzzzzzzzzzzzzzzzzzzzzzzzzzxDTzzzzzzzzzzzzzzjjzzzzzzzzzzzzzzzzzzzzzzzzzzzzxTzzzzzzzzzzzzzyjTzzzzzzzzzzzzzzzzzzzzzzzzzzzzhjzzzzzzzzzzzzzyDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzjzzzzzzzzzzzzzgzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzTTzzzzzzzzzzjBzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzywzzzzzzzzzzwwzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzxxzzzzzzyxxzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzxDjCjzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzjCgARTDDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzjRzxzzxwzxjDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzyQgTzzzzzzzzywizDzzzzzzzzzzzzzzzzzzzzzzzzzzzzySTzzzzzzzzzzzzzxhDzzzzzzzzzzzzzzzzzzzzzzzzzzgyTzzzzzzzzzzzzzzzxhzzzzzzzzzzzzzzzzzzzzzzzzzhSzzzzzzzzzzzzzzzzzzxyjzzzzzzzzzzzzzzzzzzzzzzzTTzzzzzzzzzzzzzzzzzzzzhjzzzzzzzzzzzzzzzzzzzzyhTzzzzzzzzzzzzzzzzzzzzzyjzTzzzzzzzzzzzzzzzzzyxTzzzzzzzzzzzzzzzzzzzzzzzxjzzzzzzzzzzzzzzzzzzyjzzzzzzzzzzzzzzzzzzzzzzzzywDzzzzzzzzzzzzzzzzziDzzzzzzzzzzzzzzzzzzzzzzzzzwjTzzzzzzzzzzzzzzzzTTzzzzzzzzzzzzzzzzzzzzzzzzzzzDzzzzzzzzzzzzzzzwzzzzzzzzzzzzzzzzzzzzzzzzzzzzwjzzzzzzzzzzzzzzzhzzzzzzzzzzzzzzzzzzzzzzzzzzzzyjzzzzzzzzzzzzzzzxzzzzzzzzzzzzzzzzzzzzzzzzzzzzyzjzzzzzzz/xAAUEQEAAAAAAAAAAAAAAAAAAACw/9oACAEDAQE/EARP/8QAFBEBAAAAAAAAAAAAAAAAAAAAsP/aAAgBAgEBPxAET//EACsQAQACAQMEAgEEAQUAAAAAAAEAETEhUHFAQVFhYKGBECAwkcFwsLHR8P/aAAgBAQABPxD/AGMqmVO8eZ+YwJ3+J4AvBNcUPLpF1S4zP+g+DFLTy3Au1iuwgVP9GaAfzc1d7nMsFb5GsTAnPw/I77mJXBDKA9y38KNwSgXz3mZSvDENU9/CrgNSs0y36h0AQx/K4lTT2QG1r1EwIkfgwXLxVecqYW5ZRKP56lHiURWYZ9iZXwQ1Yw6R9wUNAldHUVDdJmFMlYjfwN2FRf7hkFBA6VgoixjtK+6u3wIkijBJUBUOnYJixKihGvG/8TVdt19QT/u6pxFb/DDfpHSc76auk0g8HWlVQCOu+qBg1YQDA60AmoYwOzqb4EpGazXW1LQr1WO9sZmiAZoBXX3SwlTzM63u7CwWcw2BUhVNd6Jz7bE9d73knCF7DWPVxynjecXMHogNhPsCp9jefvE07CNrifad5+8TDYcnE+07z94isOwumz7DvJozWi1F7DrdVKd95HtNcuppB69Z7S0RdN6Pl7CLRebd7o90KotgZnYNb2kdMwLm2qeev15pqjmXW3PfexqAo01HMF661FmprzFt3xgWkbhEuvfrSdyYjo5V79VNTVBE06taLZeK3U7+NJUE1r7iD1K0QHS83oiquuZ238itMAilSYdOxWDb0iJLX4EQakhcWjB6VReGvhFSWvb4IHpJKB6x17yxro6GBLX/AMYuVa6w0+Crhk7w4nh9S/MfUuH818RqoRKnt8zKS/hBBSxKi08kAJB8QRl/wXLJZEAQd1l9YeWN2jO3wxC0XpmHvuhZZfhmc35ln7bl5T9XBmy+CYUP3GrTkz6PiKTCnEwU/M7wZ4RPLbgj2KZKfmJcq8/Gq/02NZXxVKlQLxMouCZVw7WnLKeH8wfb+8Es/A/oTQ0PJEppz+mcTv8ADQ7QeajWkcaxQsPbK1tneoBorg/Q/YwMF8ywbb3qHNV8wApJ4WphweamPhLtlPglRzTMBHmMACjH8tSoglJpLh0ruRI+qYlqIeT4IzXSgicAlMY9SiV0VSsMe4LdD2jtB7nG/mstCXqOC6IEACBXTMSyIgwlayybgxAFG+8d8BcS8pTlZUj7P6DHVkdHtL0FuEiJneqAbZeDt7EDQKOvAUlktvJmKA07xQVq9WCtPbMNhwmmgdrFI1ed2tg9mGge2ArY0KiASW9PR3QArO+FAoJWy1HoWPmMkKsMdwzLD0H3BYAEDZ2IgsZkMvrcLqGnPuGaTaqjA7XaLWreHbjYhA68u2GOD4Za2NsAFqwgKVqso21IlOwsYjDU2uhDweoG3pLfE1dqqdR7YAA0DG4gKcMuXzzaHFWrRBIns87megeTxG01kNmMwwQtTKGb3NzAAFJmp22VzMXrMCQbqK4imYzhofJsh3lHcNCG6ssyBozvsZPiqoOJBK3YcaYa1KrY9JtBpzDG7sppaZc7EmJqkbS2G7scINhZA2GlsWXx3goA3kWhwzR7QdONh/8AKV704lKe78bDzOv+IY3lxMTzv/Gw1Xij/cMby4gralnYGKLUFSgDtpDG8uJYD30jtFIuvpzvoTGOgf/Z" alt="" onclick="navigateTo('profile')">
+    </div>
+  </div>
+
+  <!-- Content area -->
+  <div class="content-area">
+
+    <!-- HOME -->
+    <div class="page active" id="pageHome">
+      <div class="stories-row" id="storiesRow"></div>
+      <div class="empty-state">
+        <div class="empty-icon">📸</div>
+        <div class="empty-title">Your feed is empty</div>
+        <div class="empty-sub">Be the first to post! Share photos and moments.</div>
+        <button class="empty-cta grad-bg" onclick="openModal('postModal')">+ Create your first post</button>
+      </div>
+    </div>
+
+    <!-- EXPLORE -->
+    <div class="page" id="pageExplore">
+      <div class="exp-search-wrap">
+        <div class="exp-search">
+          <span style="opacity:0.4">🔍</span>
+          <input type="text" id="searchInput" placeholder="Search people by username..." oninput="searchPeople(this.value)">
+        </div>
+      </div>
+      <div id="searchResults">
+        <div class="empty-state">
+          <div class="empty-icon">👥</div>
+          <div class="empty-title">Find people</div>
+          <div class="empty-sub">Search by username to follow and chat.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MESSAGES -->
+    <div class="msg-page" id="pageMessages">
+      <div class="inbox-view" id="inboxView">
+        <div class="inbox-header"><div class="inbox-title">Messages</div></div>
+        <div class="api-banner" id="apiBanner">
+          <strong>🤖 AI Setup</strong> — Enter your free <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:var(--a1)">Gemini API key</a> to chat with AI.
+          <div class="api-row">
+            <input class="api-field" type="password" id="apiKeyIn" placeholder="AIzaSy...">
+            <button class="api-save grad-bg" onclick="saveApiKey()">Save</button>
+          </div>
+        </div>
+        <div class="inbox-item" onclick="openChat('gemini')">
+          <div class="ib-bot-ava grad-bg" style="color:white;">🤖<div class="online-dot"></div></div>
+          <div class="ib-info">
+            <div class="ib-name">Gemini AI ✦</div>
+            <div class="ib-preview" id="geminiPreview">Say hi! Ask me anything 👋</div>
+          </div>
+          <div class="ib-time">Now</div>
+        </div>
+        <div id="userInboxList"></div>
+        <div class="invite-banner">
+          <strong>👋 Invite your friends!</strong><br>
+          Share the NextGen HTML file with friends — they can create their own account on the same file, then you can search each other and follow + DM!
+          <br><button class="invite-copy-btn grad-bg" onclick="copyInviteText()">📋 Copy invite message</button>
+        </div>
+      </div>
+      <!-- CHAT VIEW -->
+      <div class="chat-view" id="chatView">
+        <div class="chat-top">
+          <button class="chat-back" onclick="closeChat()">←</button>
+          <div id="chatAvaEl"></div>
+          <div>
+            <div class="chat-top-name" id="chatTopName"></div>
+            <div class="chat-top-status" id="chatTopStatus"></div>
+          </div>
+        </div>
+        <div class="chat-messages" id="chatMessages"></div>
+        <div class="chat-input-wrap">
+          <textarea class="chat-input-field" id="chatInput" placeholder="Type a message..." rows="1"
+            oninput="autoResize(this)" onkeydown="chatKey(event)"></textarea>
+          <button class="chat-send-btn grad-bg" id="chatSendBtn" onclick="sendMsg()">➤</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROFILE -->
+    <div class="page" id="pageProfile">
+      <div class="profile-wrap">
+        <div class="profile-top">
+          <div class="p-ava-wrap" onclick="document.getElementById('editPfpIn').click()">
+            <img class="p-ava" id="profileAvaImg" src="data:image/jpeg;base64,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zzzzzzzwTzzzzzzzzzzzzzwjTzzzzzzzzzzzzzzzzzzzzzzzzzzzzxTzzzzzzzzzzzzzyhzzzzzzzzzzzzzzzzzzzzzzzzzzzzxTzzzzzzzzzzzzzzzzDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzxjzzzzzzzzzzzzzzzzzzzzzzzzzzzyzzzzzzzzzzzzzzzzwzzzzzzzzzzzzzzzzzzzzzzzzzzzzxDTzzzzzzzzzzzzzzjjzzzzzzzzzzzzzzzzzzzzzzzzzzzzxTzzzzzzzzzzzzzyjTzzzzzzzzzzzzzzzzzzzzzzzzzzzzhjzzzzzzzzzzzzzyDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzjzzzzzzzzzzzzzgzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzTTzzzzzzzzzzjBzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzywzzzzzzzzzzwwzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzxxzzzzzzyxxzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzxDjCjzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzjCgARTDDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzjRzxzzxwzxjDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzyQgTzzzzzzzzywizDzzzzzzzzzzzzzzzzzzzzzzzzzzzzySTzzzzzzzzzzzzzxhDzzzzzzzzzzzzzzzzzzzzzzzzzzgyTzzzzzzzzzzzzzzzxhzzzzzzzzzzzzzzzzzzzzzzzzzhSzzzzzzzzzzzzzzzzzzxyjzzzzzzzzzzzzzzzzzzzzzzzTTzzzzzzzzzzzzzzzzzzzzhjzzzzzzzzzzzzzzzzzzzzyhTzzzzzzzzzzzzzzzzzzzzzyjzTzzzzzzzzzzzzzzzzzyxTzzzzzzzzzzzzzzzzzzzzzzzxjzzzzzzzzzzzzzzzzzzyjzzzzzzzzzzzzzzzzzzzzzzzzywDzzzzzzzzzzzzzzzzziDzzzzzzzzzzzzzzzzzzzzzzzzzwjTzzzzzzzzzzzzzzzzTTzzzzzzzzzzzzzzzzzzzzzzzzzzzDzzzzzzzzzzzzzzzwzzzzzzzzzzzzzzzzzzzzzzzzzzzzwjzzzzzzzzzzzzzzzhzzzzzzzzzzzzzzzzzzzzzzzzzzzzyjzzzzzzzzzzzzzzzxzzzzzzzzzzzzzzzzzzzzzzzzzzzzyzjzzzzzzz/xAAUEQEAAAAAAAAAAAAAAAAAAACw/9oACAEDAQE/EARP/8QAFBEBAAAAAAAAAAAAAAAAAAAAsP/aAAgBAgEBPxAET//EACsQAQACAQMEAgEEAQUAAAAAAAEAETEhUHFAQVFhYKGBECAwkcFwsLHR8P/aAAgBAQABPxD/AGMqmVO8eZ+YwJ3+J4AvBNcUPLpF1S4zP+g+DFLTy3Au1iuwgVP9GaAfzc1d7nMsFb5GsTAnPw/I77mJXBDKA9y38KNwSgXz3mZSvDENU9/CrgNSs0y36h0AQx/K4lTT2QG1r1EwIkfgwXLxVecqYW5ZRKP56lHiURWYZ9iZXwQ1Yw6R9wUNAldHUVDdJmFMlYjfwN2FRf7hkFBA6VgoixjtK+6u3wIkijBJUBUOnYJixKihGvG/8TVdt19QT/u6pxFb/DDfpHSc76auk0g8HWlVQCOu+qBg1YQDA60AmoYwOzqb4EpGazXW1LQr1WO9sZmiAZoBXX3SwlTzM63u7CwWcw2BUhVNd6Jz7bE9d73knCF7DWPVxynjecXMHogNhPsCp9jefvE07CNrifad5+8TDYcnE+07z94isOwumz7DvJozWi1F7DrdVKd95HtNcuppB69Z7S0RdN6Pl7CLRebd7o90KotgZnYNb2kdMwLm2qeev15pqjmXW3PfexqAo01HMF661FmprzFt3xgWkbhEuvfrSdyYjo5V79VNTVBE06taLZeK3U7+NJUE1r7iD1K0QHS83oiquuZ238itMAilSYdOxWDb0iJLX4EQakhcWjB6VReGvhFSWvb4IHpJKB6x17yxro6GBLX/AMYuVa6w0+Crhk7w4nh9S/MfUuH818RqoRKnt8zKS/hBBSxKi08kAJB8QRl/wXLJZEAQd1l9YeWN2jO3wxC0XpmHvuhZZfhmc35ln7bl5T9XBmy+CYUP3GrTkz6PiKTCnEwU/M7wZ4RPLbgj2KZKfmJcq8/Gq/02NZXxVKlQLxMouCZVw7WnLKeH8wfb+8Es/A/oTQ0PJEppz+mcTv8ADQ7QeajWkcaxQsPbK1tneoBorg/Q/YwMF8ywbb3qHNV8wApJ4WphweamPhLtlPglRzTMBHmMACjH8tSoglJpLh0ruRI+qYlqIeT4IzXSgicAlMY9SiV0VSsMe4LdD2jtB7nG/mstCXqOC6IEACBXTMSyIgwlayybgxAFG+8d8BcS8pTlZUj7P6DHVkdHtL0FuEiJneqAbZeDt7EDQKOvAUlktvJmKA07xQVq9WCtPbMNhwmmgdrFI1ed2tg9mGge2ArY0KiASW9PR3QArO+FAoJWy1HoWPmMkKsMdwzLD0H3BYAEDZ2IgsZkMvrcLqGnPuGaTaqjA7XaLWreHbjYhA68u2GOD4Za2NsAFqwgKVqso21IlOwsYjDU2uhDweoG3pLfE1dqqdR7YAA0DG4gKcMuXzzaHFWrRBIns87megeTxG01kNmMwwQtTKGb3NzAAFJmp22VzMXrMCQbqK4imYzhofJsh3lHcNCG6ssyBozvsZPiqoOJBK3YcaYa1KrY9JtBpzDG7sppaZc7EmJqkbS2G7scINhZA2GlsWXx3goA3kWhwzR7QdONh/8AKV704lKe78bDzOv+IY3lxMTzv/Gw1Xij/cMby4gralnYGKLUFSgDtpDG8uJYD30jtFIuvpzvoTGOgf/Z" alt="">
+            <div class="p-ava-badge grad-bg" style="color:white;">✎</div>
+          </div>
+          <input type="file" id="editPfpIn" accept="image/*" style="display:none" onchange="updatePfp(this)">
+          <div class="profile-stats">
+            <div class="stat"><div class="stat-n" id="statPosts">0</div><div class="stat-l">Posts</div></div>
+            <div class="stat"><div class="stat-n" id="statFollowers">0</div><div class="stat-l">Followers</div></div>
+            <div class="stat"><div class="stat-n" id="statFollowing">0</div><div class="stat-l">Following</div></div>
+          </div>
+        </div>
+        <div class="p-username" id="profileUsername">@username</div>
+        <div class="p-bio" id="profileBio"></div>
+        <div class="p-actions">
+          <button class="p-btn primary grad-bg" onclick="toggleEdit()">Edit Profile</button>
+          <button class="p-btn sec" onclick="copyInviteText()">Share</button>
+          <button class="p-btn danger" onclick="doLogout()">Logout</button>
+        </div>
+      </div>
+      <div id="editWrap" class="hidden">
+        <div class="edit-wrap">
+          <div class="fg" style="margin-bottom:8px;">
+            <span class="fi" style="top:14px;transform:none;">📝</span>
+            <textarea class="bio-area" id="bioArea" placeholder="Write your bio..." rows="3" style="padding-left:36px;padding-top:10px;"></textarea>
+          </div>
+          <button class="auth-btn grad-bg" style="margin-top:0" onclick="saveBio()">Save Bio</button>
+        </div>
+      </div>
+      <div class="profile-grid-tabs">
+        <div class="grid-tab active" onclick="switchGridTab(this)">⊞ Posts</div>
+        <div class="grid-tab" onclick="switchGridTab(this)">🔖 Saved</div>
+      </div>
+      <div class="p-empty-grid">📷 No posts yet. Share your first photo!</div>
+    </div>
+
+  </div><!-- /content-area -->
+
+  <!-- Bottom Nav -->
+  <div class="bottom-nav">
+    <div class="nav-tab active" id="ntHome" onclick="navigateTo('home')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <div class="dot"></div>
+    </div>
+    <div class="nav-tab" id="ntExplore" onclick="navigateTo('explore')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <div class="dot"></div>
+    </div>
+    <div class="nav-post-btn grad-bg" onclick="openModal('postModal')">＋</div>
+    <div class="nav-tab" id="ntMessages" onclick="navigateTo('messages')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      <div class="dot"></div>
+    </div>
+    <div class="nav-tab" id="ntProfile" onclick="navigateTo('profile')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <div class="dot"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Settings panel -->
+<div class="settings-overlay hidden" id="settingsOverlay" onclick="closeSettings(event)">
+  <div class="settings-panel" onclick="event.stopPropagation()">
+    <div class="settings-header">
+      <div class="settings-title">⚙️ Settings</div>
+      <button class="settings-close" onclick="closeSettings()">✕</button>
+    </div>
+    <div class="settings-section">
+      <div class="settings-section-title">🎨 Theme</div>
+      <div class="theme-grid" id="themeGrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Story modal -->
+<div class="modal-overlay hidden" id="storyModal" onclick="closeModal('storyModal')">
+  <div class="modal-sheet" onclick="event.stopPropagation()">
+    <div class="modal-handle"></div>
+    <div class="modal-title">Add Story</div>
+    <div class="modal-opt" onclick="closeModal('storyModal');showToast('Story upload coming soon!')">🖼️ Upload from Gallery</div>
+    <button class="modal-cancel-btn" onclick="closeModal('storyModal')">Cancel</button>
+  </div>
+</div>
+
+<!-- Post modal -->
+<div class="modal-overlay hidden" id="postModal" onclick="closeModal('postModal')">
+  <div class="modal-sheet" onclick="event.stopPropagation()">
+    <div class="modal-handle"></div>
+    <div class="modal-title">New Post</div>
+    <img id="postPrevImg" class="post-prev-img" alt="">
+    <div class="modal-opt" onclick="document.getElementById('postImgIn').click()">🖼️ Choose Photo</div>
+    <input type="file" id="postImgIn" accept="image/*" style="display:none" onchange="previewPost(this)">
+    <textarea class="caption-in" id="postCaption" placeholder="Write a caption..."></textarea>
+    <button class="auth-btn grad-bg" onclick="submitPost()">
+      <span id="postBtnTxt">Share Post</span><div class="spinner-sm" id="postSpin"></div>
+    </button>
+    <button class="modal-cancel-btn" onclick="closeModal('postModal')">Cancel</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ══ THEMES CONFIG ══
+const THEMES = [
+  {id:'dark-purple', name:'Dark Purple', s1:'#080b12', s2:'#4f8eff', s3:'#c84bff'},
+  {id:'dark-neon',   name:'Dark Neon',   s1:'#050505', s2:'#00ff88', s3:'#00ffcc'},
+  {id:'dark-white',  name:'Dark White',  s1:'#0a0a0a', s2:'#ffffff', s3:'#cccccc'},
+  {id:'dark-blue',   name:'Dark Blue',   s1:'#04080f', s2:'#0a84ff', s3:'#00cfff'},
+  {id:'dark-red',    name:'Dark Red',    s1:'#0a0405', s2:'#ff4466', s3:'#ff0055'},
+  {id:'dark-gold',   name:'Dark Gold',   s1:'#080700', s2:'#ffcc00', s3:'#ff9900'},
+  {id:'white-blue',  name:'White Blue',  s1:'#f0f4ff', s2:'#1a5cff', s3:'#7b2fff'},
+  {id:'white-purple',name:'White Purple',s1:'#faf0ff', s2:'#8b30ff', s3:'#dd00cc'},
+  {id:'white-black', name:'White Black', s1:'#f5f5f5', s2:'#111111', s3:'#444444'},
+  {id:'sunrise',     name:'Sunrise',     s1:'#0f050a', s2:'#ff4da6', s3:'#ff9a00'},
+];
+
+// ══ DB ══
+const DB={
+  accounts(){return JSON.parse(localStorage.getItem('ng_accounts')||'[]');},
+  saveAccounts(a){localStorage.setItem('ng_accounts',JSON.stringify(a));},
+  session(){return JSON.parse(localStorage.getItem('ng_session')||'null');},
+  saveSession(u){localStorage.setItem('ng_session',JSON.stringify(u));},
+  clearSession(){localStorage.removeItem('ng_session');},
+  apiKey(){return localStorage.getItem('ng_apikey')||'';},
+  saveApiKey(k){localStorage.setItem('ng_apikey',k);},
+  chat(id){return JSON.parse(localStorage.getItem('ng_chat_'+id)||'[]');},
+  saveChat(id,a){localStorage.setItem('ng_chat_'+id,JSON.stringify(a));},
+  dm(a,b){return JSON.parse(localStorage.getItem('ng_dm_'+[a,b].sort().join('_'))||'[]');},
+  saveDm(a,b,arr){localStorage.setItem('ng_dm_'+[a,b].sort().join('_'),JSON.stringify(arr));},
+  follows(uid){return JSON.parse(localStorage.getItem('ng_follows_'+uid)||'[]');},
+  saveFollows(uid,a){localStorage.setItem('ng_follows_'+uid,JSON.stringify(a));},
+  followers(uid){return JSON.parse(localStorage.getItem('ng_followers_'+uid)||'[]');},
+  saveFollowers(uid,a){localStorage.setItem('ng_followers_'+uid,JSON.stringify(a));},
+  bio(uid){return localStorage.getItem('ng_bio_'+uid)||'';},
+  saveBioDb(uid,b){localStorage.setItem('ng_bio_'+uid,b);},
+  theme(){return localStorage.getItem('ng_theme')||'dark-purple';},
+  saveTheme(t){localStorage.setItem('ng_theme',t);},
+};
+
+const DPFP="data:image/jpeg;base64,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zzzzzzzwTzzzzzzzzzzzzzwjTzzzzzzzzzzzzzzzzzzzzzzzzzzzzxTzzzzzzzzzzzzzyhzzzzzzzzzzzzzzzzzzzzzzzzzzzzxTzzzzzzzzzzzzzzzzDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzxjzzzzzzzzzzzzzzzzzzzzzzzzzzzyzzzzzzzzzzzzzzzzwzzzzzzzzzzzzzzzzzzzzzzzzzzzzxDTzzzzzzzzzzzzzzjjzzzzzzzzzzzzzzzzzzzzzzzzzzzzxTzzzzzzzzzzzzzyjTzzzzzzzzzzzzzzzzzzzzzzzzzzzzhjzzzzzzzzzzzzzyDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzjzzzzzzzzzzzzzgzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzTTzzzzzzzzzzjBzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzywzzzzzzzzzzwwzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzxxzzzzzzyxxzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzxDjCjzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzjCgARTDDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzjRzxzzxwzxjDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzyQgTzzzzzzzzywizDzzzzzzzzzzzzzzzzzzzzzzzzzzzzySTzzzzzzzzzzzzzxhDzzzzzzzzzzzzzzzzzzzzzzzzzzgyTzzzzzzzzzzzzzzzxhzzzzzzzzzzzzzzzzzzzzzzzzzhSzzzzzzzzzzzzzzzzzzxyjzzzzzzzzzzzzzzzzzzzzzzzTTzzzzzzzzzzzzzzzzzzzzhjzzzzzzzzzzzzzzzzzzzzyhTzzzzzzzzzzzzzzzzzzzzzyjzTzzzzzzzzzzzzzzzzzyxTzzzzzzzzzzzzzzzzzzzzzzzxjzzzzzzzzzzzzzzzzzzyjzzzzzzzzzzzzzzzzzzzzzzzzywDzzzzzzzzzzzzzzzzziDzzzzzzzzzzzzzzzzzzzzzzzzzwjTzzzzzzzzzzzzzzzzTTzzzzzzzzzzzzzzzzzzzzzzzzzzzDzzzzzzzzzzzzzzzwzzzzzzzzzzzzzzzzzzzzzzzzzzzzwjzzzzzzzzzzzzzzzhzzzzzzzzzzzzzzzzzzzzzzzzzzzzyjzzzzzzzzzzzzzzzxzzzzzzzzzzzzzzzzzzzzzzzzzzzzyzjzzzzzzz/xAAUEQEAAAAAAAAAAAAAAAAAAACw/9oACAEDAQE/EARP/8QAFBEBAAAAAAAAAAAAAAAAAAAAsP/aAAgBAgEBPxAET//EACsQAQACAQMEAgEEAQUAAAAAAAEAETEhUHFAQVFhYKGBECAwkcFwsLHR8P/aAAgBAQABPxD/AGMqmVO8eZ+YwJ3+J4AvBNcUPLpF1S4zP+g+DFLTy3Au1iuwgVP9GaAfzc1d7nMsFb5GsTAnPw/I77mJXBDKA9y38KNwSgXz3mZSvDENU9/CrgNSs0y36h0AQx/K4lTT2QG1r1EwIkfgwXLxVecqYW5ZRKP56lHiURWYZ9iZXwQ1Yw6R9wUNAldHUVDdJmFMlYjfwN2FRf7hkFBA6VgoixjtK+6u3wIkijBJUBUOnYJixKihGvG/8TVdt19QT/u6pxFb/DDfpHSc76auk0g8HWlVQCOu+qBg1YQDA60AmoYwOzqb4EpGazXW1LQr1WO9sZmiAZoBXX3SwlTzM63u7CwWcw2BUhVNd6Jz7bE9d73knCF7DWPVxynjecXMHogNhPsCp9jefvE07CNrifad5+8TDYcnE+07z94isOwumz7DvJozWi1F7DrdVKd95HtNcuppB69Z7S0RdN6Pl7CLRebd7o90KotgZnYNb2kdMwLm2qeev15pqjmXW3PfexqAo01HMF661FmprzFt3xgWkbhEuvfrSdyYjo5V79VNTVBE06taLZeK3U7+NJUE1r7iD1K0QHS83oiquuZ238itMAilSYdOxWDb0iJLX4EQakhcWjB6VReGvhFSWvb4IHpJKB6x17yxro6GBLX/AMYuVa6w0+Crhk7w4nh9S/MfUuH818RqoRKnt8zKS/hBBSxKi08kAJB8QRl/wXLJZEAQd1l9YeWN2jO3wxC0XpmHvuhZZfhmc35ln7bl5T9XBmy+CYUP3GrTkz6PiKTCnEwU/M7wZ4RPLbgj2KZKfmJcq8/Gq/02NZXxVKlQLxMouCZVw7WnLKeH8wfb+8Es/A/oTQ0PJEppz+mcTv8ADQ7QeajWkcaxQsPbK1tneoBorg/Q/YwMF8ywbb3qHNV8wApJ4WphweamPhLtlPglRzTMBHmMACjH8tSoglJpLh0ruRI+qYlqIeT4IzXSgicAlMY9SiV0VSsMe4LdD2jtB7nG/mstCXqOC6IEACBXTMSyIgwlayybgxAFG+8d8BcS8pTlZUj7P6DHVkdHtL0FuEiJneqAbZeDt7EDQKOvAUlktvJmKA07xQVq9WCtPbMNhwmmgdrFI1ed2tg9mGge2ArY0KiASW9PR3QArO+FAoJWy1HoWPmMkKsMdwzLD0H3BYAEDZ2IgsZkMvrcLqGnPuGaTaqjA7XaLWreHbjYhA68u2GOD4Za2NsAFqwgKVqso21IlOwsYjDU2uhDweoG3pLfE1dqqdR7YAA0DG4gKcMuXzzaHFWrRBIns87megeTxG01kNmMwwQtTKGb3NzAAFJmp22VzMXrMCQbqK4imYzhofJsh3lHcNCG6ssyBozvsZPiqoOJBK3YcaYa1KrY9JtBpzDG7sppaZc7EmJqkbS2G7scINhZA2GlsWXx3goA3kWhwzR7QdONh/8AKV704lKe78bDzOv+IY3lxMTzv/Gw1Xij/cMby4gralnYGKLUFSgDtpDG8uJYD30jtFIuvpzvoTGOgf/Z";
+let CU=null, loginTab='phone', signupTab='phone', selPfp=null;
+let currentChatId=null, geminiHistory=[];
+
+// ══ BOOT ══
+window.addEventListener('DOMContentLoaded',()=>{
+  applyTheme(DB.theme());
+  buildThemeGrid();
+  CU=DB.session();
+  if(CU) launchApp();
+  if(DB.apiKey()) document.getElementById('apiBanner').style.display='none';
+});
+
+// ══ THEME ══
+function applyTheme(id){
+  document.body.setAttribute('data-theme',id);
+  DB.saveTheme(id);
+  document.querySelectorAll('.theme-card').forEach(c=>c.classList.toggle('active',c.dataset.tid===id));
+}
+
+function buildThemeGrid(){
+  const grid=document.getElementById('themeGrid');
+  const cur=DB.theme();
+  grid.innerHTML=THEMES.map(t=>`
+    <div class="theme-card ${t.id===cur?'active':''}" data-tid="${t.id}" onclick="applyTheme('${t.id}')">
+      <div class="theme-swatch">
+        <div class="swatch" style="background:${t.s1};border:1px solid rgba(255,255,255,0.15)"></div>
+        <div class="swatch" style="background:${t.s2}"></div>
+        <div class="swatch" style="background:${t.s3}"></div>
+      </div>
+      <div class="theme-name">${t.name}</div>
+    </div>`).join('');
+}
+
+function openSettings(){document.getElementById('settingsOverlay').classList.remove('hidden');}
+function closeSettings(e){
+  if(!e||e.target===document.getElementById('settingsOverlay'))
+    document.getElementById('settingsOverlay').classList.add('hidden');
+}
+
+// ══ AUTH ══
+function switchLoginTab(t){
+  loginTab=t;
+  ['phone','gmail'].forEach(x=>{
+    document.getElementById('lTab'+cap(x)).classList.toggle('active',t===x);
+    document.getElementById('l'+cap(x)+'Step').classList.toggle('active',t===x);
+  });
+}
+function switchSignupTab(t){
+  signupTab=t;
+  document.getElementById('sTabPhone').classList.toggle('active',t==='phone');
+  document.getElementById('sTabGmail').classList.toggle('active',t==='gmail');
+  document.getElementById('sPhoneF').classList.toggle('active',t==='phone');
+  document.getElementById('sGmailF').classList.toggle('active',t==='gmail');
+}
+function showSignup(){document.getElementById('loginForm').classList.add('hidden');document.getElementById('signupForm').classList.remove('hidden');}
+function showLogin(){document.getElementById('signupForm').classList.add('hidden');document.getElementById('loginForm').classList.remove('hidden');}
+function backStep1(){document.getElementById('sStep2').classList.remove('active');document.getElementById('sStep1').classList.add('active');}
+function handlePfp(input){
+  const f=input.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=e=>{selPfp=e.target.result;document.getElementById('pfpPrev').src=selPfp;};
+  r.readAsDataURL(f);
+}
+
+function doLogin(method){
+  const eId='l'+cap(method)+'Err',sId='l'+cap(method)+'Spin',tId='l'+cap(method)+'Txt';
+  hide(eId);
+  const id=method==='phone'?val('lPhone'):val('lGmail').toLowerCase();
+  const pass=method==='phone'?val('lPhonePass'):val('lGmailPass');
+  if(!id){showToast('Enter your '+(method==='phone'?'phone':'email'));return;}
+  setSpin(tId,sId,true);
+  setTimeout(()=>{
+    setSpin(tId,sId,false);
+    const accs=DB.accounts();
+    const user=accs.find(a=>a[method]===id);
+    if(!user){showErr(eId,'Account not found. Sign up first.');return;}
+    if(user.accPass&&pass!==user.accPass){showErr(eId,'Wrong password.');return;}
+    CU=user;DB.saveSession(user);launchApp();
+  },900);
+}
+
+function signupNext(){
+  hide('sStep1Err');
+  const id=signupTab==='phone'?val('sPhone'):val('sGmail').toLowerCase();
+  if(!id){showToast('Fill in your '+(signupTab==='phone'?'phone':'email'));return;}
+  setSpin('s1Txt','s1Spin',true);
+  setTimeout(()=>{
+    setSpin('s1Txt','s1Spin',false);
+    if(DB.accounts().find(a=>a[signupTab]===id)){showErr('sStep1Err','Account exists. Please log in.');return;}
+    window._ts={tab:signupTab,id};
+    document.getElementById('sStep1').classList.remove('active');
+    document.getElementById('sStep2').classList.add('active');
+  },700);
+}
+
+function signupFinish(){
+  hide('sStep2Err');
+  const username=val('sUsername').toLowerCase();
+  const accPass=val('sAccPass');
+  if(!username){showToast('Choose a username');return;}
+  if(!accPass||accPass.length<6){showErr('sStep2Err','Password must be at least 6 characters.');return;}
+  setSpin('s2Txt','s2Spin',true);
+  setTimeout(()=>{
+    setSpin('s2Txt','s2Spin',false);
+    const accs=DB.accounts();
+    if(accs.find(a=>a.username===username)){showErr('sStep2Err','Username taken. Choose another.');return;}
+    const tmp=window._ts;
+    const u={id:'u_'+Date.now(),username,[tmp.tab]:tmp.id,accPass,pfp:selPfp||null,createdAt:Date.now()};
+    accs.push(u);DB.saveAccounts(accs);
+    CU=u;DB.saveSession(u);selPfp=null;
+    launchApp();
+  },900);
+}
+
+// ══ LAUNCH ══
+function launchApp(){
+  document.getElementById('screenAuth').style.display='none';
+  document.getElementById('appShell').classList.add('active');
+  refreshNavPfp();renderStories();renderProfile();renderUserInbox();
+  geminiHistory=DB.chat('gemini');
+  if(DB.apiKey()) document.getElementById('apiBanner').style.display='none';
+  navigateTo('home');
+}
+
+function refreshNavPfp(){document.getElementById('navPfp').src=CU.pfp||DPFP;}
+
+// ══ NAVIGATION ══
+function navigateTo(p){
+  ['pageHome','pageExplore','pageProfile'].forEach(id=>document.getElementById(id).classList.remove('active'));
+  const mp=document.getElementById('pageMessages');
+  mp.classList.remove('active');
+  if(p==='messages') mp.classList.add('active');
+  else document.getElementById('page'+cap(p))?.classList.add('active');
+  ['home','explore','messages','profile'].forEach(k=>{
+    document.getElementById('nt'+cap(k)).classList.toggle('active',k===p);
+  });
+  window.scrollTo?.(0,0);
+}
+
+// ══ STORIES ══
+function renderStories(){
+  const ava=CU.pfp||DPFP;
+  document.getElementById('storiesRow').innerHTML=`
+    <div class="story-item" onclick="openModal('storyModal')">
+      <div class="story-ring add-ring" style="position:relative;overflow:visible;">
+        <img src="${ava}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;border:2px solid var(--bg);" alt="">
+        <div style="position:absolute;bottom:0;right:0;width:19px;height:19px;border-radius:50%;
+          display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:bold;
+          border:2px solid var(--bg);z-index:1;" class="grad-bg">+</div>
+      </div>
+      <span class="story-name">Your Story</span>
+    </div>`;
+}
+
+// ══ PROFILE ══
+function renderProfile(){
+  document.getElementById('profileUsername').textContent='@'+CU.username;
+  document.getElementById('profileBio').textContent=DB.bio(CU.id);
+  document.getElementById('bioArea').value=DB.bio(CU.id);
+  document.getElementById('profileAvaImg').src=CU.pfp||DPFP;
+  document.getElementById('statFollowers').textContent=DB.followers(CU.id).length;
+  document.getElementById('statFollowing').textContent=DB.follows(CU.id).length;
+}
+let editOpen=false;
+function toggleEdit(){
+  editOpen=!editOpen;
+  document.getElementById('editWrap').classList.toggle('hidden',!editOpen);
+}
+function saveBio(){
+  const b=val('bioArea').trim();
+  DB.saveBioDb(CU.id,b);
+  document.getElementById('profileBio').textContent=b;
+  document.getElementById('editWrap').classList.add('hidden');
+  editOpen=false;
+  showToast('Bio saved ✅');
+}
+function switchGridTab(el){
+  document.querySelectorAll('.grid-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+}
+function updatePfp(input){
+  const f=input.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=e=>{
+    CU.pfp=e.target.result;
+    const accs=DB.accounts();const idx=accs.findIndex(a=>a.id===CU.id);
+    if(idx>-1){accs[idx].pfp=CU.pfp;DB.saveAccounts(accs);}
+    DB.saveSession(CU);
+    document.getElementById('profileAvaImg').src=CU.pfp;
+    refreshNavPfp();renderStories();
+    showToast('PFP updated ✅');
+  };
+  r.readAsDataURL(f);
+}
+function doLogout(){
+  DB.clearSession();CU=null;
+  document.getElementById('appShell').classList.remove('active');
+  document.getElementById('screenAuth').style.display='flex';
+  document.getElementById('loginForm').classList.remove('hidden');
+  document.getElementById('signupForm').classList.add('hidden');
+}
+
+// ══ EXPLORE ══
+function searchPeople(q){
+  const box=document.getElementById('searchResults');
+  const q2=q.trim().toLowerCase();
+  if(!q2){
+    box.innerHTML='<div class="empty-state"><div class="empty-icon">👥</div><div class="empty-title">Find people</div><div class="empty-sub">Search by username.</div></div>';
+    return;
+  }
+  const all=DB.accounts().filter(a=>a.id!==CU.id&&a.username.includes(q2));
+  if(!all.length){box.innerHTML='<div class="empty-state"><div class="empty-icon">🔍</div><div class="empty-title">No users found</div></div>';return;}
+  const myF=DB.follows(CU.id);
+  box.innerHTML=all.map(u=>{
+    const isF=myF.includes(u.id);
+    return `<div class="people-item">
+      <img class="people-ava" src="${u.pfp||DPFP}" alt="">
+      <div class="people-info"><div class="people-name">@${u.username}</div></div>
+      <button class="dm-btn-ui" onclick="openDmWith('${u.id}','${u.username}','${u.pfp||''}')">💬</button>
+      <button class="follow-btn-ui ${isF?'following':''}" onclick="toggleFollow(this,'${u.id}')">${isF?'Following':'Follow'}</button>
+    </div>`;
+  }).join('');
+}
+
+function toggleFollow(btn,uid){
+  const mf=DB.follows(CU.id),tf=DB.followers(uid);
+  const isNow=mf.includes(uid);
+  if(isNow){DB.saveFollows(CU.id,mf.filter(x=>x!==uid));DB.saveFollowers(uid,tf.filter(x=>x!==CU.id));btn.textContent='Follow';btn.classList.remove('following');showToast('Unfollowed');}
+  else{mf.push(uid);DB.saveFollows(CU.id,mf);tf.push(CU.id);DB.saveFollowers(uid,tf);btn.textContent='Following';btn.classList.add('following');showToast('Following! 🎉');}
+  renderProfile();renderUserInbox();
+}
+
+// ══ INBOX ══
+function renderUserInbox(){
+  const box=document.getElementById('userInboxList');
+  const contacts=[...new Set([...DB.follows(CU.id),...DB.followers(CU.id)])];
+  const accs=DB.accounts();
+  if(!contacts.length){box.innerHTML='<div style="text-align:center;padding:16px;color:var(--muted);font-size:0.82rem;">Follow people to chat with them!</div>';return;}
+  box.innerHTML=contacts.map(uid=>{
+    const u=accs.find(a=>a.id===uid);if(!u)return'';
+    const msgs=DB.dm(CU.id,uid);
+    const last=msgs.length?msgs[msgs.length-1].text:'Start a conversation!';
+    return `<div class="inbox-item" onclick="openDmWith('${uid}','${u.username}','${u.pfp||''}')">
+      <img class="ib-ava" src="${u.pfp||DPFP}" alt="">
+      <div class="ib-info"><div class="ib-name">@${u.username}</div><div class="ib-preview">${esc(last.slice(0,42))}</div></div>
+    </div>`;
+  }).join('');
+}
+
+// ══ OPEN DM ══
+function openDmWith(uid,username,pfpSrc){
+  currentChatId='dm_'+uid;
+  document.getElementById('chatAvaEl').innerHTML=`<img class="chat-ava-sm" src="${pfpSrc||DPFP}" alt="">`;
+  document.getElementById('chatTopName').textContent='@'+username;
+  document.getElementById('chatTopStatus').textContent='';
+  document.getElementById('chatView').dataset.tuid=uid;
+  const msgs=DB.dm(CU.id,uid);
+  const c=document.getElementById('chatMessages');
+  c.innerHTML='';
+  if(!msgs.length){const d=document.createElement('div');d.style.cssText='text-align:center;padding:20px;color:var(--muted);font-size:0.82rem;';d.textContent='Say hello to @'+username+'!';c.appendChild(d);}
+  else msgs.forEach(m=>{if(m.from===CU.id)addSentBubble(m.text,false);else addRecvBubble(m.text,pfpSrc||DPFP,false);});
+  showChatPane();
+  navigateTo('messages');
+  scrollChat();
+}
+
+// ══ OPEN GEMINI ══
+function openChat(who){
+  currentChatId='gemini';
+  document.getElementById('chatAvaEl').innerHTML='<div class="chat-ava-bot grad-bg" style="color:white;">🤖</div>';
+  document.getElementById('chatTopName').textContent='Gemini AI';
+  document.getElementById('chatTopStatus').textContent='● Online';
+  document.getElementById('chatView').dataset.tuid='';
+  geminiHistory=DB.chat('gemini');
+  const c=document.getElementById('chatMessages');c.innerHTML='';
+  if(!geminiHistory.length){addRecvBubble('Namaste! 👋 Main Gemini hoon — aapka AI dost. Kuch bhi poocho, Hindi mein, English mein, ya Hinglish mein! 😊','',false);}
+  else geminiHistory.forEach(m=>{if(m.role==='user')addSentBubble(m.parts[0].text,false);else addRecvBubble(m.parts[0].text,'',false);});
+  showChatPane();
+  scrollChat();
+}
+
+function showChatPane(){document.getElementById('inboxView').style.display='none';document.getElementById('chatView').classList.add('active');}
+function closeChat(){document.getElementById('chatView').classList.remove('active');document.getElementById('inboxView').style.display='block';currentChatId=null;renderUserInbox();}
+
+function addSentBubble(text){
+  const c=document.getElementById('chatMessages');
+  const d=document.createElement('div');d.className='msg-row sent';
+  d.innerHTML=`<img class="msg-ava-sm" src="${CU.pfp||DPFP}" alt=""><div><div class="msg-bubble grad-bg">${esc(text)}</div><div class="msg-time">${now()}</div></div>`;
+  c.appendChild(d);scrollChat();
+}
+function addRecvBubble(text,ava){
+  const c=document.getElementById('chatMessages');
+  const d=document.createElement('div');d.className='msg-row';
+  const av=ava?`<img class="msg-ava-sm" src="${ava}" alt="">`:'<div class="msg-ava-bot grad-bg" style="color:white;">🤖</div>';
+  d.innerHTML=av+`<div><div class="msg-bubble">${fmtText(text)}</div><div class="msg-time">${now()}</div></div>`;
+  c.appendChild(d);scrollChat();
+}
+
+// ══ SEND ══
+async function sendMsg(){
+  const input=document.getElementById('chatInput');
+  const text=input.value.trim();if(!text)return;
+  input.value='';input.style.height='auto';
+  document.getElementById('chatSendBtn').disabled=true;
+  const tuid=document.getElementById('chatView').dataset.tuid;
+  addSentBubble(text);
+
+  if(tuid){
+    const msgs=DB.dm(CU.id,tuid);
+    msgs.push({from:CU.id,to:tuid,text,time:Date.now()});
+    DB.saveDm(CU.id,tuid,msgs);
+    document.getElementById('chatSendBtn').disabled=false;
+    return;
+  }
+
+  // Gemini
+  geminiHistory.push({role:'user',parts:[{text}]});
+  document.getElementById('geminiPreview').textContent=text.slice(0,40);
+  const apiKey=DB.apiKey();
+  if(!apiKey){addRecvBubble('Please save your Gemini API key in the Messages inbox banner! 🔑','',false);document.getElementById('chatSendBtn').disabled=false;return;}
+
+  const c=document.getElementById('chatMessages');
+  const td=document.createElement('div');td.id='tyInd';td.className='msg-row';
+  td.innerHTML='<div class="msg-ava-bot grad-bg" style="color:white;">🤖</div><div class="typing-ind"><div class="t-dot"></div><div class="t-dot"></div><div class="t-dot"></div></div>';
+  c.appendChild(td);scrollChat();
+
+  try{
+    const ctx='You are a friendly AI assistant on NextGen Social. Speak Hindi, English or Hinglish naturally. Be casual, warm, fun, genuinely helpful. No restrictions.\nHistory:\n'+geminiHistory.slice(-8).map(m=>m.role+': '+m.parts[0].text).join('\n')+'\nUser: '+text;
+    const res=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key='+apiKey,{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({contents:[{role:'user',parts:[{text:ctx}]}],generationConfig:{temperature:0.9,maxOutputTokens:600}})
+    });
+    const data=await res.json();
+    document.getElementById('tyInd')?.remove();
+    const reply=data.candidates?.[0]?.content?.parts?.[0]?.text||(data.error?'API Error: '+data.error.message:'Sorry, try again!');
+    addRecvBubble(reply,'',false);
+    geminiHistory.push({role:'model',parts:[{text:reply}]});
+    DB.saveChat('gemini',geminiHistory);
+    document.getElementById('geminiPreview').textContent=reply.slice(0,40);
+  }catch(e){document.getElementById('tyInd')?.remove();addRecvBubble('Error: '+e.message,'',false);}
+  document.getElementById('chatSendBtn').disabled=false;
+}
+
+function chatKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}}
+function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,90)+'px';}
+function scrollChat(){const c=document.getElementById('chatMessages');if(c)c.scrollTop=c.scrollHeight;}
+
+// ══ API KEY ══
+function saveApiKey(){
+  const k=document.getElementById('apiKeyIn').value.trim();
+  if(!k){showToast('Enter your API key');return;}
+  DB.saveApiKey(k);document.getElementById('apiBanner').style.display='none';
+  showToast('✅ Gemini key saved!');
+}
+
+// ══ POST ══
+function previewPost(input){const f=input.files[0];if(!f)return;const r=new FileReader();r.onload=e=>{const i=document.getElementById('postPrevImg');i.src=e.target.result;i.style.display='block';};r.readAsDataURL(f);}
+function submitPost(){
+  if(document.getElementById('postPrevImg').style.display!=='block'){showToast('Choose a photo first');return;}
+  setSpin('postBtnTxt','postSpin',true);
+  setTimeout(()=>{
+    setSpin('postBtnTxt','postSpin',false);closeModal('postModal');
+    document.getElementById('postPrevImg').style.display='none';
+    document.getElementById('postImgIn').value='';document.getElementById('postCaption').value='';
+    showToast('Post shared 🎉');
+  },1200);
+}
+
+// ══ INVITE ══
+function copyInviteText(){
+  const msg='Hey! Join me on NextGen Social 🚀\nDownload the app file and create your own account, then search for @'+CU.username+' to follow and DM me!';
+  navigator.clipboard?.writeText(msg).then(()=>showToast('Invite message copied! 📋')).catch(()=>showToast('Copy from console: '+msg));
+}
+
+// ══ MODALS ══
+function openModal(id){document.getElementById(id).classList.remove('hidden');}
+function closeModal(id){document.getElementById(id).classList.add('hidden');}
+
+// ══ HELPERS ══
+function cap(s){return s.charAt(0).toUpperCase()+s.slice(1);}
+function val(id){return document.getElementById(id).value;}
+function hide(id){document.getElementById(id).style.display='none';}
+function setSpin(tId,sId,on){document.getElementById(tId).style.display=on?'none':'inline';document.getElementById(sId).style.display=on?'inline-block':'none';}
+function showErr(id,msg){const e=document.getElementById(id);e.textContent=msg;e.style.display='block';}
+function esc(t){const d=document.createElement('div');d.textContent=t;return d.innerHTML;}
+function fmtText(t){return esc(t).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>').replace(/\n/g,'<br>');}
+function now(){const n=new Date();return n.getHours().toString().padStart(2,'0')+':'+n.getMinutes().toString().padStart(2,'0');}
+let toastT;
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2800);}
+</script>
+</body>
+</html>
