@@ -6,17 +6,12 @@
 <title>NextGen Social</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-/* ══ THEMES ══ */
-[data-theme="dark-purple"]{--bg:#080b12;--card:#0f1522;--elevated:#161e30;--text:#eef2ff;--sub:#7d8faa;--muted:#3a4660;--border:rgba(255,255,255,0.07);--a1:#4f8eff;--a2:#c84bff;--nav-bg:rgba(8,11,18,0.95);}
-[data-theme="dark-neon"]{--bg:#050505;--card:#0d0d0d;--elevated:#1a1a1a;--text:#f0fff0;--sub:#5a7a5a;--muted:#2a3a2a;--border:rgba(0,255,100,0.1);--a1:#00ff88;--a2:#00ffcc;--nav-bg:rgba(5,5,5,0.97);}
-[data-theme="dark-white"]{--bg:#0a0a0a;--card:#141414;--elevated:#1e1e1e;--text:#ffffff;--sub:#888888;--muted:#333333;--border:rgba(255,255,255,0.1);--a1:#ffffff;--a2:#cccccc;--nav-bg:rgba(10,10,10,0.97);}
-[data-theme="dark-blue"]{--bg:#04080f;--card:#080f1e;--elevated:#0d1830;--text:#e8f4ff;--sub:#4a7ab5;--muted:#1e3a5a;--border:rgba(0,120,255,0.12);--a1:#0a84ff;--a2:#00cfff;--nav-bg:rgba(4,8,15,0.97);}
-[data-theme="dark-red"]{--bg:#0a0405;--card:#150709;--elevated:#220a0e;--text:#fff0f0;--sub:#8a4a50;--muted:#3a1a1e;--border:rgba(255,50,50,0.1);--a1:#ff4466;--a2:#ff0055;--nav-bg:rgba(10,4,5,0.97);}
-[data-theme="dark-gold"]{--bg:#080700;--card:#120f00;--elevated:#1e1800;--text:#fffbe8;--sub:#7a6a30;--muted:#3a3000;--border:rgba(255,200,0,0.1);--a1:#ffcc00;--a2:#ff9900;--nav-bg:rgba(8,7,0,0.97);}
-[data-theme="white-blue"]{--bg:#f0f4ff;--card:#ffffff;--elevated:#e8eeff;--text:#0a1535;--sub:#5a6a8a;--muted:#b0bccc;--border:rgba(0,60,200,0.1);--a1:#1a5cff;--a2:#7b2fff;--nav-bg:rgba(240,244,255,0.97);}
-[data-theme="white-purple"]{--bg:#faf0ff;--card:#ffffff;--elevated:#f0e8ff;--text:#1a0535;--sub:#7a5a9a;--muted:#c0b0d0;--border:rgba(120,0,200,0.1);--a1:#8b30ff;--a2:#dd00cc;--nav-bg:rgba(250,240,255,0.97);}
-[data-theme="white-black"]{--bg:#f5f5f5;--card:#ffffff;--elevated:#ebebeb;--text:#111111;--sub:#555555;--muted:#aaaaaa;--border:rgba(0,0,0,0.09);--a1:#111111;--a2:#444444;--nav-bg:rgba(245,245,245,0.99);}
-[data-theme="sunrise"]{--bg:#0f050a;--card:#1a0a14;--elevated:#2a1020;--text:#ffe8f5;--sub:#8a5070;--muted:#3a1530;--border:rgba(255,80,150,0.1);--a1:#ff4da6;--a2:#ff9a00;--nav-bg:rgba(15,5,10,0.97);}
+/* ══ THEME VARS ══ */
+:root{
+  --bg:#080b12;--card:#0f1522;--elevated:#161e30;--text:#eef2ff;--sub:#7d8faa;--muted:#3a4660;
+  --border:rgba(255,255,255,0.07);--a1:#4f8eff;--a2:#c84bff;--nav-bg:rgba(8,11,18,0.95);
+  --green:#00e676;--red:#ff4466;
+}
 
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html,body{width:100%;height:100%;overflow:hidden;}
@@ -26,39 +21,17 @@ input,textarea,button,select{font-family:'DM Sans',sans-serif;}
 ::-webkit-scrollbar{width:3px;}
 ::-webkit-scrollbar-thumb{background:var(--elevated);border-radius:4px;}
 .grad-bg{background:linear-gradient(135deg,var(--a1),var(--a2));}
-.grad-text{background:linear-gradient(135deg,var(--a1),var(--a2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.grad-text{background:linear-gradient(135deg,var(--a1),var(--a2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 
 /* ══ SCREENS ══ */
-#screenSetup{width:100%;height:100%;overflow-y:auto;display:flex;align-items:center;justify-content:center;padding:30px 20px;background:var(--bg);}
 #screenAuth{display:flex;width:100%;height:100%;overflow:auto;}
 #appShell{display:none;width:100%;height:100%;flex-direction:column;overflow:hidden;}
 #appShell.active{display:flex;}
 
-/* ══ SETUP SCREEN ══ */
-.setup-card{width:100%;max-width:480px;background:var(--card);border:1px solid var(--border);border-radius:24px;padding:32px 28px;}
-.setup-logo{display:flex;align-items:center;gap:10px;margin-bottom:28px;}
-.setup-logo-icon{width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;}
-.setup-logo-name{font-family:'Syne',sans-serif;font-weight:800;font-size:1.5rem;}
-.setup-title{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:6px;}
-.setup-sub{color:var(--sub);font-size:0.88rem;line-height:1.6;margin-bottom:24px;}
-.setup-step{margin-bottom:18px;padding:14px;background:var(--elevated);border-radius:14px;border:1px solid var(--border);}
-.setup-step-num{font-size:0.72rem;font-weight:700;color:var(--a1);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:5px;}
-.setup-step-title{font-weight:600;font-size:0.93rem;margin-bottom:4px;}
-.setup-step-sub{color:var(--sub);font-size:0.82rem;line-height:1.5;}
-.setup-step-sub a{color:var(--a1);cursor:pointer;text-decoration:none;}
-.setup-fg{position:relative;margin:10px 0 4px;}
-.setup-input{width:100%;padding:11px 14px;background:var(--bg);border:1px solid var(--border);border-radius:12px;color:var(--text);font-size:0.9rem;outline:none;transition:border-color 0.2s;}
-.setup-input:focus{border-color:var(--a1);}
-.setup-input::placeholder{color:var(--muted);}
-.setup-btn{width:100%;padding:13px;border:none;border-radius:12px;color:white;font-size:0.95rem;font-weight:700;cursor:pointer;margin-top:16px;display:flex;align-items:center;justify-content:center;gap:8px;transition:opacity 0.2s;}
-.setup-btn:hover{opacity:0.88;}
-.setup-err{color:#ff4466;font-size:0.8rem;margin-top:6px;display:none;}
-.setup-ok{color:#00e676;font-size:0.8rem;margin-top:6px;display:none;}
-
 /* ══ AUTH ══ */
 .auth-left{flex:1;display:none;flex-direction:column;justify-content:center;align-items:center;padding:60px 40px;border-right:1px solid var(--border);}
 @media(min-width:860px){.auth-left{display:flex;}}
-.auth-mockup{width:230px;background:var(--card);border:1px solid var(--border);border-radius:36px;padding:18px;box-shadow:0 40px 80px rgba(0,0,0,0.5),0 0 0 6px var(--card);animation:phoneFloat 5s ease-in-out infinite;}
+.auth-mockup{width:230px;background:var(--card);border:1px solid var(--border);border-radius:36px;padding:18px;box-shadow:0 40px 80px rgba(0,0,0,0.5);animation:phoneFloat 5s ease-in-out infinite;}
 @keyframes phoneFloat{0%,100%{transform:translateY(0) rotate(-2deg);}50%{transform:translateY(-16px) rotate(-2deg);}}
 .mock-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
 .mock-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:0.9rem;}
@@ -82,8 +55,8 @@ input,textarea,button,select{font-family:'DM Sans',sans-serif;}
 .auth-step{display:none;}.auth-step.active{display:block;}
 .fg{position:relative;margin-bottom:11px;}
 .fi{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:0.87rem;opacity:0.38;pointer-events:none;}
-.fg input{width:100%;padding:12px 12px 12px 37px;background:var(--elevated);border:1px solid var(--border);border-radius:12px;color:var(--text);font-size:0.9rem;outline:none;transition:border-color 0.2s,box-shadow 0.2s;}
-.fg input:focus{border-color:var(--a1);box-shadow:0 0 0 3px rgba(79,142,255,0.1);}
+.fg input{width:100%;padding:12px 12px 12px 37px;background:var(--elevated);border:1px solid var(--border);border-radius:12px;color:var(--text);font-size:0.9rem;outline:none;transition:border-color 0.2s;}
+.fg input:focus{border-color:var(--a1);}
 .fg input::placeholder{color:var(--muted);}
 .fg small{display:block;color:var(--sub);font-size:0.74rem;margin-top:3px;padding-left:2px;}
 .pfp-area{width:100%;padding:16px;background:var(--elevated);border:2px dashed var(--border);border-radius:14px;text-align:center;cursor:pointer;margin-bottom:11px;transition:border-color 0.2s;}
@@ -98,29 +71,28 @@ input,textarea,button,select{font-family:'DM Sans',sans-serif;}
 @keyframes spin{to{transform:rotate(360deg);}}
 .auth-hint{text-align:center;margin-top:11px;color:var(--sub);font-size:0.81rem;}
 .auth-hint a{color:var(--a1);cursor:pointer;}
-.back-btn{display:flex;align-items:center;gap:5px;background:none;border:none;color:var(--sub);cursor:pointer;font-size:0.84rem;margin-bottom:12px;transition:color 0.2s;}
-.back-btn:hover{color:var(--text);}
-.err-msg{color:#ff4466;font-size:0.79rem;margin-top:4px;display:none;}
+.back-btn{display:flex;align-items:center;gap:5px;background:none;border:none;color:var(--sub);cursor:pointer;font-size:0.84rem;margin-bottom:12px;}
+.err-msg{color:var(--red);font-size:0.79rem;margin-top:4px;display:none;}
 
-/* ══ APP NAVBAR ══ */
+/* ══ APP SHELL ══ */
 .navbar{flex-shrink:0;background:var(--nav-bg);backdrop-filter:blur(20px);padding:11px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;z-index:900;}
 .nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.35rem;}
-.nav-right{display:flex;align-items:center;gap:11px;}
+.nav-right{display:flex;align-items:center;gap:10px;}
 .nav-pfp{width:33px;height:33px;border-radius:50%;object-fit:cover;cursor:pointer;border:2px solid var(--a1);}
-.nav-icon-btn{width:33px;height:33px;border-radius:50%;background:var(--elevated);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:0.9rem;transition:background 0.2s;}
+.nav-icon-btn{width:33px;height:33px;border-radius:50%;background:var(--elevated);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:0.9rem;transition:background 0.2s;position:relative;}
 .nav-icon-btn:hover{background:var(--card);}
-
-/* ══ LAYOUT ══ */
+.notif-badge{position:absolute;top:-2px;right:-2px;width:16px;height:16px;border-radius:50%;background:var(--red);font-size:0.6rem;font-weight:700;color:white;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg);}
+.realtime-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:20px;background:rgba(0,230,118,0.1);border:1px solid rgba(0,230,118,0.2);font-size:0.69rem;color:var(--green);}
+.realtime-dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
 .content-area{flex:1;overflow:hidden;position:relative;}
 .page{position:absolute;inset:0;overflow-y:auto;display:none;}
 .page.active{display:block;}
 .msg-page{position:absolute;inset:0;display:none;flex-direction:column;}
 .msg-page.active{display:flex;}
-
-/* ══ BOTTOM NAV ══ */
 .bottom-nav{flex-shrink:0;background:var(--nav-bg);backdrop-filter:blur(20px);border-top:1px solid var(--border);display:flex;justify-content:space-around;align-items:center;padding:10px 8px 18px;z-index:900;}
-.nav-tab{display:flex;flex-direction:column;align-items:center;cursor:pointer;color:var(--muted);padding:5px 13px;border-radius:12px;transition:color 0.2s;gap:2px;}
-.nav-tab svg{width:23px;height:23px;}
+.nav-tab{display:flex;flex-direction:column;align-items:center;cursor:pointer;color:var(--muted);padding:5px 12px;border-radius:12px;transition:color 0.2s;gap:2px;}
+.nav-tab svg{width:22px;height:22px;}
 .nav-tab.active{color:var(--a1);}
 .nav-tab .dot{width:4px;height:4px;border-radius:50%;background:var(--a1);opacity:0;transition:0.2s;}
 .nav-tab.active .dot{opacity:1;}
@@ -129,60 +101,90 @@ input,textarea,button,select{font-family:'DM Sans',sans-serif;}
 
 /* ══ HOME ══ */
 .stories-row{display:flex;gap:12px;padding:12px 14px 10px;overflow-x:auto;scrollbar-width:none;background:linear-gradient(to bottom,var(--card),transparent);border-bottom:1px solid var(--border);}
-.story-item{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;min-width:54px;}
-.story-ring{width:54px;height:54px;border-radius:50%;padding:2.5px;background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);}
+.stories-row::-webkit-scrollbar{display:none;}
+.story-item{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;min-width:56px;}
+.story-ring{width:56px;height:56px;border-radius:50%;padding:2.5px;background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);}
+.story-ring.unseen{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);}
+.story-ring.seen{background:var(--muted);}
 .story-ring.add-ring{background:var(--elevated);border:2px dashed rgba(255,255,255,0.15);padding:0;}
 .story-ring img{width:100%;height:100%;border-radius:50%;border:2.5px solid var(--bg);object-fit:cover;display:block;}
-.story-name{font-size:0.66rem;color:var(--sub);max-width:54px;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.story-name{font-size:0.66rem;color:var(--sub);max-width:56px;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 
-/* Posts feed */
-.post-card{background:var(--card);border:1px solid var(--border);border-radius:18px;margin:10px 12px;overflow:hidden;animation:fadeUp 0.35s ease both;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+/* ══ POSTS ══ */
+.post-card{background:var(--card);border:1px solid var(--border);border-radius:18px;margin:10px 12px;overflow:hidden;animation:fadeUp 0.3s ease both;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
 .post-header{padding:12px 14px;display:flex;align-items:center;justify-content:space-between;}
-.post-user{display:flex;align-items:center;gap:9px;}
+.post-user{display:flex;align-items:center;gap:9px;cursor:pointer;}
 .post-ava{width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid var(--a1);}
 .post-uname{font-weight:600;font-size:0.9rem;}
-.post-time{font-size:0.72rem;color:var(--muted);margin-top:1px;}
-.post-img{width:100%;display:block;max-height:460px;object-fit:cover;}
-.post-actions{padding:10px 14px 6px;display:flex;align-items:center;gap:4px;}
-.act-btn{background:none;border:none;cursor:pointer;padding:7px 9px;border-radius:10px;color:var(--sub);font-size:1rem;transition:all 0.15s;display:flex;align-items:center;gap:5px;}
+.post-time-lbl{font-size:0.71rem;color:var(--muted);margin-top:1px;}
+.post-img{width:100%;display:block;max-height:480px;object-fit:cover;}
+.post-actions{padding:10px 14px 6px;display:flex;align-items:center;gap:2px;}
+.act-btn{background:none;border:none;cursor:pointer;padding:7px 10px;border-radius:10px;color:var(--sub);font-size:1rem;transition:all 0.15s;display:flex;align-items:center;gap:5px;}
 .act-btn:hover{background:var(--elevated);color:var(--text);}
-.act-btn.liked{color:#ff4466;}
-.act-cnt{font-size:0.8rem;font-weight:500;}
-.post-caption{padding:4px 14px 12px;font-size:0.87rem;line-height:1.55;color:var(--sub);}
+.act-btn.liked{color:var(--red);}
+.act-cnt{font-size:0.8rem;font-weight:500;color:var(--sub);}
+.act-btn.liked .act-cnt{color:var(--red);}
+.post-caption{padding:2px 14px 10px;font-size:0.87rem;line-height:1.55;color:var(--sub);}
 .post-caption strong{color:var(--text);}
-.post-comments{padding:0 14px 12px;}
+.comments-wrap{border-top:1px solid var(--border);padding:10px 14px;}
 .comment-row{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;}
 .comment-ava{width:26px;height:26px;border-radius:50%;object-fit:cover;flex-shrink:0;}
-.comment-text{font-size:0.83rem;line-height:1.5;color:var(--sub);}
-.comment-text strong{color:var(--text);}
-.comment-input-row{display:flex;align-items:center;gap:8px;padding:8px 14px;border-top:1px solid var(--border);}
+.comment-bubble{background:var(--elevated);padding:7px 12px;border-radius:14px;font-size:0.83rem;line-height:1.5;color:var(--text);}
+.comment-bubble strong{color:var(--a1);}
+.comment-input-row{display:flex;align-items:center;gap:8px;margin-top:8px;}
 .comment-field{flex:1;background:var(--elevated);border:1px solid var(--border);border-radius:20px;padding:8px 13px;color:var(--text);font-size:0.84rem;outline:none;transition:border-color 0.2s;}
 .comment-field:focus{border-color:var(--a1);}
 .comment-field::placeholder{color:var(--muted);}
-.comment-send{width:32px;height:32px;border-radius:50%;border:none;color:white;cursor:pointer;font-size:0.85rem;display:flex;align-items:center;justify-content:center;transition:transform 0.15s;flex-shrink:0;}
-.comment-send:hover{transform:scale(1.08);}
-
+.comment-send{width:32px;height:32px;border-radius:50%;border:none;color:white;cursor:pointer;font-size:0.85rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .empty-state{text-align:center;padding:56px 28px;display:flex;flex-direction:column;align-items:center;gap:11px;}
 .empty-icon{font-size:2.8rem;opacity:0.5;}
 .empty-title{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;}
 .empty-sub{color:var(--sub);font-size:0.85rem;line-height:1.6;max-width:240px;}
 .empty-cta{padding:10px 20px;border-radius:12px;border:none;color:white;font-weight:600;cursor:pointer;font-size:0.87rem;margin-top:4px;}
 
+/* ══ REELS ══ */
+.reels-container{position:absolute;inset:0;overflow-y:scroll;scroll-snap-type:y mandatory;scrollbar-width:none;}
+.reels-container::-webkit-scrollbar{display:none;}
+.reel-item{height:100%;scroll-snap-align:start;position:relative;background:#000;display:flex;align-items:center;justify-content:center;}
+.reel-video{width:100%;height:100%;object-fit:cover;}
+.reel-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.7) 0%,transparent 50%);}
+.reel-info{position:absolute;bottom:80px;left:14px;right:60px;}
+.reel-uname{font-weight:700;font-size:0.95rem;color:white;margin-bottom:4px;}
+.reel-caption{font-size:0.85rem;color:rgba(255,255,255,0.85);line-height:1.5;}
+.reel-actions{position:absolute;bottom:80px;right:12px;display:flex;flex-direction:column;gap:18px;align-items:center;}
+.reel-act{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;}
+.reel-act-icon{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.15);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;font-size:1.2rem;transition:transform 0.15s;}
+.reel-act-icon:hover{transform:scale(1.1);}
+.reel-act-label{font-size:0.7rem;color:white;font-weight:600;}
+.reel-ava{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid white;}
+.reels-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:14px;color:var(--sub);}
+.reels-upload-btn{position:fixed;bottom:90px;right:16px;z-index:100;width:52px;height:52px;border-radius:50%;border:none;color:white;font-size:1.5rem;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;}
+
 /* ══ EXPLORE ══ */
-.exp-search-wrap{padding:12px 14px;}
+.exp-tabs{display:flex;padding:10px 14px 0;gap:8px;border-bottom:1px solid var(--border);}
+.exp-tab{padding:8px 16px;border-radius:20px;border:none;background:transparent;color:var(--muted);font-size:0.84rem;font-weight:500;cursor:pointer;transition:all 0.2s;}
+.exp-tab.active{background:var(--elevated);color:var(--text);}
+.exp-search-wrap{padding:10px 14px 6px;}
 .exp-search{display:flex;align-items:center;gap:9px;background:var(--elevated);border:1px solid var(--border);border-radius:14px;padding:10px 15px;transition:border-color 0.2s;}
 .exp-search:focus-within{border-color:var(--a1);}
 .exp-search input{flex:1;background:none;border:none;color:var(--text);font-size:0.9rem;outline:none;}
 .exp-search input::placeholder{color:var(--muted);}
 .people-item{display:flex;align-items:center;gap:11px;padding:10px 15px;}
-.people-ava{width:44px;height:44px;border-radius:50%;object-fit:cover;flex-shrink:0;}
+.people-ava-wrap{position:relative;}
+.people-ava{width:46px;height:46px;border-radius:50%;object-fit:cover;flex-shrink:0;}
+.online-ring{position:absolute;bottom:1px;right:1px;width:12px;height:12px;border-radius:50%;border:2px solid var(--bg);}
 .people-info{flex:1;}
 .people-name{font-weight:600;font-size:0.9rem;}
 .people-sub{font-size:0.77rem;color:var(--sub);}
 .follow-btn-ui{padding:6px 14px;border-radius:9px;font-weight:600;font-size:0.79rem;cursor:pointer;transition:all 0.2s;border:1px solid var(--a1);background:transparent;color:var(--a1);}
 .follow-btn-ui.following{background:var(--elevated);border-color:var(--border);color:var(--sub);}
 .dm-btn-ui{padding:6px 11px;border-radius:9px;font-weight:600;font-size:0.79rem;cursor:pointer;background:var(--elevated);border:1px solid var(--border);color:var(--text);margin-left:5px;}
+.posts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;padding:2px;}
+.grid-img{aspect-ratio:1;overflow:hidden;cursor:pointer;position:relative;}
+.grid-img img,.grid-img video{width:100%;height:100%;object-fit:cover;transition:transform 0.2s;}
+.grid-img:hover img,.grid-img:hover video{transform:scale(1.05);}
+.grid-reel-badge{position:absolute;top:5px;right:5px;font-size:0.75rem;}
 
 /* ══ MESSAGES ══ */
 .inbox-view{flex:1;overflow-y:auto;}
@@ -192,7 +194,7 @@ input,textarea,button,select{font-family:'DM Sans',sans-serif;}
 .inbox-item:hover{background:var(--elevated);}
 .ib-ava{width:46px;height:46px;border-radius:50%;object-fit:cover;flex-shrink:0;position:relative;}
 .ib-bot-ava{width:46px;height:46px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.25rem;position:relative;}
-.online-dot{position:absolute;bottom:1px;right:1px;width:10px;height:10px;border-radius:50%;background:#00e676;border:2px solid var(--bg);}
+.online-dot-abs{position:absolute;bottom:1px;right:1px;width:10px;height:10px;border-radius:50%;border:2px solid var(--bg);}
 .ib-info{flex:1;overflow:hidden;}
 .ib-name{font-weight:600;font-size:0.91rem;}
 .ib-preview{color:var(--sub);font-size:0.79rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
@@ -202,6 +204,8 @@ input,textarea,button,select{font-family:'DM Sans',sans-serif;}
 .api-row{display:flex;gap:7px;margin-top:8px;}
 .api-field{flex:1;background:var(--elevated);border:1px solid var(--border);border-radius:10px;color:var(--text);padding:8px 11px;font-size:0.81rem;outline:none;}
 .api-save{padding:8px 13px;border-radius:10px;border:none;color:white;font-size:0.79rem;font-weight:600;cursor:pointer;}
+
+/* ══ CHAT ══ */
 .chat-view{display:none;flex-direction:column;flex:1;min-height:0;}
 .chat-view.active{display:flex;}
 .chat-top{flex-shrink:0;padding:10px 13px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:11px;background:var(--nav-bg);backdrop-filter:blur(14px);}
@@ -209,16 +213,15 @@ input,textarea,button,select{font-family:'DM Sans',sans-serif;}
 .chat-ava-sm{width:35px;height:35px;border-radius:50%;object-fit:cover;flex-shrink:0;}
 .chat-ava-bot{width:35px;height:35px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0;}
 .chat-top-name{font-weight:700;font-size:0.91rem;}
-.chat-top-status{font-size:0.71rem;color:#00e676;}
+.chat-top-status{font-size:0.71rem;}
 .chat-messages{flex:1;overflow-y:auto;padding:13px;display:flex;flex-direction:column;gap:9px;min-height:0;}
 .msg-row{display:flex;align-items:flex-end;gap:7px;max-width:80%;}
 .msg-row.sent{align-self:flex-end;flex-direction:row-reverse;}
 .msg-ava-sm{width:23px;height:23px;border-radius:50%;object-fit:cover;flex-shrink:0;}
 .msg-ava-bot{width:23px;height:23px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.62rem;flex-shrink:0;}
-.msg-bubble{background:var(--elevated);padding:9px 13px;border-radius:18px;border-bottom-left-radius:4px;font-size:0.87rem;line-height:1.55;word-wrap:break-word;max-width:100%;}
-.msg-row.sent .msg-bubble{border-bottom-left-radius:18px;border-bottom-right-radius:4px;color:white;}
+.msg-bubble{background:var(--elevated);padding:9px 13px;border-radius:18px;border-bottom-left-radius:4px;font-size:0.87rem;line-height:1.55;word-wrap:break-word;max-width:100%;color:var(--text);}
+.msg-row.sent .msg-bubble{background:linear-gradient(135deg,var(--a1),var(--a2));border-bottom-left-radius:18px;border-bottom-right-radius:4px;color:white;}
 .msg-time{font-size:0.64rem;color:var(--muted);margin-top:2px;}
-.msg-row.sent .msg-time{text-align:left;}
 .typing-ind{display:flex;gap:4px;padding:9px 13px;background:var(--elevated);border-radius:18px;border-bottom-left-radius:4px;width:fit-content;}
 .t-dot{width:6px;height:6px;background:var(--sub);border-radius:50%;animation:tb 1.2s ease-in-out infinite;}
 .t-dot:nth-child(2){animation-delay:0.15s;}.t-dot:nth-child(3){animation-delay:0.3s;}
@@ -227,16 +230,17 @@ input,textarea,button,select{font-family:'DM Sans',sans-serif;}
 .chat-input-field{flex:1;background:var(--elevated);border:1px solid var(--border);border-radius:22px;padding:10px 15px;color:var(--text);font-size:0.89rem;outline:none;resize:none;max-height:88px;line-height:1.5;transition:border-color 0.2s;}
 .chat-input-field:focus{border-color:var(--a1);}
 .chat-input-field::placeholder{color:var(--muted);}
-.chat-send-btn{width:40px;height:40px;border-radius:50%;border:none;color:white;cursor:pointer;font-size:0.92rem;display:flex;align-items:center;justify-content:center;transition:transform 0.15s,opacity 0.15s;flex-shrink:0;}
+.chat-send-btn{width:40px;height:40px;border-radius:50%;border:none;color:white;cursor:pointer;font-size:0.92rem;display:flex;align-items:center;justify-content:center;transition:transform 0.15s;flex-shrink:0;}
 .chat-send-btn:hover{transform:scale(1.08);}
 .chat-send-btn:disabled{opacity:0.4;}
+.shared-reel-preview{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px;margin-top:6px;font-size:0.8rem;color:var(--sub);cursor:pointer;}
 
 /* ══ PROFILE ══ */
 .profile-wrap{padding:14px 15px 14px;}
 .profile-top{display:flex;align-items:center;gap:15px;margin-bottom:11px;}
 .p-ava-wrap{position:relative;cursor:pointer;}
-.p-ava{width:70px;height:70px;border-radius:50%;object-fit:cover;border:3px solid var(--a1);}
-.p-ava-badge{position:absolute;bottom:1px;right:1px;width:19px;height:19px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.62rem;border:2px solid var(--bg);}
+.p-ava{width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid var(--a1);}
+.p-ava-badge{position:absolute;bottom:1px;right:1px;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.62rem;border:2px solid var(--bg);}
 .profile-stats{display:flex;gap:16px;}
 .stat{text-align:center;}
 .stat-n{font-family:'Syne',sans-serif;font-size:1.08rem;font-weight:700;}
@@ -247,39 +251,57 @@ input,textarea,button,select{font-family:'DM Sans',sans-serif;}
 .p-btn{padding:9px 13px;border-radius:10px;font-weight:600;font-size:0.83rem;cursor:pointer;transition:all 0.2s;}
 .p-btn.primary{border:none;color:white;}
 .p-btn.sec{background:var(--elevated);border:1px solid var(--border);color:var(--text);}
-.p-btn.danger{background:var(--elevated);border:1px solid #ff4466;color:#ff4466;}
+.p-btn.danger{background:var(--elevated);border:1px solid var(--red);color:var(--red);}
 .profile-grid-tabs{display:flex;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-top:9px;}
 .grid-tab{flex:1;padding:12px;text-align:center;cursor:pointer;color:var(--muted);font-size:0.95rem;border-bottom:2px solid transparent;transition:all 0.2s;}
 .grid-tab.active{color:var(--text);border-bottom-color:var(--a1);}
-.profile-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;padding:2px;}
-.grid-img{aspect-ratio:1;overflow:hidden;cursor:pointer;}
-.grid-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.2s;}
-.grid-img:hover img{transform:scale(1.05);}
 .p-empty-grid{text-align:center;padding:30px 18px;color:var(--sub);font-size:0.85rem;}
 .edit-wrap{padding:10px 15px 14px;}
 .bio-area{width:100%;background:var(--elevated);border:1px solid var(--border);border-radius:12px;color:var(--text);padding:10px 12px;font-size:0.84rem;resize:none;outline:none;line-height:1.6;transition:border-color 0.2s;}
 .bio-area:focus{border-color:var(--a1);}
 
+/* ══ NOTIFICATIONS ══ */
+.notif-item{display:flex;align-items:center;gap:11px;padding:12px 15px;border-bottom:1px solid var(--border);cursor:pointer;transition:background 0.15s;}
+.notif-item:hover{background:var(--elevated);}
+.notif-item.unread{background:rgba(79,142,255,0.04);}
+.notif-ava{width:40px;height:40px;border-radius:50%;object-fit:cover;flex-shrink:0;}
+.notif-text{flex:1;font-size:0.85rem;line-height:1.5;color:var(--sub);}
+.notif-text strong{color:var(--text);}
+.notif-time{font-size:0.69rem;color:var(--muted);flex-shrink:0;}
+.notif-img{width:36px;height:36px;border-radius:8px;object-fit:cover;flex-shrink:0;}
+
 /* ══ SETTINGS PANEL ══ */
 .settings-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.65);backdrop-filter:blur(4px);z-index:1500;display:flex;justify-content:flex-end;}
-.settings-panel{width:310px;max-width:88vw;height:100%;background:var(--card);border-left:1px solid var(--border);overflow-y:auto;animation:slideR 0.26s ease;}
+.settings-panel{width:320px;max-width:90vw;height:100%;background:var(--card);border-left:1px solid var(--border);overflow-y:auto;animation:slideR 0.26s ease;}
 @keyframes slideR{from{transform:translateX(100%);}to{transform:translateX(0);}}
 .settings-header{padding:18px 16px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
 .settings-title{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;}
 .settings-close{background:none;border:none;color:var(--sub);cursor:pointer;font-size:1.25rem;}
 .settings-section{padding:14px 16px 8px;}
 .settings-section-title{font-size:0.71rem;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:9px;}
-.theme-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
-.theme-card{padding:11px 9px;border-radius:12px;cursor:pointer;border:2px solid transparent;transition:all 0.2s;background:var(--elevated);text-align:center;}
+
+/* Theme grid */
+.theme-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:12px;}
+.theme-card{padding:10px 8px;border-radius:12px;cursor:pointer;border:2px solid transparent;transition:all 0.2s;text-align:center;}
 .theme-card.active{border-color:var(--a1);}
 .theme-card:hover{border-color:var(--sub);}
-.theme-swatch{display:flex;gap:3px;justify-content:center;margin-bottom:6px;}
-.swatch{width:16px;height:16px;border-radius:5px;}
-.theme-name{font-size:0.72rem;font-weight:600;color:var(--text);}
+.theme-swatch{display:flex;gap:3px;justify-content:center;margin-bottom:5px;}
+.swatch{width:15px;height:15px;border-radius:4px;}
+.theme-name{font-size:0.7rem;font-weight:600;color:var(--text);}
+
+/* Custom theme builder */
+.custom-theme-builder{background:var(--elevated);border-radius:14px;padding:13px;border:1px solid var(--border);}
+.ctb-title{font-size:0.82rem;font-weight:600;margin-bottom:10px;}
+.color-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;}
+.color-label{font-size:0.79rem;color:var(--sub);}
+.color-pick{width:36px;height:28px;border-radius:8px;border:1px solid var(--border);cursor:pointer;padding:2px;background:var(--bg);}
+.ctb-preview{display:flex;gap:6px;margin:10px 0;}
+.ctb-swatch{flex:1;height:24px;border-radius:8px;}
+.apply-theme-btn{width:100%;padding:9px;border:none;border-radius:10px;color:white;font-size:0.83rem;font-weight:600;cursor:pointer;margin-top:4px;}
 
 /* ══ MODALS ══ */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);z-index:1200;display:flex;align-items:flex-end;justify-content:center;}
-.modal-sheet{background:var(--card);border-radius:22px 22px 0 0;width:100%;max-width:600px;padding:17px;border:1px solid var(--border);border-bottom:none;animation:sheetUp 0.26s ease;}
+.modal-sheet{background:var(--card);border-radius:22px 22px 0 0;width:100%;max-width:640px;padding:17px;border:1px solid var(--border);border-bottom:none;animation:sheetUp 0.26s ease;}
 @keyframes sheetUp{from{transform:translateY(100%);}to{transform:translateY(0);}}
 .modal-handle{width:36px;height:4px;background:var(--border);border-radius:4px;margin:0 auto 14px;}
 .modal-title{font-family:'Syne',sans-serif;font-size:1.02rem;font-weight:700;text-align:center;margin-bottom:12px;}
@@ -287,6 +309,7 @@ input,textarea,button,select{font-family:'DM Sans',sans-serif;}
 .modal-opt:hover{background:var(--elevated);}
 .modal-cancel-btn{width:100%;margin-top:6px;padding:11px;border:1px solid var(--border);border-radius:12px;background:var(--elevated);color:var(--text);font-size:0.89rem;cursor:pointer;}
 .post-prev-img{width:100%;max-height:200px;object-fit:cover;border-radius:12px;display:none;margin-bottom:9px;}
+.post-prev-vid{width:100%;max-height:200px;border-radius:12px;display:none;margin-bottom:9px;}
 .caption-in{width:100%;background:var(--elevated);border:1px solid var(--border);border-radius:12px;color:var(--text);padding:9px 12px;font-size:0.85rem;outline:none;resize:none;height:66px;transition:border-color 0.2s;margin-bottom:9px;}
 .caption-in:focus{border-color:var(--a1);}
 
@@ -294,103 +317,30 @@ input,textarea,button,select{font-family:'DM Sans',sans-serif;}
 .toast{position:fixed;bottom:88px;left:50%;transform:translateX(-50%) translateY(14px);background:var(--elevated);border:1px solid var(--border);padding:10px 17px;border-radius:28px;font-size:0.83rem;z-index:3000;opacity:0;transition:all 0.26s;white-space:nowrap;backdrop-filter:blur(12px);max-width:88vw;text-align:center;pointer-events:none;}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
-/* Realtime indicator */
-.realtime-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:20px;background:rgba(0,230,118,0.12);border:1px solid rgba(0,230,118,0.25);font-size:0.71rem;color:#00e676;}
-.realtime-dot{width:6px;height:6px;border-radius:50%;background:#00e676;animation:pulse 2s infinite;}
-@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
-.offline-banner{background:rgba(255,68,102,0.1);border:1px solid rgba(255,68,102,0.2);border-radius:10px;padding:8px 13px;margin:6px 13px;font-size:0.81rem;color:#ff4466;text-align:center;display:none;}
+/* Story viewer */
+.story-viewer{position:fixed;inset:0;background:#000;z-index:2000;display:flex;flex-direction:column;}
+.story-progress{display:flex;gap:3px;padding:12px 12px 6px;}
+.story-prog-bar{flex:1;height:3px;background:rgba(255,255,255,0.3);border-radius:2px;overflow:hidden;}
+.story-prog-fill{height:100%;background:white;width:0%;transition:width linear;}
+.story-top{display:flex;align-items:center;gap:10px;padding:6px 12px 10px;}
+.story-close{background:none;border:none;color:white;font-size:1.3rem;cursor:pointer;margin-left:auto;}
+.story-media{flex:1;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.story-media img,.story-media video{max-width:100%;max-height:100%;object-fit:contain;}
 </style>
 </head>
-<body data-theme="dark-purple">
-
-<!-- ══ SETUP SCREEN (shown once) ══ -->
-<div id="screenSetup" style="display:none">
-  <div class="setup-card">
-    <div class="setup-logo">
-      <div class="setup-logo-icon grad-bg" style="color:white;">✦</div>
-      <span class="setup-logo-name grad-text">NextGen</span>
-    </div>
-    <div class="setup-title">Connect to Firebase 🔥</div>
-    <div class="setup-sub">One-time setup — karke rakh lo, phir kabhi nahi karni. Bas 5 minute lagenge!</div>
-
-    <div class="setup-step">
-      <div class="setup-step-num">Step 1</div>
-      <div class="setup-step-title">Firebase project banao</div>
-      <div class="setup-step-sub">
-        <a href="https://console.firebase.google.com" target="_blank">console.firebase.google.com</a> pe jao → 
-        "Add project" → Project naam rakho (e.g. "nextgen-social") → Continue → Continue → Create project
-      </div>
-    </div>
-
-    <div class="setup-step">
-      <div class="setup-step-num">Step 2</div>
-      <div class="setup-step-title">Web app register karo</div>
-      <div class="setup-step-sub">
-        Project open karo → "&lt;/&gt;" icon (Web) click karo → App nickname rakho → 
-        "Register app" → <strong>firebaseConfig wala saara code copy karo</strong> (apiKey se lekar measurementId tak)
-      </div>
-    </div>
-
-    <div class="setup-step">
-      <div class="setup-step-num">Step 3</div>
-      <div class="setup-step-title">Realtime Database enable karo</div>
-      <div class="setup-step-sub">
-        Left sidebar → Build → Realtime Database → "Create Database" → 
-        Location: us-central1 → <strong>"Start in test mode"</strong> choose karo → Enable
-      </div>
-    </div>
-
-    <div class="setup-step">
-      <div class="setup-step-num">Step 4</div>
-      <div class="setup-step-title">Config yahan paste karo</div>
-      <div class="setup-step-sub">firebaseConfig object se values copy karke neeche fill karo:</div>
-      <div class="setup-fg"><input class="setup-input" id="cfg_apiKey" placeholder="apiKey (AIzaSy...)"></div>
-      <div class="setup-fg"><input class="setup-input" id="cfg_authDomain" placeholder="authDomain (xyz.firebaseapp.com)"></div>
-      <div class="setup-fg"><input class="setup-input" id="cfg_dbUrl" placeholder="databaseURL (https://xyz-default-rtdb.firebaseio.com)"></div>
-      <div class="setup-fg"><input class="setup-input" id="cfg_projectId" placeholder="projectId (xyz-12345)"></div>
-      <div class="setup-step-sub" style="margin-top:6px;">⚠️ databaseURL field khali hai toh Firebase console → Realtime Database → copy the URL</div>
-    </div>
-
-    <div class="setup-step">
-      <div class="setup-step-num">Step 5</div>
-      <div class="setup-step-title">Site host karo (FREE) — GitHub Pages</div>
-      <div class="setup-step-sub">
-        1. <a href="https://github.com" target="_blank">github.com</a> par account banao (agar nahi hai) <br>
-        2. New repository banao → naam rakho "nextgen-social" → Public → Create<br>
-        3. "uploading an existing file" click karo → ye HTML file drag karo → Commit<br>
-        4. Settings → Pages → Branch: main → Save<br>
-        5. <strong>Link milega: https://yourusername.github.io/nextgen-social/</strong><br>
-        6. Woh link dost ko bhejo — wo khud account banayega!
-      </div>
-    </div>
-
-    <p class="setup-err" id="setupErr"></p>
-    <p class="setup-ok" id="setupOk"></p>
-    <button class="setup-btn grad-bg" onclick="saveFirebaseConfig()">
-      <span id="setupBtnTxt">Save & Connect 🚀</span>
-      <div class="spinner-sm" id="setupSpin"></div>
-    </button>
-    <p style="text-align:center;margin-top:10px;color:var(--sub);font-size:0.78rem;">Already configured? <a style="color:var(--a1);cursor:pointer;" onclick="skipSetup()">Skip setup →</a></p>
-  </div>
-</div>
+<body>
 
 <!-- ══ AUTH ══ -->
-<div id="screenAuth" class="hidden">
+<div id="screenAuth">
   <div class="auth-left">
     <div class="auth-mockup">
-      <div class="mock-bar">
-        <span class="mock-logo grad-text">NextGen</span>
-        <span style="font-size:0.8rem">🔔 💬</span>
-      </div>
+      <div class="mock-bar"><span class="mock-logo grad-text">NextGen</span><span style="font-size:0.8rem">🔔 💬</span></div>
       <div class="mock-stories">
         <div class="mock-sdot"><img src="https://i.pravatar.cc/80?u=a1"></div>
         <div class="mock-sdot"><img src="https://i.pravatar.cc/80?u=a2"></div>
         <div class="mock-sdot"><img src="https://i.pravatar.cc/80?u=a3"></div>
       </div>
-      <div class="mock-post">
-        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&q=60">
-        <div class="mock-actions">❤️ 2.4k &nbsp;💬 48 &nbsp;🔖</div>
-      </div>
+      <div class="mock-post"><img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&q=60"><div class="mock-actions">❤️ 2.4k &nbsp;💬 48 &nbsp;🔖</div></div>
     </div>
     <div class="auth-tagline grad-text">Share your world.<br>Connect. Create. Vibe.</div>
   </div>
@@ -456,17 +406,20 @@ input,textarea,button,select{font-family:'DM Sans',sans-serif;}
   </div>
 </div>
 
-<!-- ══ APP SHELL ══ -->
+<!-- ══ APP ══ -->
 <div id="appShell">
   <div class="navbar">
     <span class="nav-logo grad-text">NextGen</span>
     <div class="nav-right">
       <div class="realtime-badge"><div class="realtime-dot"></div>Live</div>
+      <div class="nav-icon-btn" onclick="navigateTo('notifications')" id="notifBtn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+        <div class="notif-badge hidden" id="notifBadge">0</div>
+      </div>
       <div class="nav-icon-btn" onclick="openSettings()">⚙️</div>
       <img class="nav-pfp" id="navPfp" src="data:image/jpeg;base64,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zzzzzzzwTzzzzzzzzzzzzzwjTzzzzzzzzzzzzzzzzzzzzzzzzzzzzxTzzzzzzzzzzzzzyhzzzzzzzzzzzzzzzzzzzzzzzzzzzzxTzzzzzzzzzzzzzzzzDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzxjzzzzzzzzzzzzzzzzzzzzzzzzzzzyzzzzzzzzzzzzzzzzwzzzzzzzzzzzzzzzzzzzzzzzzzzzzxDTzzzzzzzzzzzzzzjjzzzzzzzzzzzzzzzzzzzzzzzzzzzzxTzzzzzzzzzzzzzyjTzzzzzzzzzzzzzzzzzzzzzzzzzzzzhjzzzzzzzzzzzzzyDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzjzzzzzzzzzzzzzgzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzTTzzzzzzzzzzjBzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzywzzzzzzzzzzwwzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzxxzzzzzzyxxzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzxDjCjzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzjCgARTDDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzjRzxzzxwzxjDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzyQgTzzzzzzzzywizDzzzzzzzzzzzzzzzzzzzzzzzzzzzzySTzzzzzzzzzzzzzxhDzzzzzzzzzzzzzzzzzzzzzzzzzzgyTzzzzzzzzzzzzzzzxhzzzzzzzzzzzzzzzzzzzzzzzzzhSzzzzzzzzzzzzzzzzzzxyjzzzzzzzzzzzzzzzzzzzzzzzTTzzzzzzzzzzzzzzzzzzzzhjzzzzzzzzzzzzzzzzzzzzyhTzzzzzzzzzzzzzzzzzzzzzyjzTzzzzzzzzzzzzzzzzzyxTzzzzzzzzzzzzzzzzzzzzzzzxjzzzzzzzzzzzzzzzzzzyjzzzzzzzzzzzzzzzzzzzzzzzzywDzzzzzzzzzzzzzzzzziDzzzzzzzzzzzzzzzzzzzzzzzzzwjTzzzzzzzzzzzzzzzzTTzzzzzzzzzzzzzzzzzzzzzzzzzzzDzzzzzzzzzzzzzzzwzzzzzzzzzzzzzzzzzzzzzzzzzzzzwjzzzzzzzzzzzzzzzhzzzzzzzzzzzzzzzzzzzzzzzzzzzzyjzzzzzzzzzzzzzzzxzzzzzzzzzzzzzzzzzzzzzzzzzzzzyzjzzzzzzz/xAAUEQEAAAAAAAAAAAAAAAAAAACw/9oACAEDAQE/EARP/8QAFBEBAAAAAAAAAAAAAAAAAAAAsP/aAAgBAgEBPxAET//EACsQAQACAQMEAgEEAQUAAAAAAAEAETEhUHFAQVFhYKGBECAwkcFwsLHR8P/aAAgBAQABPxD/AGMqmVO8eZ+YwJ3+J4AvBNcUPLpF1S4zP+g+DFLTy3Au1iuwgVP9GaAfzc1d7nMsFb5GsTAnPw/I77mJXBDKA9y38KNwSgXz3mZSvDENU9/CrgNSs0y36h0AQx/K4lTT2QG1r1EwIkfgwXLxVecqYW5ZRKP56lHiURWYZ9iZXwQ1Yw6R9wUNAldHUVDdJmFMlYjfwN2FRf7hkFBA6VgoixjtK+6u3wIkijBJUBUOnYJixKihGvG/8TVdt19QT/u6pxFb/DDfpHSc76auk0g8HWlVQCOu+qBg1YQDA60AmoYwOzqb4EpGazXW1LQr1WO9sZmiAZoBXX3SwlTzM63u7CwWcw2BUhVNd6Jz7bE9d73knCF7DWPVxynjecXMHogNhPsCp9jefvE07CNrifad5+8TDYcnE+07z94isOwumz7DvJozWi1F7DrdVKd95HtNcuppB69Z7S0RdN6Pl7CLRebd7o90KotgZnYNb2kdMwLm2qeev15pqjmXW3PfexqAo01HMF661FmprzFt3xgWkbhEuvfrSdyYjo5V79VNTVBE06taLZeK3U7+NJUE1r7iD1K0QHS83oiquuZ238itMAilSYdOxWDb0iJLX4EQakhcWjB6VReGvhFSWvb4IHpJKB6x17yxro6GBLX/AMYuVa6w0+Crhk7w4nh9S/MfUuH818RqoRKnt8zKS/hBBSxKi08kAJB8QRl/wXLJZEAQd1l9YeWN2jO3wxC0XpmHvuhZZfhmc35ln7bl5T9XBmy+CYUP3GrTkz6PiKTCnEwU/M7wZ4RPLbgj2KZKfmJcq8/Gq/02NZXxVKlQLxMouCZVw7WnLKeH8wfb+8Es/A/oTQ0PJEppz+mcTv8ADQ7QeajWkcaxQsPbK1tneoBorg/Q/YwMF8ywbb3qHNV8wApJ4WphweamPhLtlPglRzTMBHmMACjH8tSoglJpLh0ruRI+qYlqIeT4IzXSgicAlMY9SiV0VSsMe4LdD2jtB7nG/mstCXqOC6IEACBXTMSyIgwlayybgxAFG+8d8BcS8pTlZUj7P6DHVkdHtL0FuEiJneqAbZeDt7EDQKOvAUlktvJmKA07xQVq9WCtPbMNhwmmgdrFI1ed2tg9mGge2ArY0KiASW9PR3QArO+FAoJWy1HoWPmMkKsMdwzLD0H3BYAEDZ2IgsZkMvrcLqGnPuGaTaqjA7XaLWreHbjYhA68u2GOD4Za2NsAFqwgKVqso21IlOwsYjDU2uhDweoG3pLfE1dqqdR7YAA0DG4gKcMuXzzaHFWrRBIns87megeTxG01kNmMwwQtTKGb3NzAAFJmp22VzMXrMCQbqK4imYzhofJsh3lHcNCG6ssyBozvsZPiqoOJBK3YcaYa1KrY9JtBpzDG7sppaZc7EmJqkbS2G7scINhZA2GlsWXx3goA3kWhwzR7QdONh/8AKV704lKe78bDzOv+IY3lxMTzv/Gw1Xij/cMby4gralnYGKLUFSgDtpDG8uJYD30jtFIuvpzvoTGOgf/Z" alt="" onclick="navigateTo('profile')">
     </div>
   </div>
-  <div class="offline-banner" id="offlineBanner">⚠️ Offline — messages saved locally when reconnected</div>
 
   <div class="content-area">
     <!-- HOME -->
@@ -475,40 +428,54 @@ input,textarea,button,select{font-family:'DM Sans',sans-serif;}
       <div id="feedEmpty" class="empty-state">
         <div class="empty-icon">📸</div>
         <div class="empty-title">Your feed is empty</div>
-        <div class="empty-sub">Be the first to post! Share photos and moments.</div>
-        <button class="empty-cta grad-bg" onclick="openModal('postModal')">+ Create your first post</button>
+        <div class="empty-sub">Be the first to post!</div>
+        <button class="empty-cta grad-bg" onclick="openModal('postModal')">+ Create post</button>
       </div>
       <div id="feedPosts"></div>
     </div>
 
     <!-- EXPLORE -->
     <div class="page" id="pageExplore">
-      <div class="exp-search-wrap">
-        <div class="exp-search">
-          <span style="opacity:0.38">🔍</span>
-          <input type="text" id="searchInput" placeholder="Search people by username..." oninput="searchPeople(this.value)">
+      <div class="exp-tabs">
+        <button class="exp-tab active" id="expTabPeople" onclick="switchExpTab('people')">👥 People</button>
+        <button class="exp-tab" id="expTabPosts" onclick="switchExpTab('posts')">📸 Posts</button>
+        <button class="exp-tab" id="expTabReels" onclick="switchExpTab('reels')">🎬 Reels</button>
+      </div>
+      <div id="expPeoplePane">
+        <div class="exp-search-wrap">
+          <div class="exp-search"><span style="opacity:0.38">🔍</span><input type="text" id="searchInput" placeholder="Search people..." oninput="searchPeople(this.value)"></div>
         </div>
+        <div id="searchResults"><div class="empty-state"><div class="empty-icon">👥</div><div class="empty-title">Find people</div><div class="empty-sub">Search by username.</div></div></div>
       </div>
-      <div id="searchResults">
-        <div class="empty-state"><div class="empty-icon">👥</div><div class="empty-title">Find people</div><div class="empty-sub">Search by username to follow and DM.</div></div>
+      <div id="expPostsPane" class="hidden">
+        <div class="posts-grid" id="explorePostsGrid"></div>
       </div>
+      <div id="expReelsPane" class="hidden">
+        <div class="posts-grid" id="exploreReelsGrid"></div>
+      </div>
+    </div>
+
+    <!-- REELS -->
+    <div class="page" id="pageReels">
+      <div class="reels-container" id="reelsContainer">
+        <div class="reels-empty"><div style="font-size:3rem;">🎬</div><div style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:var(--text);">No Reels Yet</div><div style="font-size:0.85rem;">Be the first to post a reel!</div></div>
+      </div>
+      <button class="reels-upload-btn grad-bg" onclick="openModal('reelModal')">＋</button>
     </div>
 
     <!-- MESSAGES -->
     <div class="msg-page" id="pageMessages">
       <div class="inbox-view" id="inboxView">
-        <div class="inbox-header">
-          <div class="inbox-title">Messages</div>
-        </div>
+        <div class="inbox-header"><div class="inbox-title">Messages</div></div>
         <div class="api-banner" id="apiBanner">
-          <strong>🤖 AI Setup</strong> — Enter your free <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:var(--a1)">Gemini API key</a> to chat with AI.
+          <strong>🤖 Gemini AI Setup</strong> — Get free key from <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:var(--a1)">aistudio.google.com</a>
           <div class="api-row">
             <input class="api-field" type="password" id="apiKeyIn" placeholder="AIzaSy...">
             <button class="api-save grad-bg" onclick="saveApiKey()">Save</button>
           </div>
         </div>
         <div class="inbox-item" onclick="openGeminiChat()">
-          <div class="ib-bot-ava grad-bg" style="color:white;">🤖<div class="online-dot"></div></div>
+          <div class="ib-bot-ava grad-bg" style="color:white;">🤖<div class="online-dot-abs" style="background:var(--green)"></div></div>
           <div class="ib-info"><div class="ib-name">Gemini AI ✦</div><div class="ib-preview" id="geminiPreview">Say hi! Ask me anything 👋</div></div>
           <div class="ib-time">Now</div>
         </div>
@@ -518,7 +485,7 @@ input,textarea,button,select{font-family:'DM Sans',sans-serif;}
         <div class="chat-top">
           <button class="chat-back" onclick="closeChat()">←</button>
           <div id="chatAvaEl"></div>
-          <div>
+          <div style="flex:1">
             <div class="chat-top-name" id="chatTopName"></div>
             <div class="chat-top-status" id="chatTopStatus"></div>
           </div>
@@ -529,6 +496,14 @@ input,textarea,button,select{font-family:'DM Sans',sans-serif;}
           <button class="chat-send-btn grad-bg" id="chatSendBtn" onclick="sendMsg()">➤</button>
         </div>
       </div>
+    </div>
+
+    <!-- NOTIFICATIONS -->
+    <div class="page" id="pageNotifications">
+      <div style="padding:14px 15px 8px;border-bottom:1px solid var(--border);">
+        <div style="font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:700;">Notifications</div>
+      </div>
+      <div id="notifList"><div class="empty-state"><div class="empty-icon">🔔</div><div class="empty-title">No notifications yet</div><div class="empty-sub">When people follow or like your posts, they'll show here.</div></div></div>
     </div>
 
     <!-- PROFILE -->
@@ -550,21 +525,21 @@ input,textarea,button,select{font-family:'DM Sans',sans-serif;}
         <div class="p-bio" id="profileBio"></div>
         <div class="p-actions">
           <button class="p-btn primary grad-bg" onclick="toggleEdit()">Edit Profile</button>
-          <button class="p-btn sec" onclick="copyShareLink()">Share Profile</button>
           <button class="p-btn danger" onclick="doLogout()">Logout</button>
         </div>
       </div>
       <div id="editWrap" class="hidden">
         <div class="edit-wrap">
-          <div style="margin-bottom:8px;"><textarea class="bio-area" id="bioArea" placeholder="Write your bio..." rows="3"></textarea></div>
+          <textarea class="bio-area" id="bioArea" placeholder="Write your bio..." rows="3" style="margin-bottom:8px;"></textarea>
           <button class="auth-btn grad-bg" style="margin-top:0" onclick="saveBio()">Save Bio</button>
         </div>
       </div>
       <div class="profile-grid-tabs">
         <div class="grid-tab active" onclick="switchGridTab(this,'posts')">⊞ Posts</div>
+        <div class="grid-tab" onclick="switchGridTab(this,'reels')">🎬 Reels</div>
         <div class="grid-tab" onclick="switchGridTab(this,'saved')">🔖 Saved</div>
       </div>
-      <div id="profileGridContent"><div class="p-empty-grid">📷 No posts yet. Share your first photo!</div></div>
+      <div id="profileGridContent"><div class="p-empty-grid">📷 No posts yet.</div></div>
     </div>
   </div>
 
@@ -572,6 +547,7 @@ input,textarea,button,select{font-family:'DM Sans',sans-serif;}
     <div class="nav-tab active" id="ntHome" onclick="navigateTo('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><div class="dot"></div></div>
     <div class="nav-tab" id="ntExplore" onclick="navigateTo('explore')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><div class="dot"></div></div>
     <div class="nav-post-btn grad-bg" onclick="openModal('postModal')">＋</div>
+    <div class="nav-tab" id="ntReels" onclick="navigateTo('reels')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg><div class="dot"></div></div>
     <div class="nav-tab" id="ntMessages" onclick="navigateTo('messages')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><div class="dot"></div></div>
     <div class="nav-tab" id="ntProfile" onclick="navigateTo('profile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><div class="dot"></div></div>
   </div>
@@ -585,23 +561,31 @@ input,textarea,button,select{font-family:'DM Sans',sans-serif;}
       <button class="settings-close" onclick="closeSettings()">✕</button>
     </div>
     <div class="settings-section">
-      <div class="settings-section-title">🎨 Theme</div>
+      <div class="settings-section-title">🎨 Preset Themes</div>
       <div class="theme-grid" id="themeGrid"></div>
+      <div class="settings-section-title" style="margin-top:4px;">🖌️ Custom Theme</div>
+      <div class="custom-theme-builder">
+        <div class="ctb-title">Pick your colors</div>
+        <div class="color-row"><span class="color-label">Background</span><input type="color" class="color-pick" id="ctBg" value="#080b12"></div>
+        <div class="color-row"><span class="color-label">Accent 1 (Primary)</span><input type="color" class="color-pick" id="ctA1" value="#4f8eff"></div>
+        <div class="color-row"><span class="color-label">Accent 2 (Secondary)</span><input type="color" class="color-pick" id="ctA2" value="#c84bff"></div>
+        <div class="color-row"><span class="color-label">Text color</span><input type="color" class="color-pick" id="ctText" value="#eef2ff"></div>
+        <div class="ctb-preview">
+          <div class="ctb-swatch" id="prevBg"></div>
+          <div class="ctb-swatch" id="prevA1"></div>
+          <div class="ctb-swatch" id="prevA2"></div>
+          <div class="ctb-swatch" id="prevText"></div>
+        </div>
+        <button class="apply-theme-btn grad-bg" onclick="applyCustomTheme()">Apply Custom Theme ✨</button>
+      </div>
     </div>
     <div class="settings-section">
-      <div class="settings-section-title">🔥 Firebase</div>
-      <button class="setup-btn grad-bg" style="padding:10px;" onclick="closeSettings();showSetup()">Reconfigure Firebase</button>
+      <div class="settings-section-title">🔑 Gemini AI Key</div>
+      <div style="display:flex;gap:7px;">
+        <input class="api-field" type="password" id="settingsApiKey" placeholder="AIzaSy..." style="background:var(--elevated);border:1px solid var(--border);border-radius:10px;color:var(--text);padding:8px 11px;font-size:0.81rem;outline:none;flex:1;">
+        <button class="api-save grad-bg" onclick="saveApiKeyFromSettings()">Save</button>
+      </div>
     </div>
-  </div>
-</div>
-
-<!-- Story modal -->
-<div class="modal-overlay hidden" id="storyModal" onclick="closeModal('storyModal')">
-  <div class="modal-sheet" onclick="event.stopPropagation()">
-    <div class="modal-handle"></div>
-    <div class="modal-title">Add Story</div>
-    <div class="modal-opt" onclick="closeModal('storyModal');showToast('Story feature coming soon!')">🖼️ Upload from Gallery</div>
-    <button class="modal-cancel-btn" onclick="closeModal('storyModal')">Cancel</button>
   </div>
 </div>
 
@@ -609,7 +593,7 @@ input,textarea,button,select{font-family:'DM Sans',sans-serif;}
 <div class="modal-overlay hidden" id="postModal" onclick="closeModal('postModal')">
   <div class="modal-sheet" onclick="event.stopPropagation()">
     <div class="modal-handle"></div>
-    <div class="modal-title">New Post</div>
+    <div class="modal-title">New Post 📸</div>
     <img id="postPrevImg" class="post-prev-img" alt="">
     <div class="modal-opt" onclick="document.getElementById('postImgIn').click()">🖼️ Choose Photo</div>
     <input type="file" id="postImgIn" accept="image/*" style="display:none" onchange="previewPost(this)">
@@ -619,51 +603,40 @@ input,textarea,button,select{font-family:'DM Sans',sans-serif;}
   </div>
 </div>
 
+<!-- Reel modal -->
+<div class="modal-overlay hidden" id="reelModal" onclick="closeModal('reelModal')">
+  <div class="modal-sheet" onclick="event.stopPropagation()">
+    <div class="modal-handle"></div>
+    <div class="modal-title">New Reel 🎬</div>
+    <video id="reelPrevVid" class="post-prev-vid" controls></video>
+    <div class="modal-opt" onclick="document.getElementById('reelVidIn').click()">🎬 Choose Video</div>
+    <input type="file" id="reelVidIn" accept="video/*" style="display:none" onchange="previewReel(this)">
+    <textarea class="caption-in" id="reelCaption" placeholder="Reel caption..."></textarea>
+    <button class="auth-btn grad-bg" onclick="submitReel()"><span id="reelBtnTxt">Share Reel</span><div class="spinner-sm" id="reelSpin"></div></button>
+    <button class="modal-cancel-btn" onclick="closeModal('reelModal')">Cancel</button>
+  </div>
+</div>
+
+<!-- Story viewer -->
+<div class="story-viewer hidden" id="storyViewer">
+  <div class="story-progress" id="storyProgress"></div>
+  <div class="story-top">
+    <img style="width:32px;height:32px;border-radius:50%;object-fit:cover;" id="storyViewerAva" alt="">
+    <span style="font-weight:600;font-size:0.88rem;color:white;" id="storyViewerName"></span>
+    <button class="story-close" onclick="closeStoryViewer()">✕</button>
+  </div>
+  <div class="story-media" id="storyMedia"></div>
+</div>
+
 <div class="toast" id="toast"></div>
 
-<!-- Firebase SDK -->
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-import { getDatabase, ref, set, get, push, onValue, onChildAdded, query, orderByChild, limitToLast, serverTimestamp, update, remove }
+import { getDatabase, ref, set, get, push, onValue, onChildAdded, query, orderByChild, limitToLast, serverTimestamp, update, remove, off }
   from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js';
 
-// ══ THEMES ══
-const THEMES=[
-  {id:'dark-purple',name:'Dark Purple',s1:'#080b12',s2:'#4f8eff',s3:'#c84bff'},
-  {id:'dark-neon',name:'Dark Neon',s1:'#050505',s2:'#00ff88',s3:'#00ffcc'},
-  {id:'dark-white',name:'Dark White',s1:'#0a0a0a',s2:'#ffffff',s3:'#cccccc'},
-  {id:'dark-blue',name:'Dark Blue',s1:'#04080f',s2:'#0a84ff',s3:'#00cfff'},
-  {id:'dark-red',name:'Dark Red',s1:'#0a0405',s2:'#ff4466',s3:'#ff0055'},
-  {id:'dark-gold',name:'Dark Gold',s1:'#080700',s2:'#ffcc00',s3:'#ff9900'},
-  {id:'white-blue',name:'White Blue',s1:'#f0f4ff',s2:'#1a5cff',s3:'#7b2fff'},
-  {id:'white-purple',name:'White Purple',s1:'#faf0ff',s2:'#8b30ff',s3:'#dd00cc'},
-  {id:'white-black',name:'White Black',s1:'#f5f5f5',s2:'#111111',s3:'#444444'},
-  {id:'sunrise',name:'Sunrise',s1:'#0f050a',s2:'#ff4da6',s3:'#ff9a00'},
-];
-
-// ══ LOCAL STORAGE ══
-const LS={
-  cfg(){return JSON.parse(localStorage.getItem('ng_fbcfg')||'null');},
-  saveCfg(c){localStorage.setItem('ng_fbcfg',JSON.stringify(c));},
-  session(){return JSON.parse(localStorage.getItem('ng_session')||'null');},
-  saveSession(u){localStorage.setItem('ng_session',JSON.stringify(u));},
-  clearSession(){localStorage.removeItem('ng_session');},
-  apiKey(){return localStorage.getItem('ng_apikey')||'';},
-  saveApiKey(k){localStorage.setItem('ng_apikey',k);},
-  geminiChat(){return JSON.parse(localStorage.getItem('ng_gchat')||'[]');},
-  saveGeminiChat(a){localStorage.setItem('ng_gchat',JSON.stringify(a));},
-  theme(){return localStorage.getItem('ng_theme')||'dark-purple';},
-  saveTheme(t){localStorage.setItem('ng_theme',t);},
-};
-
-const DPFP="data:image/jpeg;base64,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zzzzzzzwTzzzzzzzzzzzzzwjTzzzzzzzzzzzzzzzzzzzzzzzzzzzzxTzzzzzzzzzzzzzyhzzzzzzzzzzzzzzzzzzzzzzzzzzzzxTzzzzzzzzzzzzzzzzDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzxjzzzzzzzzzzzzzzzzzzzzzzzzzzzyzzzzzzzzzzzzzzzzwzzzzzzzzzzzzzzzzzzzzzzzzzzzzxDTzzzzzzzzzzzzzzjjzzzzzzzzzzzzzzzzzzzzzzzzzzzzxTzzzzzzzzzzzzzyjTzzzzzzzzzzzzzzzzzzzzzzzzzzzzhjzzzzzzzzzzzzzyDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzjzzzzzzzzzzzzzgzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzTTzzzzzzzzzzjBzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzywzzzzzzzzzzwwzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzxxzzzzzzyxxzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzxDjCjzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzjCgARTDDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzjRzxzzxwzxjDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzyQgTzzzzzzzzywizDzzzzzzzzzzzzzzzzzzzzzzzzzzzzySTzzzzzzzzzzzzzxhDzzzzzzzzzzzzzzzzzzzzzzzzzzgyTzzzzzzzzzzzzzzzxhzzzzzzzzzzzzzzzzzzzzzzzzzhSzzzzzzzzzzzzzzzzzzxyjzzzzzzzzzzzzzzzzzzzzzzzTTzzzzzzzzzzzzzzzzzzzzhjzzzzzzzzzzzzzzzzzzzzyhTzzzzzzzzzzzzzzzzzzzzzyjzTzzzzzzzzzzzzzzzzzyxTzzzzzzzzzzzzzzzzzzzzzzzxjzzzzzzzzzzzzzzzzzzyjzzzzzzzzzzzzzzzzzzzzzzzzywDzzzzzzzzzzzzzzzzziDzzzzzzzzzzzzzzzzzzzzzzzzzwjTzzzzzzzzzzzzzzzzTTzzzzzzzzzzzzzzzzzzzzzzzzzzzDzzzzzzzzzzzzzzzwzzzzzzzzzzzzzzzzzzzzzzzzzzzzwjzzzzzzzzzzzzzzzhzzzzzzzzzzzzzzzzzzzzzzzzzzzzyjzzzzzzzzzzzzzzzxzzzzzzzzzzzzzzzzzzzzzzzzzzzzyzjzzzzzzz/xAAUEQEAAAAAAAAAAAAAAAAAAACw/9oACAEDAQE/EARP/8QAFBEBAAAAAAAAAAAAAAAAAAAAsP/aAAgBAgEBPxAET//EACsQAQACAQMEAgEEAQUAAAAAAAEAETEhUHFAQVFhYKGBECAwkcFwsLHR8P/aAAgBAQABPxD/AGMqmVO8eZ+YwJ3+J4AvBNcUPLpF1S4zP+g+DFLTy3Au1iuwgVP9GaAfzc1d7nMsFb5GsTAnPw/I77mJXBDKA9y38KNwSgXz3mZSvDENU9/CrgNSs0y36h0AQx/K4lTT2QG1r1EwIkfgwXLxVecqYW5ZRKP56lHiURWYZ9iZXwQ1Yw6R9wUNAldHUVDdJmFMlYjfwN2FRf7hkFBA6VgoixjtK+6u3wIkijBJUBUOnYJixKihGvG/8TVdt19QT/u6pxFb/DDfpHSc76auk0g8HWlVQCOu+qBg1YQDA60AmoYwOzqb4EpGazXW1LQr1WO9sZmiAZoBXX3SwlTzM63u7CwWcw2BUhVNd6Jz7bE9d73knCF7DWPVxynjecXMHogNhPsCp9jefvE07CNrifad5+8TDYcnE+07z94isOwumz7DvJozWi1F7DrdVKd95HtNcuppB69Z7S0RdN6Pl7CLRebd7o90KotgZnYNb2kdMwLm2qeev15pqjmXW3PfexqAo01HMF661FmprzFt3xgWkbhEuvfrSdyYjo5V79VNTVBE06taLZeK3U7+NJUE1r7iD1K0QHS83oiquuZ238itMAilSYdOxWDb0iJLX4EQakhcWjB6VReGvhFSWvb4IHpJKB6x17yxro6GBLX/AMYuVa6w0+Crhk7w4nh9S/MfUuH818RqoRKnt8zKS/hBBSxKi08kAJB8QRl/wXLJZEAQd1l9YeWN2jO3wxC0XpmHvuhZZfhmc35ln7bl5T9XBmy+CYUP3GrTkz6PiKTCnEwU/M7wZ4RPLbgj2KZKfmJcq8/Gq/02NZXxVKlQLxMouCZVw7WnLKeH8wfb+8Es/A/oTQ0PJEppz+mcTv8ADQ7QeajWkcaxQsPbK1tneoBorg/Q/YwMF8ywbb3qHNV8wApJ4WphweamPhLtlPglRzTMBHmMACjH8tSoglJpLh0ruRI+qYlqIeT4IzXSgicAlMY9SiV0VSsMe4LdD2jtB7nG/mstCXqOC6IEACBXTMSyIgwlayybgxAFG+8d8BcS8pTlZUj7P6DHVkdHtL0FuEiJneqAbZeDt7EDQKOvAUlktvJmKA07xQVq9WCtPbMNhwmmgdrFI1ed2tg9mGge2ArY0KiASW9PR3QArO+FAoJWy1HoWPmMkKsMdwzLD0H3BYAEDZ2IgsZkMvrcLqGnPuGaTaqjA7XaLWreHbjYhA68u2GOD4Za2NsAFqwgKVqso21IlOwsYjDU2uhDweoG3pLfE1dqqdR7YAA0DG4gKcMuXzzaHFWrRBIns87megeTxG01kNmMwwQtTKGb3NzAAFJmp22VzMXrMCQbqK4imYzhofJsh3lHcNCG6ssyBozvsZPiqoOJBK3YcaYa1KrY9JtBpzDG7sppaZc7EmJqkbS2G7scINhZA2GlsWXx3goA3kWhwzR7QdONh/8AKV704lKe78bDzOv+IY3lxMTzv/Gw1Xij/cMby4gralnYGKLUFSgDtpDG8uJYD30jtFIuvpzvoTGOgf/Z";
-let DB=null, CU=null, FB_APP=null;
-let loginTab='phone', signupTab='phone', selPfp=null;
-let currentChatId=null, currentChatUid=null, geminiHistory=[];
-let dmListenerOff=null, feedListenerOff=null;
-
-// ══ BOOT ══
-const FIREBASE_CFG={
+// ══ FIREBASE CONFIG (hardcoded) ══
+const FB_CFG={
   apiKey:"AIzaSyAXrhzYBWKdCS122QkiwX1LSlQzh5QA7Aw",
   authDomain:"nextgen-social-f1d5c.firebaseapp.com",
   databaseURL:"https://nextgen-social-f1d5c-default-rtdb.firebaseio.com",
@@ -672,76 +645,160 @@ const FIREBASE_CFG={
   messagingSenderId:"602852341098",
   appId:"1:602852341098:web:6e382c759f4376702aa113"
 };
+
+// ══ THEMES ══
+const THEMES=[
+  {id:'dark-purple',n:'Dark Purple',bg:'#080b12',a1:'#4f8eff',a2:'#c84bff',text:'#eef2ff',sub:'#7d8faa',card:'#0f1522',el:'#161e30',border:'rgba(255,255,255,0.07)'},
+  {id:'dark-neon',n:'Dark Neon',bg:'#020a04',a1:'#00ff88',a2:'#00ffcc',text:'#e0ffe8',sub:'#4a7a5a',card:'#061008',el:'#0d1e10',border:'rgba(0,255,100,0.1)'},
+  {id:'dark-blue',n:'Dark Blue',bg:'#04080f',a1:'#0a84ff',a2:'#00cfff',text:'#e8f4ff',sub:'#4a7ab5',card:'#080f1e',el:'#0d1830',border:'rgba(0,120,255,0.12)'},
+  {id:'dark-red',n:'Dark Red',bg:'#0a0405',a1:'#ff4466',a2:'#ff0055',text:'#fff0f0',sub:'#8a4a50',card:'#150709',el:'#220a0e',border:'rgba(255,50,50,0.1)'},
+  {id:'dark-gold',n:'Dark Gold',bg:'#080700',a1:'#ffcc00',a2:'#ff9900',text:'#fffbe8',sub:'#7a6a30',card:'#120f00',el:'#1e1800',border:'rgba(255,200,0,0.1)'},
+  {id:'dark-green',n:'Dark Green',bg:'#030a03',a1:'#22c55e',a2:'#16a34a',text:'#f0fdf4',sub:'#4a7a5a',card:'#071007',el:'#0e1e0e',border:'rgba(34,197,94,0.12)'},
+  {id:'dark-orange',n:'Dark Orange',bg:'#0a0600',a1:'#ff6b00',a2:'#ff9500',text:'#fff8f0',sub:'#8a6a40',card:'#150a00',el:'#221500',border:'rgba(255,107,0,0.1)'},
+  {id:'dark-pink',n:'Dark Pink',bg:'#0a0408',a1:'#ff4da6',a2:'#ff80cc',text:'#fff0f8',sub:'#8a4a70',card:'#15070e',el:'#220a18',border:'rgba(255,77,166,0.1)'},
+  {id:'dark-cyan',n:'Dark Cyan',bg:'#020a0a',a1:'#00bcd4',a2:'#00e5ff',text:'#e0f8ff',sub:'#4a7a80',card:'#061414',el:'#0d2020',border:'rgba(0,188,212,0.1)'},
+  {id:'dark-white',n:'Dark White',bg:'#0a0a0a',a1:'#e0e0e0',a2:'#bdbdbd',text:'#ffffff',sub:'#888888',card:'#141414',el:'#1e1e1e',border:'rgba(255,255,255,0.1)'},
+  {id:'white-blue',n:'White Blue',bg:'#f0f4ff',a1:'#1a5cff',a2:'#7b2fff',text:'#0a1535',sub:'#5a6a8a',card:'#ffffff',el:'#e8eeff',border:'rgba(0,60,200,0.1)'},
+  {id:'white-purple',n:'White Purple',bg:'#faf0ff',a1:'#8b30ff',a2:'#dd00cc',text:'#1a0535',sub:'#7a5a9a',card:'#ffffff',el:'#f0e8ff',border:'rgba(120,0,200,0.1)'},
+  {id:'white-green',n:'White Green',bg:'#f0fff4',a1:'#16a34a',a2:'#22c55e',text:'#052e16',sub:'#4a7a5a',card:'#ffffff',el:'#dcfce7',border:'rgba(22,163,74,0.12)'},
+  {id:'white-orange',n:'White Orange',bg:'#fff8f0',a1:'#ea580c',a2:'#f97316',text:'#1c0a00',sub:'#8a6a40',card:'#ffffff',el:'#ffedd5',border:'rgba(234,88,12,0.1)'},
+  {id:'white-black',n:'White Black',bg:'#f5f5f5',a1:'#111111',a2:'#444444',text:'#111111',sub:'#555555',card:'#ffffff',el:'#ebebeb',border:'rgba(0,0,0,0.09)'},
+  {id:'midnight',n:'Midnight',bg:'#000000',a1:'#6366f1',a2:'#8b5cf6',text:'#f1f5f9',sub:'#64748b',card:'#0f0f0f',el:'#1a1a2e',border:'rgba(99,102,241,0.15)'},
+  {id:'sunset',n:'Sunset',bg:'#1a0a00',a1:'#ff6b35',a2:'#f7c59f',text:'#fff8f0',sub:'#8a6050',card:'#240e00',el:'#351500',border:'rgba(255,107,53,0.12)'},
+  {id:'ocean',n:'Ocean',bg:'#020d1a',a1:'#0284c7',a2:'#38bdf8',text:'#e0f2fe',sub:'#4a7a9a',card:'#041525',el:'#082235',border:'rgba(2,132,199,0.12)'},
+  {id:'forest',n:'Forest',bg:'#040d04',a1:'#15803d',a2:'#4ade80',text:'#f0fdf4',sub:'#4a6a4a',card:'#071407',el:'#0e200e',border:'rgba(21,128,61,0.12)'},
+  {id:'rose-gold',n:'Rose Gold',bg:'#1a0a0f',a1:'#e11d78',a2:'#fb7185',text:'#fff0f5',sub:'#8a5060',card:'#240d15',el:'#35121e',border:'rgba(225,29,120,0.12)'},
+  {id:'aurora',n:'Aurora',bg:'#040a12',a1:'#34d399',a2:'#818cf8',text:'#ecfdf5',sub:'#5a7a6a',card:'#07101e',el:'#0e1a2e',border:'rgba(52,211,153,0.1)'},
+  {id:'galaxy',n:'Galaxy',bg:'#05020f',a1:'#7c3aed',a2:'#db2777',text:'#faf0ff',sub:'#6a5a8a',card:'#0a0518',el:'#120a24',border:'rgba(124,58,237,0.12)'},
+];
+
+const LS={
+  session(){return JSON.parse(localStorage.getItem('ng_session')||'null');},
+  saveSession(u){localStorage.setItem('ng_session',JSON.stringify(u));},
+  clearSession(){localStorage.removeItem('ng_session');},
+  apiKey(){return localStorage.getItem('ng_apikey')||'';},
+  saveApiKey(k){localStorage.setItem('ng_apikey',k);},
+  geminiChat(){return JSON.parse(localStorage.getItem('ng_gchat')||'[]');},
+  saveGeminiChat(a){localStorage.setItem('ng_gchat',JSON.stringify(a));},
+  theme(){return JSON.parse(localStorage.getItem('ng_theme2')||'null');},
+  saveTheme(t){localStorage.setItem('ng_theme2',JSON.stringify(t));},
+};
+
+const DPFP="data:image/jpeg;base64,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zzzzzzzwTzzzzzzzzzzzzzwjTzzzzzzzzzzzzzzzzzzzzzzzzzzzzxTzzzzzzzzzzzzzyhzzzzzzzzzzzzzzzzzzzzzzzzzzzzxTzzzzzzzzzzzzzzzzDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzxjzzzzzzzzzzzzzzzzzzzzzzzzzzzyzzzzzzzzzzzzzzzzwzzzzzzzzzzzzzzzzzzzzzzzzzzzzxDTzzzzzzzzzzzzzzjjzzzzzzzzzzzzzzzzzzzzzzzzzzzzxTzzzzzzzzzzzzzyjTzzzzzzzzzzzzzzzzzzzzzzzzzzzzhjzzzzzzzzzzzzzyDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzjzzzzzzzzzzzzzgzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzTTzzzzzzzzzzjBzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzywzzzzzzzzzzwwzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzxxzzzzzzyxxzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzxDjCjzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzjCgARTDDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzjRzxzzxwzxjDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzyQgTzzzzzzzzywizDzzzzzzzzzzzzzzzzzzzzzzzzzzzzySTzzzzzzzzzzzzzxhDzzzzzzzzzzzzzzzzzzzzzzzzzzgyTzzzzzzzzzzzzzzzxhzzzzzzzzzzzzzzzzzzzzzzzzzhSzzzzzzzzzzzzzzzzzzxyjzzzzzzzzzzzzzzzzzzzzzzzTTzzzzzzzzzzzzzzzzzzzzhjzzzzzzzzzzzzzzzzzzzzyhTzzzzzzzzzzzzzzzzzzzzzyjzTzzzzzzzzzzzzzzzzzyxTzzzzzzzzzzzzzzzzzzzzzzzxjzzzzzzzzzzzzzzzzzzyjzzzzzzzzzzzzzzzzzzzzzzzzywDzzzzzzzzzzzzzzzzziDzzzzzzzzzzzzzzzzzzzzzzzzzwjTzzzzzzzzzzzzzzzzTTzzzzzzzzzzzzzzzzzzzzzzzzzzzDzzzzzzzzzzzzzzzwzzzzzzzzzzzzzzzzzzzzzzzzzzzzwjzzzzzzzzzzzzzzzhzzzzzzzzzzzzzzzzzzzzzzzzzzzzyjzzzzzzzzzzzzzzzxzzzzzzzzzzzzzzzzzzzzzzzzzzzzyzjzzzzzzz/xAAUEQEAAAAAAAAAAAAAAAAAAACw/9oACAEDAQE/EARP/8QAFBEBAAAAAAAAAAAAAAAAAAAAsP/aAAgBAgEBPxAET//EACsQAQACAQMEAgEEAQUAAAAAAAEAETEhUHFAQVFhYKGBECAwkcFwsLHR8P/aAAgBAQABPxD/AGMqmVO8eZ+YwJ3+J4AvBNcUPLpF1S4zP+g+DFLTy3Au1iuwgVP9GaAfzc1d7nMsFb5GsTAnPw/I77mJXBDKA9y38KNwSgXz3mZSvDENU9/CrgNSs0y36h0AQx/K4lTT2QG1r1EwIkfgwXLxVecqYW5ZRKP56lHiURWYZ9iZXwQ1Yw6R9wUNAldHUVDdJmFMlYjfwN2FRf7hkFBA6VgoixjtK+6u3wIkijBJUBUOnYJixKihGvG/8TVdt19QT/u6pxFb/DDfpHSc76auk0g8HWlVQCOu+qBg1YQDA60AmoYwOzqb4EpGazXW1LQr1WO9sZmiAZoBXX3SwlTzM63u7CwWcw2BUhVNd6Jz7bE9d73knCF7DWPVxynjecXMHogNhPsCp9jefvE07CNrifad5+8TDYcnE+07z94isOwumz7DvJozWi1F7DrdVKd95HtNcuppB69Z7S0RdN6Pl7CLRebd7o90KotgZnYNb2kdMwLm2qeev15pqjmXW3PfexqAo01HMF661FmprzFt3xgWkbhEuvfrSdyYjo5V79VNTVBE06taLZeK3U7+NJUE1r7iD1K0QHS83oiquuZ238itMAilSYdOxWDb0iJLX4EQakhcWjB6VReGvhFSWvb4IHpJKB6x17yxro6GBLX/AMYuVa6w0+Crhk7w4nh9S/MfUuH818RqoRKnt8zKS/hBBSxKi08kAJB8QRl/wXLJZEAQd1l9YeWN2jO3wxC0XpmHvuhZZfhmc35ln7bl5T9XBmy+CYUP3GrTkz6PiKTCnEwU/M7wZ4RPLbgj2KZKfmJcq8/Gq/02NZXxVKlQLxMouCZVw7WnLKeH8wfb+8Es/A/oTQ0PJEppz+mcTv8ADQ7QeajWkcaxQsPbK1tneoBorg/Q/YwMF8ywbb3qHNV8wApJ4WphweamPhLtlPglRzTMBHmMACjH8tSoglJpLh0ruRI+qYlqIeT4IzXSgicAlMY9SiV0VSsMe4LdD2jtB7nG/mstCXqOC6IEACBXTMSyIgwlayybgxAFG+8d8BcS8pTlZUj7P6DHVkdHtL0FuEiJneqAbZeDt7EDQKOvAUlktvJmKA07xQVq9WCtPbMNhwmmgdrFI1ed2tg9mGge2ArY0KiASW9PR3QArO+FAoJWy1HoWPmMkKsMdwzLD0H3BYAEDZ2IgsZkMvrcLqGnPuGaTaqjA7XaLWreHbjYhA68u2GOD4Za2NsAFqwgKVqso21IlOwsYjDU2uhDweoG3pLfE1dqqdR7YAA0DG4gKcMuXzzaHFWrRBIns87megeTxG01kNmMwwQtTKGb3NzAAFJmp22VzMXrMCQbqK4imYzhofJsh3lHcNCG6ssyBozvsZPiqoOJBK3YcaYa1KrY9JtBpzDG7sppaZc7EmJqkbS2G7scINhZA2GlsWXx3goA3kWhwzR7QdONh/8AKV704lKe78bDzOv+IY3lxMTzv/Gw1Xij/cMby4gralnYGKLUFSgDtpDG8uJYD30jtFIuvpzvoTGOgf/Z";
+let DB=null,CU=null;
+let loginTab='phone',signupTab='phone',selPfp=null;
+let currentChatId=null,currentChatUid=null,geminiHistory=[];
+let dmListenerOff=null,feedListenerOff=null,onlineInterval=null;
+
+// ══ BOOT ══
 window.addEventListener('DOMContentLoaded',async()=>{
-  applyTheme(LS.theme()); buildThemeGrid();
-  await connectFirebase(FIREBASE_CFG);
+  const app=initializeApp(FB_CFG);
+  DB=getDatabase(app);
+  applyThemeObj(LS.theme());
+  buildThemeGrid();
+  setupColorPickers();
   const sess=LS.session();
-  if(sess){ CU=sess; launchApp(); }
-  else { showAuth(); }
+  if(sess){CU=sess;launchApp();}
+  else{document.getElementById('screenAuth').classList.remove('hidden');}
+  if(LS.apiKey())gid('apiBanner').style.display='none';
 });
 
-// ══ FIREBASE CONNECT ══
-async function connectFirebase(cfg){
-  try{
-    FB_APP=initializeApp(cfg);
-    DB=getDatabase(FB_APP);
-    window.addEventListener('online',()=>document.getElementById('offlineBanner').style.display='none');
-    window.addEventListener('offline',()=>document.getElementById('offlineBanner').style.display='block');
-  }catch(e){showToast('Firebase error: '+e.message);}
+// ══ THEME SYSTEM ══
+function applyThemeObj(t){
+  const root=document.documentElement;
+  if(!t){
+    // default dark purple
+    t={bg:'#080b12',a1:'#4f8eff',a2:'#c84bff',text:'#eef2ff',sub:'#7d8faa',card:'#0f1522',el:'#161e30',border:'rgba(255,255,255,0.07)'};
+  }
+  const nav=t.bg+'f2';
+  root.style.setProperty('--bg',t.bg);
+  root.style.setProperty('--a1',t.a1);
+  root.style.setProperty('--a2',t.a2);
+  root.style.setProperty('--text',t.text);
+  root.style.setProperty('--sub',t.sub||'#7d8faa');
+  root.style.setProperty('--card',t.card||t.bg);
+  root.style.setProperty('--elevated',t.el||t.bg);
+  root.style.setProperty('--border',t.border||'rgba(255,255,255,0.07)');
+  root.style.setProperty('--muted',t.muted||'#3a4660');
+  root.style.setProperty('--nav-bg',t.bg+'f0');
+  document.querySelectorAll('.theme-card').forEach(c=>c.classList.toggle('active',c.dataset.tid===t.id));
 }
 
-// ══ SETUP SCREEN ══
-window.showSetup=function(){
-  hide('screenAuth'); hide('appShell');
-  document.getElementById('screenSetup').classList.remove('hidden');
+window.applyThemeById=function(id){
+  const t=THEMES.find(x=>x.id===id);if(!t)return;
+  LS.saveTheme(t);applyThemeObj(t);
+  document.querySelectorAll('.theme-card').forEach(c=>c.classList.toggle('active',c.dataset.tid===id));
 };
-window.skipSetup=function(){
-  const cfg=LS.cfg();
-  if(cfg){connectFirebase(cfg).then(()=>{document.getElementById('screenSetup').classList.add('hidden');showAuth();});}
-  else showToast('No config saved yet. Fill in the fields first.');
-};
-window.saveFirebaseConfig=async function(){
-  const apiKey=val('cfg_apiKey').trim();
-  const authDomain=val('cfg_authDomain').trim();
-  const databaseURL=val('cfg_dbUrl').trim();
-  const projectId=val('cfg_projectId').trim();
-  if(!apiKey||!databaseURL||!projectId){showSetupErr('Fill in apiKey, databaseURL and projectId at minimum');return;}
-  setSpin('setupBtnTxt','setupSpin',true);
-  try{
-    const cfg={apiKey,authDomain,databaseURL,projectId};
-    await connectFirebase(cfg);
-    // Test connection
-    const testRef=ref(DB,'_test');
-    await set(testRef,'ok');
-    const snap=await get(testRef);
-    if(snap.val()==='ok'){
-      await remove(testRef);
-      LS.saveCfg(cfg);
-      setSpin('setupBtnTxt','setupSpin',false);
-      const ok=document.getElementById('setupOk');ok.textContent='✅ Connected! Now upload to GitHub Pages and share the link!';ok.style.display='block';
-      setTimeout(()=>{ document.getElementById('screenSetup').classList.add('hidden'); showAuth(); },2000);
-    }
-  }catch(e){
-    setSpin('setupBtnTxt','setupSpin',false);
-    showSetupErr('Connection failed: '+e.message+' — Check your databaseURL and rules (must be test mode)');
-  }
-};
-function showSetupErr(msg){const e=document.getElementById('setupErr');e.textContent=msg;e.style.display='block';}
 
-function showAuth(){ document.getElementById('screenSetup').classList.add('hidden'); document.getElementById('screenAuth').classList.remove('hidden'); }
+window.applyCustomTheme=function(){
+  const bg=gid('ctBg').value,a1=gid('ctA1').value,a2=gid('ctA2').value,text=gid('ctText').value;
+  // Auto-compute sub, card, elevated from bg
+  const isDark=parseInt(bg.slice(1,3),16)<128;
+  const t={id:'custom',bg,a1,a2,text,
+    sub:isDark?'#7d8faa':'#5a6a8a',
+    card:isDark?lighten(bg,10):darken(bg,5),
+    el:isDark?lighten(bg,18):darken(bg,10),
+    border:isDark?'rgba(255,255,255,0.08)':'rgba(0,0,0,0.08)',
+    muted:isDark?'#3a4660':'#aaaaaa'};
+  LS.saveTheme(t);applyThemeObj(t);
+  showToast('Custom theme applied! ✨');
+};
 
-// ══ AUTH TABS ══
-window.switchLoginTab=function(t){ loginTab=t;['phone','gmail'].forEach(x=>{gid('lTab'+cap(x)).classList.toggle('active',t===x);gid('l'+cap(x)+'Step').classList.toggle('active',t===x);}); };
-window.switchSignupTab=function(t){ signupTab=t;gid('sTabPhone').classList.toggle('active',t==='phone');gid('sTabGmail').classList.toggle('active',t==='gmail');gid('sPhoneF').classList.toggle('active',t==='phone');gid('sGmailF').classList.toggle('active',t==='gmail'); };
+function lighten(hex,amt){
+  const n=parseInt(hex.slice(1),16);
+  const r=Math.min(255,((n>>16)&0xff)+amt*2);
+  const g=Math.min(255,((n>>8)&0xff)+amt*2);
+  const b=Math.min(255,(n&0xff)+amt*2);
+  return'#'+[r,g,b].map(x=>x.toString(16).padStart(2,'0')).join('');
+}
+function darken(hex,amt){
+  const n=parseInt(hex.slice(1),16);
+  const r=Math.max(0,((n>>16)&0xff)-amt*2);
+  const g=Math.max(0,((n>>8)&0xff)-amt*2);
+  const b=Math.max(0,(n&0xff)-amt*2);
+  return'#'+[r,g,b].map(x=>x.toString(16).padStart(2,'0')).join('');
+}
+
+function setupColorPickers(){
+  ['ctBg','ctA1','ctA2','ctText'].forEach(id=>{
+    gid(id).addEventListener('input',()=>{
+      gid('prevBg').style.background=gid('ctBg').value;
+      gid('prevA1').style.background=gid('ctA1').value;
+      gid('prevA2').style.background=gid('ctA2').value;
+      gid('prevText').style.background=gid('ctText').value;
+    });
+  });
+  gid('prevBg').style.background='#080b12';
+  gid('prevA1').style.background='#4f8eff';
+  gid('prevA2').style.background='#c84bff';
+  gid('prevText').style.background='#eef2ff';
+}
+
+function buildThemeGrid(){
+  const grid=gid('themeGrid');
+  const cur=LS.theme();
+  grid.innerHTML=THEMES.map(t=>`
+    <div class="theme-card ${cur&&cur.id===t.id?'active':''}" data-tid="${t.id}" onclick="applyThemeById('${t.id}')" style="background:${t.bg}">
+      <div class="theme-swatch">
+        <div class="swatch" style="background:${t.bg};border:1px solid rgba(255,255,255,0.15)"></div>
+        <div class="swatch" style="background:${t.a1}"></div>
+        <div class="swatch" style="background:${t.a2}"></div>
+      </div>
+      <div class="theme-name" style="color:${t.text}">${t.n}</div>
+    </div>`).join('');
+}
+
+// ══ AUTH ══
+window.switchLoginTab=function(t){loginTab=t;['phone','gmail'].forEach(x=>{gid('lTab'+cap(x)).classList.toggle('active',t===x);gid('l'+cap(x)+'Step').classList.toggle('active',t===x);});};
+window.switchSignupTab=function(t){signupTab=t;gid('sTabPhone').classList.toggle('active',t==='phone');gid('sTabGmail').classList.toggle('active',t==='gmail');gid('sPhoneF').classList.toggle('active',t==='phone');gid('sGmailF').classList.toggle('active',t==='gmail');};
 window.showSignup=function(){gid('loginForm').classList.add('hidden');gid('signupForm').classList.remove('hidden');};
 window.showLogin=function(){gid('signupForm').classList.add('hidden');gid('loginForm').classList.remove('hidden');};
 window.backStep1=function(){gid('sStep2').classList.remove('active');gid('sStep1').classList.add('active');};
-window.handlePfp=function(input){ const f=input.files[0];if(!f)return;const r=new FileReader();r.onload=e=>{selPfp=e.target.result;gid('pfpPrev').src=selPfp;};r.readAsDataURL(f); };
+window.handlePfp=function(input){const f=input.files[0];if(!f)return;const r=new FileReader();r.onload=e=>{selPfp=e.target.result;gid('pfpPrev').src=selPfp;};r.readAsDataURL(f);};
 
-// ══ LOGIN ══
 window.doLogin=async function(method){
   const eId='l'+cap(method)+'Err',sId='l'+cap(method)+'Spin',tId='l'+cap(method)+'Txt';
-  hide(eId);
+  gid(eId).style.display='none';
   const id=method==='phone'?val('lPhone'):val('lGmail').toLowerCase();
   const pass=method==='phone'?val('lPhonePass'):val('lGmailPass');
   if(!id){showToast('Enter your '+(method==='phone'?'phone':'email'));return;}
@@ -749,49 +806,44 @@ window.doLogin=async function(method){
   try{
     const snap=await get(ref(DB,'users'));
     setSpin(tId,sId,false);
-    if(!snap.exists()){showErr(eId,'No accounts found. Sign up first.');return;}
-    const users=snap.val();
-    const user=Object.values(users).find(u=>u[method]===id);
+    if(!snap.exists()){showErr(eId,'No accounts found.');return;}
+    const user=Object.values(snap.val()).find(u=>u[method]===id);
     if(!user){showErr(eId,'Account not found. Sign up first.');return;}
     if(user.accPass&&pass!==user.accPass){showErr(eId,'Wrong password.');return;}
-    CU=user; LS.saveSession(user); launchApp();
+    CU=user;LS.saveSession(user);launchApp();
   }catch(e){setSpin(tId,sId,false);showErr(eId,'Error: '+e.message);}
 };
 
-// ══ SIGNUP ══
 window.signupNext=async function(){
-  hide('sStep1Err');
+  gid('sStep1Err').style.display='none';
   const id=signupTab==='phone'?val('sPhone'):val('sGmail').toLowerCase();
   if(!id){showToast('Fill in your '+(signupTab==='phone'?'phone':'email'));return;}
   setSpin('s1Txt','s1Spin',true);
   try{
     const snap=await get(ref(DB,'users'));
     setSpin('s1Txt','s1Spin',false);
-    if(snap.exists()){
-      const users=Object.values(snap.val());
-      if(users.find(u=>u[signupTab]===id)){showErr('sStep1Err','Account exists. Log in instead.');return;}
-    }
+    if(snap.exists()&&Object.values(snap.val()).find(u=>u[signupTab]===id)){showErr('sStep1Err','Account exists. Log in.');return;}
     window._ts={tab:signupTab,id};
-    gid('sStep1').classList.remove('active'); gid('sStep2').classList.add('active');
+    gid('sStep1').classList.remove('active');gid('sStep2').classList.add('active');
   }catch(e){setSpin('s1Txt','s1Spin',false);showErr('sStep1Err','Error: '+e.message);}
 };
 
 window.signupFinish=async function(){
-  hide('sStep2Err');
+  gid('sStep2Err').style.display='none';
   const username=val('sUsername').toLowerCase();
   const accPass=val('sAccPass');
   if(!username){showToast('Choose a username');return;}
-  if(!accPass||accPass.length<6){showErr('sStep2Err','Password must be at least 6 characters.');return;}
+  if(!accPass||accPass.length<6){showErr('sStep2Err','Password must be 6+ chars.');return;}
   setSpin('s2Txt','s2Spin',true);
   try{
     const snap=await get(ref(DB,'users'));
     if(snap.exists()&&Object.values(snap.val()).find(u=>u.username===username)){showErr('sStep2Err','Username taken.');setSpin('s2Txt','s2Spin',false);return;}
     const tmp=window._ts;
     const uid='u_'+Date.now();
-    const newUser={id:uid,username,[tmp.tab]:tmp.id,accPass,pfp:selPfp||null,bio:'',createdAt:Date.now()};
-    await set(ref(DB,'users/'+uid),newUser);
+    const nu={id:uid,username,[tmp.tab]:tmp.id,accPass,pfp:selPfp||null,bio:'',createdAt:Date.now(),online:true};
+    await set(ref(DB,'users/'+uid),nu);
     setSpin('s2Txt','s2Spin',false);
-    CU=newUser; LS.saveSession(newUser); selPfp=null; launchApp();
+    CU=nu;LS.saveSession(nu);selPfp=null;launchApp();
   }catch(e){setSpin('s2Txt','s2Spin',false);showErr('sStep2Err','Error: '+e.message);}
 };
 
@@ -799,68 +851,141 @@ window.signupFinish=async function(){
 function launchApp(){
   gid('screenAuth').classList.add('hidden');
   gid('appShell').classList.add('active');
-  refreshNavPfp(); renderStories();
-  loadProfile(); renderUserInbox();
+  refreshNavPfp();renderStories();loadProfile();renderUserInbox();
   geminiHistory=LS.geminiChat();
-  if(LS.apiKey()) gid('apiBanner').style.display='none';
-  listenFeed();
+  if(LS.apiKey())gid('apiBanner').style.display='none';
+  listenFeed();listenNotifs();startOnlinePresence();
   navigateTo('home');
 }
+function refreshNavPfp(){gid('navPfp').src=CU.pfp||DPFP;}
 
-function refreshNavPfp(){ gid('navPfp').src=CU.pfp||DPFP; }
+// ══ ONLINE PRESENCE ══
+function startOnlinePresence(){
+  setOnline(true);
+  onlineInterval=setInterval(()=>setOnline(true),30000);
+  window.addEventListener('beforeunload',()=>setOnline(false));
+}
+async function setOnline(status){
+  if(!CU||!DB)return;
+  try{await update(ref(DB,'users/'+CU.id),{online:status,lastSeen:Date.now()});}catch(e){}
+}
 
-// ══ NAV ══
+// ══ NAVIGATION ══
 window.navigateTo=function(p){
-  ['pageHome','pageExplore','pageProfile'].forEach(id=>gid(id).classList.remove('active'));
+  ['pageHome','pageExplore','pageReels','pageProfile','pageNotifications'].forEach(id=>gid(id)?.classList.remove('active'));
   gid('pageMessages').classList.remove('active');
-  if(p==='messages') gid('pageMessages').classList.add('active');
+  if(p==='messages')gid('pageMessages').classList.add('active');
   else gid('page'+cap(p))?.classList.add('active');
-  ['home','explore','messages','profile'].forEach(k=>gid('nt'+cap(k)).classList.toggle('active',k===p));
+  ['home','explore','reels','messages','profile'].forEach(k=>gid('nt'+cap(k))?.classList.toggle('active',k===p));
+  if(p==='explore')loadExplorePosts();
+  if(p==='reels')loadReelsFeed();
+  if(p==='notifications')markNotifsRead();
 };
 
 // ══ STORIES ══
-function renderStories(){
+async function renderStories(){
+  const row=gid('storiesRow');
   const ava=CU.pfp||DPFP;
-  gid('storiesRow').innerHTML=`<div class="story-item" onclick="openModal('storyModal')">
+  let html=`<div class="story-item" onclick="openModal('storyModal2')">
     <div class="story-ring add-ring" style="position:relative;overflow:visible;">
       <img src="${ava}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;border:2px solid var(--bg);" alt="">
       <div style="position:absolute;bottom:0;right:0;width:19px;height:19px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:bold;border:2px solid var(--bg);z-index:1;" class="grad-bg">+</div>
     </div><span class="story-name">Your Story</span></div>`;
+  // Load stories from Firebase
+  try{
+    const snap=await get(query(ref(DB,'stories'),orderByChild('createdAt'),limitToLast(20)));
+    if(snap.exists()){
+      const stories=[];snap.forEach(c=>stories.unshift({id:c.key,...c.val()}));
+      const byUser={};stories.forEach(s=>{if(!byUser[s.uid])byUser[s.uid]=s;});
+      Object.values(byUser).forEach(s=>{
+        if(s.uid===CU.id)return;
+        html+=`<div class="story-item" onclick="viewStory('${s.uid}')">
+          <div class="story-ring unseen"><img src="${s.pfp||DPFP}" alt=""></div>
+          <span class="story-name">@${esc(s.username)}</span></div>`;
+      });
+    }
+  }catch(e){}
+  row.innerHTML=html;
 }
 
-// ══ FEED (REAL) ══
+// Story upload modal
+const storyModal2El=document.createElement('div');
+storyModal2El.className='modal-overlay hidden';storyModal2El.id='storyModal2';storyModal2El.onclick=()=>closeModal('storyModal2');
+storyModal2El.innerHTML=`<div class="modal-sheet" onclick="event.stopPropagation()">
+  <div class="modal-handle"></div><div class="modal-title">Add Story 📖</div>
+  <img id="storyPrevImg" style="width:100%;max-height:200px;object-fit:cover;border-radius:12px;display:none;margin-bottom:9px;">
+  <div class="modal-opt" onclick="document.getElementById('storyImgIn').click()">🖼️ Upload Photo Story</div>
+  <input type="file" id="storyImgIn" accept="image/*" style="display:none" onchange="previewStoryImg(this)">
+  <button class="auth-btn grad-bg" onclick="submitStory()" style="margin-top:8px;"><span id="storyBtnTxt">Share Story</span><div class="spinner-sm" id="storySpin"></div></button>
+  <button class="modal-cancel-btn" onclick="closeModal('storyModal2')">Cancel</button>
+</div>`;
+document.body.appendChild(storyModal2El);
+
+window.previewStoryImg=function(input){const f=input.files[0];if(!f)return;const r=new FileReader();r.onload=e=>{const i=gid('storyPrevImg');i.src=e.target.result;i.style.display='block';};r.readAsDataURL(f);};
+window.submitStory=async function(){
+  const img=gid('storyPrevImg');if(img.style.display!=='block'){showToast('Choose a photo first');return;}
+  setSpin('storyBtnTxt','storySpin',true);
+  try{
+    await push(ref(DB,'stories'),{uid:CU.id,username:CU.username,pfp:CU.pfp||null,mediaUrl:img.src,type:'image',createdAt:serverTimestamp()||Date.now()});
+    setSpin('storyBtnTxt','storySpin',false);
+    closeModal('storyModal2');img.style.display='none';gid('storyImgIn').value='';
+    showToast('Story shared! 🎉');renderStories();
+  }catch(e){setSpin('storyBtnTxt','storySpin',false);showToast('Error: '+e.message);}
+};
+
+window.viewStory=async function(uid){
+  try{
+    const snap=await get(query(ref(DB,'stories'),orderByChild('uid')));
+    if(!snap.exists())return;
+    const stories=[];snap.forEach(c=>{if(c.val().uid===uid)stories.push(c.val());});
+    if(!stories.length)return;
+    const s=stories[0];
+    gid('storyViewerAva').src=s.pfp||DPFP;
+    gid('storyViewerName').textContent='@'+s.username;
+    gid('storyMedia').innerHTML=`<img src="${s.mediaUrl}" style="max-width:100%;max-height:100%;object-fit:contain;">`;
+    gid('storyProgress').innerHTML='<div class="story-prog-bar"><div class="story-prog-fill" id="spFill"></div></div>';
+    gid('storyViewer').classList.remove('hidden');
+    let pct=0;const iv=setInterval(()=>{pct+=100/50;gid('spFill').style.width=pct+'%';if(pct>=100){clearInterval(iv);setTimeout(()=>closeStoryViewer(),300);}},100);
+    gid('storyViewer').dataset.iv=iv;
+  }catch(e){}
+};
+window.closeStoryViewer=function(){clearInterval(parseInt(gid('storyViewer').dataset.iv));gid('storyViewer').classList.add('hidden');};
+
+// ══ FEED ══
 function listenFeed(){
-  if(feedListenerOff) feedListenerOff();
+  if(feedListenerOff)feedListenerOff();
   const feedRef=query(ref(DB,'posts'),orderByChild('createdAt'),limitToLast(30));
   feedListenerOff=onValue(feedRef,snap=>{
-    const posts=[];
-    if(snap.exists()) snap.forEach(c=>posts.unshift({id:c.key,...c.val()}));
+    const posts=[];if(snap.exists())snap.forEach(c=>posts.unshift({id:c.key,...c.val()}));
     renderFeed(posts);
   });
 }
 
 function renderFeed(posts){
-  const empty=gid('feedEmpty'), feed=gid('feedPosts');
+  const empty=gid('feedEmpty'),feed=gid('feedPosts');
   if(!posts.length){empty.style.display='flex';feed.innerHTML='';return;}
   empty.style.display='none';
   feed.innerHTML=posts.map((p,i)=>`
-    <div class="post-card" style="animation-delay:${i*0.06}s">
+    <div class="post-card" style="animation-delay:${i*0.05}s">
       <div class="post-header">
         <div class="post-user">
           <img class="post-ava" src="${p.pfp||DPFP}" alt="">
-          <div><div class="post-uname">@${esc(p.username)}</div><div class="post-time">${timeAgo(p.createdAt)}</div></div>
+          <div><div class="post-uname">@${esc(p.username)}</div><div class="post-time-lbl">${timeAgo(p.createdAt)}</div></div>
         </div>
       </div>
-      <img class="post-img" src="${p.imageUrl}" alt="" loading="lazy">
+      <img class="post-img" src="${p.imageUrl}" loading="lazy" alt="">
       <div class="post-actions">
-        <button class="act-btn ${p.likes?.[CU.id]?'liked':''}" onclick="toggleLike('${p.id}',this)">
-          ${p.likes?.[CU.id]?'❤️':'🤍'} <span class="act-cnt">${Object.keys(p.likes||{}).length}</span>
+        <button class="act-btn ${p.likes&&p.likes[CU.id]?'liked':''}" onclick="toggleLike('${p.id}',this)">
+          ${p.likes&&p.likes[CU.id]?'❤️':'🤍'} <span class="act-cnt">${Object.keys(p.likes||{}).length}</span>
         </button>
-        <button class="act-btn" onclick="toggleComments('${p.id}')">💬 <span class="act-cnt">${Object.keys(p.comments||{}).length}</span></button>
+        <button class="act-btn" onclick="toggleComments('comments_${p.id}')">💬 <span class="act-cnt">${Object.keys(p.comments||{}).length}</span></button>
+        <button class="act-btn" onclick="sharePost('${p.id}','${esc(p.username)}')">↗️</button>
       </div>
-      <div class="post-caption"><strong>@${esc(p.username)}</strong> ${esc(p.caption||'')}</div>
-      <div class="post-comments" id="comments_${p.id}" style="display:none;">
-        ${Object.values(p.comments||{}).map(c=>`<div class="comment-row"><img class="comment-ava" src="${c.pfp||DPFP}"><div class="comment-text"><strong>@${esc(c.username)}</strong> ${esc(c.text)}</div></div>`).join('')}
+      ${p.caption?`<div class="post-caption"><strong>@${esc(p.username)}</strong> ${esc(p.caption)}</div>`:''}
+      <div class="comments-wrap" id="comments_${p.id}" style="display:none;">
+        <div id="cmtlist_${p.id}">
+          ${Object.values(p.comments||{}).map(c=>`<div class="comment-row"><img class="comment-ava" src="${c.pfp||DPFP}"><div class="comment-bubble"><strong>@${esc(c.username)}</strong> ${esc(c.text)}</div></div>`).join('')}
+        </div>
         <div class="comment-input-row">
           <img class="comment-ava" src="${CU.pfp||DPFP}">
           <input class="comment-field" id="cfield_${p.id}" placeholder="Add a comment..." onkeydown="if(event.key==='Enter')postComment('${p.id}')">
@@ -873,110 +998,89 @@ function renderFeed(posts){
 async function toggleLike(pid,btn){
   const likeRef=ref(DB,`posts/${pid}/likes/${CU.id}`);
   const snap=await get(likeRef);
-  if(snap.exists()){await remove(likeRef);}else{await set(likeRef,true);}
+  if(snap.exists()){await remove(likeRef);}
+  else{
+    await set(likeRef,true);
+    // Notify post owner
+    const pSnap=await get(ref(DB,'posts/'+pid));
+    if(pSnap.exists()&&pSnap.val().uid!==CU.id){
+      await push(ref(DB,'notifications/'+pSnap.val().uid),{type:'like',fromUid:CU.id,fromUsername:CU.username,fromPfp:CU.pfp||null,postId:pid,postImg:pSnap.val().imageUrl,read:false,time:serverTimestamp()||Date.now()});
+    }
+  }
 }
+window.toggleLike=toggleLike;
 
-window.toggleComments=function(pid){
-  const el=gid('comments_'+pid);
-  el.style.display=el.style.display==='none'?'block':'none';
-};
+window.toggleComments=function(id){const el=gid(id);el.style.display=el.style.display==='none'?'block':'none';};
 
-async function postComment(pid){
-  const field=gid('cfield_'+pid);
-  const text=field.value.trim();
-  if(!text)return;
-  field.value='';
+window.postComment=async function(pid){
+  const field=gid('cfield_'+pid);const text=field.value.trim();if(!text)return;field.value='';
   const cid='c_'+Date.now();
   await set(ref(DB,`posts/${pid}/comments/${cid}`),{uid:CU.id,username:CU.username,pfp:CU.pfp||null,text,time:Date.now()});
-}
+  // Notify
+  const pSnap=await get(ref(DB,'posts/'+pid));
+  if(pSnap.exists()&&pSnap.val().uid!==CU.id){
+    await push(ref(DB,'notifications/'+pSnap.val().uid),{type:'comment',fromUid:CU.id,fromUsername:CU.username,fromPfp:CU.pfp||null,postId:pid,text,read:false,time:serverTimestamp()||Date.now()});
+  }
+  // Update UI
+  const listEl=gid('cmtlist_'+pid);
+  if(listEl){const d=document.createElement('div');d.className='comment-row';d.innerHTML=`<img class="comment-ava" src="${CU.pfp||DPFP}"><div class="comment-bubble"><strong>@${esc(CU.username)}</strong> ${esc(text)}</div>`;listEl.appendChild(d);}
+};
 
-// ══ PROFILE ══
-async function loadProfile(){
-  try{
-    const snap=await get(ref(DB,'users/'+CU.id));
-    if(snap.exists()){CU={...CU,...snap.val()};LS.saveSession(CU);}
-  }catch(e){}
-  renderProfile();
-}
+window.sharePost=function(pid,uname){
+  navigator.clipboard?.writeText(window.location.href+'#post/'+pid).then(()=>showToast('Post link copied! 🔗')).catch(()=>showToast('Share: @'+uname+' post'));
+};
 
-function renderProfile(){
-  gid('profileUsername').textContent='@'+CU.username;
-  gid('profileBio').textContent=CU.bio||'';
-  gid('bioArea').value=CU.bio||'';
-  gid('profileAvaImg').src=CU.pfp||DPFP;
-  // Followers/following count
-  get(ref(DB,'follows/'+CU.id)).then(s=>gid('statFollowing').textContent=s.exists()?Object.keys(s.val()).length:0);
-  get(ref(DB,'followers/'+CU.id)).then(s=>gid('statFollowers').textContent=s.exists()?Object.keys(s.val()).length:0);
-  get(ref(DB,'posts')).then(s=>{
-    if(!s.exists()){gid('statPosts').textContent=0;return;}
-    const mine=Object.values(s.val()).filter(p=>p.uid===CU.id);
-    gid('statPosts').textContent=mine.length;
-    if(mine.length){
-      gid('profileGridContent').innerHTML=`<div class="profile-grid">${mine.map(p=>`<div class="grid-img"><img src="${p.imageUrl}" loading="lazy"></div>`).join('')}</div>`;
-    }
+// ══ EXPLORE ══
+window.switchExpTab=function(tab){
+  ['people','posts','reels'].forEach(t=>{
+    gid('expTab'+cap(t)).classList.toggle('active',t===tab);
+    gid('exp'+cap(t)+'Pane').classList.toggle('hidden',t!==tab);
   });
+  if(tab==='posts'||tab==='reels')loadExplorePosts();
+};
+
+async function loadExplorePosts(){
+  try{
+    const snap=await get(query(ref(DB,'posts'),orderByChild('createdAt'),limitToLast(30)));
+    const grid=gid('explorePostsGrid');
+    if(!snap.exists()){grid.innerHTML='<div class="p-empty-grid">No posts yet</div>';return;}
+    const posts=[];snap.forEach(c=>posts.unshift({id:c.key,...c.val()}));
+    grid.innerHTML=posts.map(p=>`<div class="grid-img" onclick=""><img src="${p.imageUrl}" loading="lazy"></div>`).join('');
+    const rSnap=await get(query(ref(DB,'reels'),orderByChild('createdAt'),limitToLast(30)));
+    const rgrid=gid('exploreReelsGrid');
+    if(!rSnap.exists()){rgrid.innerHTML='<div class="p-empty-grid">No reels yet</div>';return;}
+    const reels=[];rSnap.forEach(c=>reels.unshift({id:c.key,...c.val()}));
+    rgrid.innerHTML=reels.map(r=>`<div class="grid-img"><video src="${r.videoUrl}" muted playsinline></video><div class="grid-reel-badge">▶️</div></div>`).join('');
+  }catch(e){}
 }
 
-let editOpen=false;
-window.toggleEdit=function(){editOpen=!editOpen;gid('editWrap').classList.toggle('hidden',!editOpen);};
-window.saveBio=async function(){
-  const b=val('bioArea').trim();
-  await update(ref(DB,'users/'+CU.id),{bio:b});
-  CU.bio=b;LS.saveSession(CU);
-  gid('profileBio').textContent=b;
-  gid('editWrap').classList.add('hidden');editOpen=false;
-  showToast('Bio saved ✅');
-};
-window.switchGridTab=function(el){document.querySelectorAll('.grid-tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');};
-
-window.updatePfp=function(input){
-  const f=input.files[0];if(!f)return;
-  const r=new FileReader();
-  r.onload=async e=>{
-    CU.pfp=e.target.result;
-    await update(ref(DB,'users/'+CU.id),{pfp:CU.pfp});
-    LS.saveSession(CU);
-    gid('profileAvaImg').src=CU.pfp;
-    refreshNavPfp();renderStories();
-    showToast('PFP updated ✅');
-  };
-  r.readAsDataURL(f);
-};
-
-window.copyShareLink=function(){showToast('Share the site link with friends!');};
-
-window.doLogout=function(){
-  if(dmListenerOff)dmListenerOff();
-  if(feedListenerOff)feedListenerOff();
-  LS.clearSession();CU=null;
-  gid('appShell').classList.remove('active');
-  gid('screenAuth').classList.remove('hidden');
-  gid('loginForm').classList.remove('hidden');
-  gid('signupForm').classList.add('hidden');
-};
-
-// ══ EXPLORE / SEARCH ══
 window.searchPeople=async function(q){
   const box=gid('searchResults');
   const q2=q.trim().toLowerCase();
-  if(!q2){box.innerHTML='<div class="empty-state"><div class="empty-icon">👥</div><div class="empty-title">Find people</div><div class="empty-sub">Search by username.</div></div>';return;}
+  if(!q2){box.innerHTML='<div class="empty-state"><div class="empty-icon">👥</div><div class="empty-title">Find people</div></div>';return;}
   try{
     const snap=await get(ref(DB,'users'));
-    if(!snap.exists()){box.innerHTML='<div class="empty-state"><div class="empty-icon">🔍</div><div class="empty-title">No users yet</div></div>';return;}
+    if(!snap.exists()){box.innerHTML='<div class="empty-state"><div class="empty-icon">🔍</div><div class="empty-title">No users found</div></div>';return;}
     const all=Object.values(snap.val()).filter(u=>u.id!==CU.id&&u.username.includes(q2));
     if(!all.length){box.innerHTML='<div class="empty-state"><div class="empty-icon">🔍</div><div class="empty-title">No users found</div></div>';return;}
     const myFSnap=await get(ref(DB,'follows/'+CU.id));
     const myF=myFSnap.exists()?Object.keys(myFSnap.val()):[];
     box.innerHTML=all.map(u=>`<div class="people-item">
-      <img class="people-ava" src="${u.pfp||DPFP}" alt="">
-      <div class="people-info"><div class="people-name">@${esc(u.username)}</div><div class="people-sub">${u.bio?esc(u.bio.slice(0,30)):''}</div></div>
-      <button class="dm-btn-ui" onclick="openDmWith('${u.id}','${u.username}','${u.pfp||''}')">💬</button>
-      <button class="follow-btn-ui ${myF.includes(u.id)?'following':''}" onclick="toggleFollow(this,'${u.id}')">${myF.includes(u.id)?'Following':'Follow'}</button>
+      <div class="people-ava-wrap">
+        <img class="people-ava" src="${u.pfp||DPFP}" alt="">
+        <div class="online-ring" style="background:${u.online?'var(--green)':'var(--muted)'}"></div>
+      </div>
+      <div class="people-info">
+        <div class="people-name">@${esc(u.username)}</div>
+        <div class="people-sub">${u.online?'🟢 Online':'⚫ Offline'}${u.bio?' · '+esc(u.bio.slice(0,25)):''}</div>
+      </div>
+      <button class="dm-btn-ui" onclick="openDmWith('${u.id}','${u.username}','${u.pfp||''}');navigateTo('messages')">💬</button>
+      <button class="follow-btn-ui ${myF.includes(u.id)?'following':''}" onclick="toggleFollow(this,'${u.id}','${u.username}')">${myF.includes(u.id)?'Following':'Follow'}</button>
     </div>`).join('');
-  }catch(e){showToast('Search error: '+e.message);}
+  }catch(e){showToast('Search error');}
 };
 
-window.toggleFollow=async function(btn,uid){
+window.toggleFollow=async function(btn,uid,username){
   const fRef=ref(DB,`follows/${CU.id}/${uid}`);
   const frRef=ref(DB,`followers/${uid}/${CU.id}`);
   const snap=await get(fRef);
@@ -985,9 +1089,168 @@ window.toggleFollow=async function(btn,uid){
     btn.textContent='Follow';btn.classList.remove('following');showToast('Unfollowed');
   }else{
     await set(fRef,true);await set(frRef,true);
-    btn.textContent='Following';btn.classList.add('following');showToast('Following! 🎉');
+    btn.textContent='Following';btn.classList.add('following');showToast('Following @'+username+' 🎉');
+    // Notify
+    await push(ref(DB,'notifications/'+uid),{type:'follow',fromUid:CU.id,fromUsername:CU.username,fromPfp:CU.pfp||null,read:false,time:serverTimestamp()||Date.now()});
   }
-  renderProfile();renderUserInbox();
+  loadProfile();renderUserInbox();
+};
+
+// ══ REELS ══
+async function loadReelsFeed(){
+  const container=gid('reelsContainer');
+  try{
+    const snap=await get(query(ref(DB,'reels'),orderByChild('createdAt'),limitToLast(20)));
+    if(!snap.exists()){container.innerHTML='<div class="reels-empty"><div style="font-size:3rem;">🎬</div><div style="font-family:\'Syne\',sans-serif;font-size:1.1rem;font-weight:700;color:var(--text);">No Reels Yet</div><div style="font-size:0.85rem;">Be the first!</div></div>';return;}
+    const reels=[];snap.forEach(c=>reels.unshift({id:c.key,...c.val()}));
+    container.innerHTML=reels.map((r,i)=>`
+      <div class="reel-item" id="reel_${r.id}">
+        <video class="reel-video" src="${r.videoUrl}" loop playsinline ${i===0?'autoplay muted':'muted'}></video>
+        <div class="reel-overlay"></div>
+        <div class="reel-info">
+          <div class="reel-uname">@${esc(r.username)}</div>
+          ${r.caption?`<div class="reel-caption">${esc(r.caption)}</div>`:''}
+        </div>
+        <div class="reel-actions">
+          <img class="reel-ava" src="${r.pfp||DPFP}" alt="">
+          <div class="reel-act" onclick="toggleReelLike('${r.id}',this)">
+            <div class="reel-act-icon">${r.likes&&r.likes[CU.id]?'❤️':'🤍'}</div>
+            <div class="reel-act-label">${Object.keys(r.likes||{}).length}</div>
+          </div>
+          <div class="reel-act" onclick="shareReel('${r.id}','${esc(r.username)}')">
+            <div class="reel-act-icon">↗️</div>
+            <div class="reel-act-label">Share</div>
+          </div>
+        </div>
+      </div>`).join('');
+    // Auto-play on scroll
+    const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{const v=e.target.querySelector('video');if(v){if(e.isIntersecting){v.play().catch(()=>{});}else{v.pause();}}});},{threshold:0.7});
+    container.querySelectorAll('.reel-item').forEach(el=>obs.observe(el));
+  }catch(e){}
+}
+
+async function toggleReelLike(rid,el){
+  const likeRef=ref(DB,`reels/${rid}/likes/${CU.id}`);
+  const snap=await get(likeRef);
+  const icon=el.querySelector('.reel-act-icon');
+  const label=el.querySelector('.reel-act-label');
+  if(snap.exists()){await remove(likeRef);icon.textContent='🤍';const cnt=parseInt(label.textContent)||0;label.textContent=Math.max(0,cnt-1);}
+  else{await set(likeRef,true);icon.textContent='❤️';const cnt=parseInt(label.textContent)||0;label.textContent=cnt+1;}
+}
+window.toggleReelLike=toggleReelLike;
+
+window.shareReel=function(rid,uname){
+  navigator.clipboard?.writeText(window.location.href+'#reel/'+rid).then(()=>showToast('Reel link copied! 🔗')).catch(()=>showToast('Reel by @'+uname));
+};
+
+window.previewReel=function(input){const f=input.files[0];if(!f)return;const v=gid('reelPrevVid');v.src=URL.createObjectURL(f);v.style.display='block';};
+window.submitReel=async function(){
+  const vid=gid('reelPrevVid');if(vid.style.display!=='block'){showToast('Choose a video first');return;}
+  setSpin('reelBtnTxt','reelSpin',true);
+  try{
+    await push(ref(DB,'reels'),{uid:CU.id,username:CU.username,pfp:CU.pfp||null,videoUrl:vid.src,caption:val('reelCaption').trim(),createdAt:serverTimestamp()||Date.now(),likes:{},views:0});
+    setSpin('reelBtnTxt','reelSpin',false);
+    closeModal('reelModal');vid.style.display='none';gid('reelVidIn').value='';gid('reelCaption').value='';
+    showToast('Reel shared 🎬🎉');
+  }catch(e){setSpin('reelBtnTxt','reelSpin',false);showToast('Error: '+e.message);}
+};
+
+// ══ NOTIFICATIONS ══
+function listenNotifs(){
+  onValue(ref(DB,'notifications/'+CU.id),snap=>{
+    if(!snap.exists()){gid('notifList').innerHTML='<div class="empty-state"><div class="empty-icon">🔔</div><div class="empty-title">No notifications yet</div></div>';gid('notifBadge').classList.add('hidden');return;}
+    const notifs=[];snap.forEach(c=>notifs.unshift({id:c.key,...c.val()}));
+    const unread=notifs.filter(n=>!n.read).length;
+    const badge=gid('notifBadge');
+    if(unread>0){badge.classList.remove('hidden');badge.textContent=unread>9?'9+':unread;}
+    else badge.classList.add('hidden');
+    gid('notifList').innerHTML=notifs.map(n=>{
+      let text='';
+      if(n.type==='like')text=`<strong>@${esc(n.fromUsername)}</strong> liked your post`;
+      else if(n.type==='comment')text=`<strong>@${esc(n.fromUsername)}</strong> commented: ${esc((n.text||'').slice(0,30))}`;
+      else if(n.type==='follow')text=`<strong>@${esc(n.fromUsername)}</strong> started following you`;
+      return`<div class="notif-item ${n.read?'':'unread'}">
+        <img class="notif-ava" src="${n.fromPfp||DPFP}" alt="">
+        <div class="notif-text">${text}<br><span style="font-size:0.72rem;color:var(--muted)">${timeAgo(n.time)}</span></div>
+        ${n.postImg?`<img class="notif-img" src="${n.postImg}" alt="">`:''}
+      </div>`;
+    }).join('');
+  });
+}
+
+async function markNotifsRead(){
+  try{
+    const snap=await get(ref(DB,'notifications/'+CU.id));
+    if(!snap.exists())return;
+    const updates={};snap.forEach(c=>{if(!c.val().read)updates[c.key+'/read']=true;});
+    if(Object.keys(updates).length)await update(ref(DB,'notifications/'+CU.id),updates);
+  }catch(e){}
+}
+
+// ══ PROFILE ══
+async function loadProfile(){
+  try{const snap=await get(ref(DB,'users/'+CU.id));if(snap.exists()){CU={...CU,...snap.val()};LS.saveSession(CU);}}catch(e){}
+  renderProfile();
+}
+
+function renderProfile(){
+  gid('profileUsername').textContent='@'+CU.username;
+  gid('profileBio').textContent=CU.bio||'';
+  gid('bioArea').value=CU.bio||'';
+  gid('profileAvaImg').src=CU.pfp||DPFP;
+  get(ref(DB,'follows/'+CU.id)).then(s=>gid('statFollowing').textContent=s.exists()?Object.keys(s.val()).length:0);
+  get(ref(DB,'followers/'+CU.id)).then(s=>gid('statFollowers').textContent=s.exists()?Object.keys(s.val()).length:0);
+  loadProfileGrid('posts');
+}
+
+async function loadProfileGrid(tab){
+  const grid=gid('profileGridContent');
+  try{
+    if(tab==='posts'){
+      const snap=await get(ref(DB,'posts'));
+      if(!snap.exists()){grid.innerHTML='<div class="p-empty-grid">📷 No posts yet.</div>';gid('statPosts').textContent=0;return;}
+      const mine=Object.entries(snap.val()).filter(([,p])=>p.uid===CU.id).map(([id,p])=>({id,...p}));
+      gid('statPosts').textContent=mine.length;
+      grid.innerHTML=mine.length?`<div class="posts-grid">${mine.map(p=>`<div class="grid-img"><img src="${p.imageUrl}" loading="lazy"></div>`).join('')}</div>`:'<div class="p-empty-grid">📷 No posts yet.</div>';
+    }else if(tab==='reels'){
+      const snap=await get(ref(DB,'reels'));
+      if(!snap.exists()){grid.innerHTML='<div class="p-empty-grid">🎬 No reels yet.</div>';return;}
+      const mine=Object.entries(snap.val()).filter(([,r])=>r.uid===CU.id).map(([id,r])=>({id,...r}));
+      grid.innerHTML=mine.length?`<div class="posts-grid">${mine.map(r=>`<div class="grid-img"><video src="${r.videoUrl}" muted></video><div class="grid-reel-badge">▶️</div></div>`).join('')}</div>`:'<div class="p-empty-grid">🎬 No reels yet.</div>';
+    }else{grid.innerHTML='<div class="p-empty-grid">🔖 No saved posts yet.</div>';}
+  }catch(e){}
+}
+
+let editOpen=false;
+window.toggleEdit=function(){editOpen=!editOpen;gid('editWrap').classList.toggle('hidden',!editOpen);};
+window.saveBio=async function(){
+  const b=val('bioArea').trim();
+  await update(ref(DB,'users/'+CU.id),{bio:b});
+  CU.bio=b;LS.saveSession(CU);
+  gid('profileBio').textContent=b;gid('editWrap').classList.add('hidden');editOpen=false;
+  showToast('Bio saved ✅');
+};
+window.switchGridTab=function(el,tab){
+  document.querySelectorAll('.grid-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');loadProfileGrid(tab);
+};
+window.updatePfp=function(input){
+  const f=input.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=async e=>{
+    CU.pfp=e.target.result;
+    await update(ref(DB,'users/'+CU.id),{pfp:CU.pfp});
+    LS.saveSession(CU);
+    gid('profileAvaImg').src=CU.pfp;refreshNavPfp();renderStories();
+    showToast('PFP updated ✅');
+  };r.readAsDataURL(f);
+};
+window.doLogout=function(){
+  setOnline(false);if(onlineInterval)clearInterval(onlineInterval);
+  if(dmListenerOff)dmListenerOff();if(feedListenerOff)feedListenerOff();
+  LS.clearSession();CU=null;
+  gid('appShell').classList.remove('active');gid('screenAuth').classList.remove('hidden');
+  gid('loginForm').classList.remove('hidden');gid('signupForm').classList.add('hidden');
 };
 
 // ══ INBOX ══
@@ -998,57 +1261,69 @@ async function renderUserInbox(){
     const myF=fSnap.exists()?Object.keys(fSnap.val()):[];
     const myFr=frSnap.exists()?Object.keys(frSnap.val()):[];
     const contacts=[...new Set([...myF,...myFr])];
-    if(!contacts.length){box.innerHTML='<div style="text-align:center;padding:14px;color:var(--muted);font-size:0.81rem;">Follow people to chat with them!</div>';return;}
+    if(!contacts.length){box.innerHTML='<div style="text-align:center;padding:14px;color:var(--muted);font-size:0.81rem;">Follow people to chat!</div>';return;}
     const users=usersSnap.exists()?usersSnap.val():{};
     box.innerHTML=contacts.map(uid=>{
       const u=users[uid];if(!u)return'';
       return`<div class="inbox-item" onclick="openDmWith('${uid}','${u.username}','${u.pfp||''}')">
-        <img class="ib-ava" src="${u.pfp||DPFP}" alt="">
-        <div class="ib-info"><div class="ib-name">@${esc(u.username)}</div><div class="ib-preview" id="ibp_${uid}">Loading...</div></div>
+        <div style="position:relative;">
+          <img class="ib-ava" src="${u.pfp||DPFP}" alt="">
+          <div class="online-dot-abs" style="background:${u.online?'var(--green)':'var(--muted)'}"></div>
+        </div>
+        <div class="ib-info">
+          <div class="ib-name">@${esc(u.username)} ${u.online?'<span style="color:var(--green);font-size:0.7rem;">●</span>':''}</div>
+          <div class="ib-preview" id="ibp_${uid}">Say hello! 👋</div>
+        </div>
       </div>`;
     }).join('');
-    // Load last message previews
-    contacts.forEach(async uid=>{
-      const dmKey=[CU.id,uid].sort().join('_');
-      const mSnap=await get(query(ref(DB,'dms/'+dmKey),orderByChild('time'),limitToLast(1)));
-      const el=gid('ibp_'+uid);
-      if(el&&mSnap.exists()){const msgs=Object.values(mSnap.val());el.textContent=msgs[0].text.slice(0,38);}
-      else if(el){el.textContent='Say hello!';}
-    });
+    await Promise.all(contacts.map(async uid=>{
+      try{
+        const dmKey=[CU.id,uid].sort().join('_');
+        const mSnap=await get(query(ref(DB,'dms/'+dmKey),orderByChild('time'),limitToLast(1)));
+        const el=gid('ibp_'+uid);
+        if(!el)return;
+        if(mSnap.exists()){const msgs=Object.values(mSnap.val());el.textContent=msgs[0].text.slice(0,38);}
+        else el.textContent='Say hello! 👋';
+      }catch(e){}
+    }));
   }catch(e){}
 }
 
 // ══ DM ══
 window.openDmWith=function(uid,username,pfpSrc){
   if(dmListenerOff){dmListenerOff();dmListenerOff=null;}
-  currentChatId='dm'; currentChatUid=uid;
+  currentChatId='dm';currentChatUid=uid;
   gid('chatAvaEl').innerHTML=`<img class="chat-ava-sm" src="${pfpSrc||DPFP}" alt="">`;
   gid('chatTopName').textContent='@'+username;
-  gid('chatTopStatus').textContent='';
   gid('chatView').dataset.tuid=uid;
+  // Online status
+  onValue(ref(DB,'users/'+uid+'/online'),snap=>{
+    gid('chatTopStatus').textContent=snap.val()?'🟢 Online':'⚫ Offline';
+    gid('chatTopStatus').style.color=snap.val()?'var(--green)':'var(--muted)';
+  });
   gid('chatMessages').innerHTML='';
   const dmKey=[CU.id,uid].sort().join('_');
   const dmRef=query(ref(DB,'dms/'+dmKey),orderByChild('time'),limitToLast(50));
   dmListenerOff=onChildAdded(dmRef,snap=>{
     const m=snap.val();
     if(m.from===CU.id)addSentBubble(m.text);
-    else addRecvBubble(m.text,pfpSrc||DPFP);
+    else addRecvBubble(m.text,pfpSrc||DPFP,username);
   });
-  showChatPane();navigateTo('messages');
+  showChatPane();
 };
 
 // ══ GEMINI ══
 window.openGeminiChat=function(){
   if(dmListenerOff){dmListenerOff();dmListenerOff=null;}
-  currentChatId='gemini'; currentChatUid=null;
+  currentChatId='gemini';currentChatUid=null;
   gid('chatAvaEl').innerHTML='<div class="chat-ava-bot grad-bg" style="color:white;">🤖</div>';
   gid('chatTopName').textContent='Gemini AI';
-  gid('chatTopStatus').textContent='● Online';
+  gid('chatTopStatus').textContent='🟢 Online';gid('chatTopStatus').style.color='var(--green)';
   gid('chatView').dataset.tuid='';
   geminiHistory=LS.geminiChat();
   const c=gid('chatMessages');c.innerHTML='';
-  if(!geminiHistory.length)addRecvBubble('Namaste! 👋 Main Gemini hoon — aapka AI dost. Kuch bhi poocho, Hindi, English, ya Hinglish mein! 😊','');
-  else geminiHistory.forEach(m=>{if(m.role==='user')addSentBubble(m.parts[0].text);else addRecvBubble(m.parts[0].text,'');});
+  if(!geminiHistory.length)addRecvBubble('Namaste! 👋 Main Gemini hoon — aapka AI dost. Kuch bhi poocho, Hindi, English, ya Hinglish mein!','','Gemini');
+  else geminiHistory.forEach(m=>{if(m.role==='user')addSentBubble(m.parts[0].text);else addRecvBubble(m.parts[0].text,'','Gemini');});
   showChatPane();
 };
 
@@ -1060,7 +1335,7 @@ function addSentBubble(text){
   d.innerHTML=`<img class="msg-ava-sm" src="${CU.pfp||DPFP}" alt=""><div><div class="msg-bubble grad-bg">${esc(text)}</div><div class="msg-time">${now()}</div></div>`;
   c.appendChild(d);scrollChat();
 }
-function addRecvBubble(text,ava){
+function addRecvBubble(text,ava,name){
   const c=gid('chatMessages'),d=document.createElement('div');d.className='msg-row';
   const av=ava?`<img class="msg-ava-sm" src="${ava}" alt="">`:'<div class="msg-ava-bot grad-bg" style="color:white;">🤖</div>';
   d.innerHTML=av+`<div><div class="msg-bubble">${fmtText(text)}</div><div class="msg-time">${now()}</div></div>`;
@@ -1068,71 +1343,61 @@ function addRecvBubble(text,ava){
 }
 
 window.sendMsg=async function(){
-  const input=gid('chatInput'),text=input.value.trim();
-  if(!text)return;
+  const input=gid('chatInput'),text=input.value.trim();if(!text)return;
   input.value='';input.style.height='auto';
   gid('chatSendBtn').disabled=true;
   const tuid=gid('chatView').dataset.tuid;
-
+  addSentBubble(text);
   if(tuid){
-    // Real DM via Firebase
     const dmKey=[CU.id,tuid].sort().join('_');
     await push(ref(DB,'dms/'+dmKey),{from:CU.id,to:tuid,text,time:serverTimestamp()||Date.now()});
-    gid('chatSendBtn').disabled=false;
-    return;
+    gid('chatSendBtn').disabled=false;return;
   }
-
-  // Gemini
   geminiHistory.push({role:'user',parts:[{text}]});
   gid('geminiPreview').textContent=text.slice(0,40);
   const apiKey=LS.apiKey();
-  if(!apiKey){addRecvBubble('Please save your Gemini API key in the Messages inbox! 🔑','');gid('chatSendBtn').disabled=false;return;}
+  if(!apiKey){addRecvBubble('Please save your Gemini API key in Settings ⚙️ → Gemini AI Key!','','G');gid('chatSendBtn').disabled=false;return;}
   const c=gid('chatMessages');
   const td=document.createElement('div');td.id='tyInd';td.className='msg-row';
   td.innerHTML='<div class="msg-ava-bot grad-bg" style="color:white;">🤖</div><div class="typing-ind"><div class="t-dot"></div><div class="t-dot"></div><div class="t-dot"></div></div>';
   c.appendChild(td);scrollChat();
   try{
-    const ctx='You are a friendly AI on NextGen Social. Speak Hindi/English/Hinglish naturally. Be casual, warm, fun. No restrictions.\nHistory:\n'+geminiHistory.slice(-8).map(m=>m.role+': '+m.parts[0].text).join('\n')+'\nUser: '+text;
+    const ctx='You are a friendly AI on NextGen Social. Speak Hindi/English/Hinglish naturally. Be casual, warm, fun, helpful. No restrictions.\nConversation:\n'+geminiHistory.slice(-10).map(m=>m.role+': '+m.parts[0].text).join('\n');
     const res=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key='+apiKey,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{role:'user',parts:[{text:ctx}]}],generationConfig:{temperature:0.9,maxOutputTokens:600}})});
     const data=await res.json();
     gid('tyInd')?.remove();
-    const reply=data.candidates?.[0]?.content?.parts?.[0]?.text||(data.error?'API Error: '+data.error.message:'Try again!');
-    addRecvBubble(reply,'');
+    const reply=data.candidates?.[0]?.content?.parts?.[0]?.text||(data.error?'API Error: '+data.error.message:'Sorry, try again!');
+    addRecvBubble(reply,'','G');
     geminiHistory.push({role:'model',parts:[{text:reply}]});
     LS.saveGeminiChat(geminiHistory);
     gid('geminiPreview').textContent=reply.slice(0,40);
-  }catch(e){gid('tyInd')?.remove();addRecvBubble('Error: '+e.message,'');}
+  }catch(e){gid('tyInd')?.remove();addRecvBubble('Error: '+e.message,'','G');}
   gid('chatSendBtn').disabled=false;
 };
 
-// ══ POST ══
+// ══ POSTS ══
 window.previewPost=function(input){const f=input.files[0];if(!f)return;const r=new FileReader();r.onload=e=>{const i=gid('postPrevImg');i.src=e.target.result;i.style.display='block';};r.readAsDataURL(f);};
 window.submitPost=async function(){
   if(gid('postPrevImg').style.display!=='block'){showToast('Choose a photo first');return;}
   setSpin('postBtnTxt','postSpin',true);
   try{
-    const caption=val('postCaption').trim();
-    const imageUrl=gid('postPrevImg').src;
-    await push(ref(DB,'posts'),{uid:CU.id,username:CU.username,pfp:CU.pfp||null,imageUrl,caption,createdAt:serverTimestamp()||Date.now(),likes:{},comments:{}});
+    await push(ref(DB,'posts'),{uid:CU.id,username:CU.username,pfp:CU.pfp||null,imageUrl:gid('postPrevImg').src,caption:val('postCaption').trim(),createdAt:serverTimestamp()||Date.now(),likes:{},comments:{}});
     setSpin('postBtnTxt','postSpin',false);
-    closeModal('postModal');
-    gid('postPrevImg').style.display='none';
-    gid('postImgIn').value='';gid('postCaption').value='';
-    showToast('Post shared 🎉');
+    closeModal('postModal');gid('postPrevImg').style.display='none';gid('postImgIn').value='';gid('postCaption').value='';
+    showToast('Post shared 🎉');loadProfile();
   }catch(e){setSpin('postBtnTxt','postSpin',false);showToast('Error: '+e.message);}
 };
 
 // ══ API KEY ══
-window.saveApiKey=function(){const k=val('apiKeyIn').trim();if(!k){showToast('Enter your API key');return;}LS.saveApiKey(k);gid('apiBanner').style.display='none';showToast('✅ Gemini key saved!');};
+window.saveApiKey=function(){const k=val('apiKeyIn').trim();if(!k)return;LS.saveApiKey(k);gid('apiBanner').style.display='none';showToast('✅ Gemini key saved!');};
+window.saveApiKeyFromSettings=function(){const k=gid('settingsApiKey').value.trim();if(!k)return;LS.saveApiKey(k);gid('apiBanner').style.display='none';showToast('✅ Gemini key saved!');closeSettings();};
 
 // ══ SETTINGS ══
-window.openSettings=function(){gid('settingsOverlay').classList.remove('hidden');};
+window.openSettings=function(){
+  gid('settingsApiKey').value=LS.apiKey();
+  gid('settingsOverlay').classList.remove('hidden');
+};
 window.closeSettings=function(e){if(!e||e.target===gid('settingsOverlay'))gid('settingsOverlay').classList.add('hidden');};
-
-function applyTheme(id){document.body.setAttribute('data-theme',id);LS.saveTheme(id);document.querySelectorAll('.theme-card').forEach(c=>c.classList.toggle('active',c.dataset.tid===id));}
-function buildThemeGrid(){const grid=gid('themeGrid');const cur=LS.theme();grid.innerHTML=THEMES.map(t=>`<div class="theme-card ${t.id===cur?'active':''}" data-tid="${t.id}" onclick="applyTheme('${t.id}')"><div class="theme-swatch"><div class="swatch" style="background:${t.s1};border:1px solid rgba(255,255,255,0.1)"></div><div class="swatch" style="background:${t.s2}"></div><div class="swatch" style="background:${t.s3}"></div></div><div class="theme-name">${t.name}</div></div>`).join('');}
-window.applyTheme=applyTheme;
-window.buildThemeGrid=buildThemeGrid;
 
 // ══ MODALS ══
 window.openModal=function(id){gid(id).classList.remove('hidden');};
@@ -1142,7 +1407,6 @@ window.closeModal=function(id){gid(id).classList.add('hidden');};
 function cap(s){return s.charAt(0).toUpperCase()+s.slice(1);}
 function gid(id){return document.getElementById(id);}
 function val(id){return document.getElementById(id).value;}
-function hide(id){document.getElementById(id).style.display='none';}
 function setSpin(tId,sId,on){gid(tId).style.display=on?'none':'inline';gid(sId).style.display=on?'inline-block':'none';}
 function showErr(id,msg){const e=gid(id);e.textContent=msg;e.style.display='block';}
 function esc(t){if(!t)return'';const d=document.createElement('div');d.textContent=t;return d.innerHTML;}
@@ -1154,10 +1418,7 @@ function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrol
 function chatKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}}
 let toastT;
 function showToast(msg){const t=gid('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2800);}
-window.showToast=showToast;
-window.autoResize=autoResize;
-window.chatKey=chatKey;
-window.postComment=postComment;
+window.showToast=showToast;window.autoResize=autoResize;window.chatKey=chatKey;
 </script>
 </body>
 </html>
